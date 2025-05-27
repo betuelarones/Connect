@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect - Registro</title>
+    <link rel="stylesheet" href="../static/css/register.css">
+</head>
+<body>
+
+    <div class="form-container">
+        <img src="img/connect.png" alt="logo">
+        <h1>Connect</h1>
+        <small>¿Aún no tienes una cuenta? <a href="register/"><b>Registrate aquí</b></a></small>
+
+        <form method="POST" action="/register">
+
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Registrarse</button>
+        </form>
+    </div>
+
+</body>
+</html>
