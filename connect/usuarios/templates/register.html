@@ -11,20 +11,36 @@
     <div class="form-container">
     <img src="img/connect.png" alt="logo">
     <h1>Connect</h1>
-    <small>¿Ya tienes cuenta? <a href="login/"><b>Inicia sesión aquí</b></a></small>
+    <small>¿Ya tienes cuenta? <a href="/login"><b>Inicia sesión aquí</b></a></small>
 
-    <form method="POST" action="register/">
-        <label for="nombre">Nombre Completo:</label>
-        <input type="text" id="nombre" name="nombre" required>
+    <form method="POST" action="{% url 'register' %}">
 
-        <label for="correo">Correo electrónico:</label>
-        <input type="email" id="correo" name="correo" required>
+        {% csrf_token %}
+        {% load widget_tweaks %}  <!-- 👈🏻 esto es lo que faltaba -->
 
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
+        <label for="id_nombres">Nombres:</label>
+        {{ form.nombres|add_class:"input-style" }}
+        <span style="color: red;">{{ form.nombres.errors }}</span>
+
+        <label for="id_apellidos">Apellidos:</label>
+        {{ form.apellidos|add_class:"input-style" }}
+        <span style="color: red;">{{ form.apellidos.errors }}</span>
+
+        <label for="id_correo">Correo electrónico:</label>
+        {{ form.correo|add_class:"input-style" }}
+        <span style="color: red;">{{ form.correo.errors }}</span>
+
+        <label for="id_password">Contraseña:</label>
+        {{ form.password|add_class:"input-style" }}
+        <span style="color: red;">{{ form.password.errors }}</span>
+
+        <label for="id_direccion">Dirección:</label>
+        {{ form.direccion|add_class:"input-style" }}
+        <span style="color: red;">{{ form.direccion.errors }}</span>
 
         <button type="submit">Registrarse</button>
     </form>
+
     </div>
 
 </body>

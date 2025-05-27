@@ -11,11 +11,10 @@
     <div class="container-body">
         <header>
             <div class="header">
-                <div class="header-left">
-                    <img src="../static/img/connect.png" alt="logo" width="50px" height="50px">
-                    <input type="search" placeholder="Buscar...">
-                </div>
                 <div class="header-center">
+                    <form method="get" action="{% url 'buscar_usuarios' %}">
+                         <input type="search" name="q" placeholder="Buscar..." required>
+                    </form>
                     <ul>
                         <li><a href=""><i class="fa-solid fa-comments"></i>
                             Chats</a></li>
@@ -27,7 +26,7 @@
 
                 </div>
                 <div class="header-right">
-                    <a href=""><span>"Nombre usuario" </span><i class="fa-solid fa-circle-user"></i></a>
+                    <p class="input-style">{{ nombre }}</p>
                 </div>
             </div>
         </header>

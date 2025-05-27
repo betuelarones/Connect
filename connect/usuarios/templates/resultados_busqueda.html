@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados de Búsqueda</title>
+</head>
+<body>
+    <h2>Resultados para "{{ query }}"</h2>
+    {% if resultados %}
+        <ul>
+            {% for usuario in resultados %}
+                <li>{{ usuario.nombres }} {{ usuario.apellidos }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron usuarios con ese nombre.</p>
+    {% endif %}
+
+    <a href="{% url 'index' %}">Volver</a>
+</body>
+</html>
