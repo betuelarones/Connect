@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amigos</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/amigos.css' %}">
+</head>
+<body>
+<div class="friends-container">
+    <div class="header">
+        <h1 class="header-title">Amigos</h1>
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Busca">
+        </div>
+        <div class="header-actions">
+            <button class="btn btn-secondary">Solicitudes de amistad</button>
+            <button class="btn btn-primary">Buscar amigos</button>
+            <button class="menu-btn">⋯</button>
+        </div>
+    </div>
+
+    <div class="nav-tabs">
+        <div class="nav-container">
+            <a href="#" class="nav-tab active">Todos mis amigos</a>
+            <a href="#" class="nav-tab">Añadidos recientemente</a>
+            <a href="#" class="nav-tab">Cumpleaños</a>
+            <a href="#" class="nav-tab">Ciudad actual</a>
+            <a href="#" class="nav-tab">Seguidos</a>
+        </div>
+    </div>
+
+    <div class="friends-list">
+        <div class="friends-grid">
+            {% for amigo in amigos %}
+                <div class="friend-card">
+                    <div class="friend-avatar">
+                        <img src="{% static 'images/default-avatar.svg' %}" alt="Perfil">
+                    </div>
+                    <div class="friend-info">
+                        <div class="friend-name">{{ amigo.nombres }} {{ amigo.apellidos }}</div>
+                        <div class="mutual-friends">X amigos en común</div>
+                    </div>
+                    <button class="friend-menu">⋯</button>
+                </div>
+            {% empty %}
+                <p>No tienes amigos aún.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

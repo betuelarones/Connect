@@ -1,39 +1,39 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import get_user_model
+from amistades.models import Amistad
 
-from .forms import UsuarioForm
-from .models import Usuario
+User = get_user_model()
 
+@login_required
+def ver_perfil(request, usuario_id):
+    usuario = get_object_or_404(User, id=usuario_id)
+    return render(request, 'perfil.html', {
+        'usuario': usuario
+    })
 
+@login_required
+@login_required
+def lista_amigos(request):
+    usuario = request.user
+    amistades = Amistad.objects.filter(
+        aceptada=True
+    ).filter(
+        Q(solicitante=usuario) | Q(receptor=usuario)
+    )
 
-# Create your views here.
-def principal(request):
-    nombre = request.session.get('usuario_nombre', 'Invitado')
-    return render(request, 'index.html', {'nombre': nombre})
+    amigos = [
+        amistad.receptor if amistad.solicitante == usuario else amistad.solicitante
+        for amistad in amistades
+    ]
 
-def login(request):
-    if request.method == 'POST':
-        correo = request.POST['correo']
-        password = request.POST['password']
-        try:
-            usuario = Usuario.objects.get(correo=correo, password=password)
-            request.session['usuario_nombre'] = usuario.nombres  # <- Aquí lo guardas
-            return redirect('index')
-        except Usuario.DoesNotExist:
-            return render(request, 'login.html', {'error': 'Correo o contraseña incorrectos.'})
-    return render(request, 'login.html')
+    # Eliminar duplicados manteniendo el orden
+    vistos = set()
+    amigos_unicos = []
+    for amigo in amigos:
+        if amigo.id not in vistos:
+            amigos_unicos.append(amigo)
+            vistos.add(amigo.id)
 
-def registrar_usuario(request):
-    if request.method == 'POST':
-        form = UsuarioForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('login')  # o la ruta que definas
-    else:
-        form = UsuarioForm()
-    return render(request, 'register.html', {'form': form})
-
-def buscar_usuarios(request):
-    query = request.GET.get('q', '')
-    resultados = Usuario.objects.filter(nombres__icontains=query)
-    return render(request, 'resultados_busqueda.html', {'resultados': resultados, 'query': query})
+    return render(request, 'amigos.html', {'amigos': amigos_unicos})

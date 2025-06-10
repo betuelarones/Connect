@@ -1,0 +1,340 @@
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #18191a;
+            color: #e4e6ea;
+            min-height: 100vh;
+        }
+
+        .friends-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #242526;
+            min-height: 100vh;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #242526;
+            padding: 16px 20px;
+            border-bottom: 1px solid #3a3b3c;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #e4e6ea;
+            flex-shrink: 0;
+        }
+
+        .search-container {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 10px 16px;
+            background-color: #3a3b3c;
+            border: none;
+            border-radius: 20px;
+            color: #e4e6ea;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-bar::placeholder {
+            color: #b0b3b8;
+        }
+
+        .search-bar:focus {
+            background-color: #4e4f50;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background-color: #1877f2;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #166fe5;
+        }
+
+        .btn-secondary {
+            background-color: #3a3b3c;
+            color: #e4e6ea;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4e4f50;
+        }
+
+        .menu-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #3a3b3c;
+            border: none;
+            color: #e4e6ea;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .menu-btn:hover {
+            background-color: #4e4f50;
+        }
+
+        /* Navigation Tabs */
+        .nav-tabs {
+            background-color: #242526;
+            padding: 0 20px;
+            border-bottom: 1px solid #3a3b3c;
+            overflow-x: auto;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            min-width: max-content;
+        }
+
+        .nav-tab {
+            padding: 16px 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: #b0b3b8;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .nav-tab:hover {
+            color: #e4e6ea;
+        }
+
+        .nav-tab.active {
+            color: #1877f2;
+            border-bottom-color: #1877f2;
+        }
+
+        /* Friends List Section */
+        .friends-list {
+            padding: 20px;
+            background-color: #18191a;
+        }
+
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 12px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .friend-card {
+            background-color: #242526;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .friend-card:hover {
+            background-color: #2d2e2f;
+        }
+
+        .friend-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584);
+            padding: 2px;
+            flex-shrink: 0;
+        }
+
+        .friend-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #3a3b3c;
+        }
+
+        .friend-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .friend-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: #e4e6ea;
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .mutual-friends {
+            font-size: 13px;
+            color: #b0b3b8;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .friend-menu {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: none;
+            color: #b0b3b8;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .friend-menu:hover {
+            background-color: #3a3b3c;
+            color: #e4e6ea;
+        }
+
+        /* Loading skeleton for demonstration */
+        .skeleton {
+            background: linear-gradient(90deg, #3a3b3c 25%, #4e4f50 50%, #3a3b3c 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .header-title {
+                text-align: center;
+            }
+
+            .search-container {
+                max-width: none;
+            }
+
+            .header-actions {
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .friends-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .friend-card {
+                padding: 12px;
+            }
+
+            .friend-avatar {
+                width: 50px;
+                height: 50px;
+            }
+
+            .friend-name {
+                font-size: 16px;
+            }
+
+            .mutual-friends {
+                font-size: 12px;
+            }
+
+            .nav-container {
+                gap: 20px;
+            }
+
+            .nav-tab {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 12px 15px;
+            }
+
+            .friends-list {
+                padding: 15px;
+            }
+
+            .friends-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .friend-card {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .friend-avatar {
+                width: 45px;
+                height: 45px;
+            }
+
+            .btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .header-actions {
+                gap: 8px;
+            }
+        }

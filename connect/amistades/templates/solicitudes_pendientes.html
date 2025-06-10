@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitudes de Amistad Pendientes</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/solicitudes.css' %}">
+</head>
+<body>
+    <h2>Solicitudes de Amistad Recibidas</h2>
+
+    {% if solicitudes %}
+        <ul>
+            {% for solicitud in solicitudes %}
+                <li>
+                    {{ solicitud.solicitante.nombres }} {{ solicitud.solicitante.apellidos }}
+
+                    <form action="{% url 'amistades:aceptar_solicitud' solicitud.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Aceptar</button>
+                    </form>
+
+                    <form action="{% url 'amistades:rechazar_solicitud' solicitud.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Rechazar</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes solicitudes pendientes.</p>
+    {% endif %}
+
+    <a href="{% url 'principal' %}">Volver</a>
+</body>
+</html>

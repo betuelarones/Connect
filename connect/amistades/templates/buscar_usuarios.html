@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Resultados de Búsqueda</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/busqueda.css' %}">
+</head>
+<body>
+    <h2>Resultados para "{{ query }}"</h2>
+    {% load filtros %}
+    {% if resultados %}
+        <ul>
+            {% for usuario in resultados %}
+                <li data-initials="{{ usuario.nombres|slice:":1" }}{{ usuario.apellidos|slice:":1" }}">
+                    <div class="info-usuario">
+                        <div class="avatar"></div>
+                        <div class="datos">
+                            <div class="usuario-nombre">{{ usuario.nombres }} {{ usuario.apellidos }}</div>
+
+                            {% if solicitudes_enviadas|get_item:usuario.id %}
+                                <form action="{% url 'amistades:cancelar_solicitud' usuario.id %}" method="post" class="form-agregar">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-cancelar">Cancelar solicitud</button>
+                                </form>
+                            {% else %}
+                                <form action="{% url 'amistades:enviar_solicitud' usuario.id %}" method="post" class="form-agregar">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-agregar">Agregar amigo</button>
+                                </form>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron usuarios con ese nombre.</p>
+    {% endif %}
+
+    <a href="{% url 'principal' %}">Volver</a>
+</body>
+</html>

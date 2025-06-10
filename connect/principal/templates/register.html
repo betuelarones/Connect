@@ -9,14 +9,14 @@
 <body>
 
     <div class="form-container">
-    <img src="img/connect.png" alt="logo">
+    <img src="../static/img/connect.png" alt="logo">
     <h1>Connect</h1>
     <small>¿Ya tienes cuenta? <a href="/login"><b>Inicia sesión aquí</b></a></small>
 
     <form method="POST" action="{% url 'register' %}">
 
         {% csrf_token %}
-        {% load widget_tweaks %}  <!-- 👈🏻 esto es lo que faltaba -->
+        {% load widget_tweaks %}
 
         <label for="id_nombres">Nombres:</label>
         {{ form.nombres|add_class:"input-style" }}
