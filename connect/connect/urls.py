@@ -20,6 +20,7 @@ import principal.views
 from principal import views
 from principal import views as principal_views
 #from usuarios import views as usuario_views
+from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
@@ -30,6 +31,6 @@ urlpatterns = [
     path('register/', views.registro_usuario, name='register'),
     path('amistades/', include('amistades.urls')),
     path('usuarios/', include('usuarios.urls')),
-
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
 
 ]

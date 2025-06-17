@@ -1,36 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Solicitudes de Amistad Pendientes</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/solicitudes.css' %}">
-</head>
-<body>
-    <h2>Solicitudes de Amistad Recibidas</h2>
+{% load static %}
+<div class="solicitudes-requests-wrapper">
+  <h3 class="solicitudes-requests-title">Solicitudes</h3>
+  {% if solicitudes %}
+    {% for solicitud in solicitudes %}
+      <div class="solicitud-request-card">
+        <div class="solicitud-card-left">
+          <img src="{% static 'images/default_profile.png' %}" alt="Perfil" class="solicitud-profile-img">
+        </div>
 
-    {% if solicitudes %}
-        <ul>
-            {% for solicitud in solicitudes %}
-                <li>
-                    {{ solicitud.solicitante.nombres }} {{ solicitud.solicitante.apellidos }}
+        <div class="solicitud-card-center">
+          <div class="solicitud-user-name">{{ solicitud.solicitante.nombres }} {{ solicitud.solicitante.apellidos }}</div>
+          <div class="solicitud-user-address">📍 {{ solicitud.solicitante.direccion }}</div>
+        </div>
 
-                    <form action="{% url 'amistades:aceptar_solicitud' solicitud.id %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit">Aceptar</button>
-                    </form>
-
-                    <form action="{% url 'amistades:rechazar_solicitud' solicitud.id %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit">Rechazar</button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No tienes solicitudes pendientes.</p>
-    {% endif %}
-
-    <a href="{% url 'principal' %}">Volver</a>
-</body>
-</html>
+        <div class="solicitud-card-right">
+          {% if solicitud.aceptada %}
+            <button class="solicitud-btn solicitud-btn-friends" disabled>✓ Amigos</button>
+          {% else %}
+            <form method="POST" action="{% url 'amistades:aceptar_solicitud' solicitud.id %}" class="solicitud-form">
+              {% csrf_token %}
+              <button type="submit" class="solicitud-btn solicitud-btn-accept">Aceptar</button>
+            </form>
+            <form method="POST" action="{% url 'amistades:rechazar_solicitud' solicitud.id %}" class="solicitud-form">
+              {% csrf_token %}
+              <button type="submit" class="solicitud-btn solicitud-btn-reject">Eliminar</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="solicitudes-empty-message">No tienes solicitudes.</p>
+  {% endif %}
+</div>

@@ -14,7 +14,6 @@ def ver_perfil(request, usuario_id):
     })
 
 @login_required
-@login_required
 def lista_amigos(request):
     usuario = request.user
     amistades = Amistad.objects.filter(
@@ -22,13 +21,10 @@ def lista_amigos(request):
     ).filter(
         Q(solicitante=usuario) | Q(receptor=usuario)
     )
-
     amigos = [
         amistad.receptor if amistad.solicitante == usuario else amistad.solicitante
         for amistad in amistades
     ]
-
-    # Eliminar duplicados manteniendo el orden
     vistos = set()
     amigos_unicos = []
     for amigo in amigos:

@@ -1,81 +1,70 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Connect - Perfil</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
-</head>
-<body>
-    <div class="profile-container">
-        <div class="profile-header">
-            <div class="profile-main">
-                <div class="profile-picture-container">
-                    <button class="note-dropdown">Nota...</button>
-                    <div class="profile-picture">
-                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23262626'/%3E%3Ctext x='75' y='80' text-anchor='middle' fill='%23666' font-size='20' font-family='Arial'%3EFoto%3C/text%3E%3C/svg%3E" alt="Foto de perfil">
-                    </div>
-                </div>
-
-                <div class="profile-info">
-                    <h1 class="profile-username">{{ request.user.nombres }} {{ request.user.apellidos }}</h1>
-                    <div class="profile-actions">
-                        <button class="btn btn-primary">Editar perfil</button>
-                        <button class="btn btn-secondary">Ver archivo</button>
-                        <div class="profile-icon">⚙</div>
-                    </div>
-                    <div class="profile-stats">
-                        <div class="stat">
-                            <span class="stat-number">0</span>
-                            <span class="stat-label">publicaciones</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">73</span>
-                            <span class="stat-label">seguidores</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">203</span>
-                            <span class="stat-label">seguidos</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-description">
-                        Descripción del perfil del usuario aquí...
-                    </div>
+{% load static %}
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-main">
+            <div class="profile-picture-container">
+                <button class="note-dropdown">Nota...</button>
+                <div class="profile-picture">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23262626'/%3E%3Ctext x='75' y='80' text-anchor='middle' fill='%23666' font-size='20' font-family='Arial'%3EFoto%3C/text%3E%3C/svg%3E" alt="Foto de perfil">
                 </div>
             </div>
-        </div>
-        <div class="featured-stories">
-            <div class="stories-container">
-                <div class="story-item">
-                    <div class="story-circle"></div>
-                    <span class="story-label">...</span>
+
+            <div class="profile-info">
+                <h1 class="profile-username">{{ request.user.nombres }} {{ request.user.apellidos }}</h1>
+                <div class="profile-actions">
+                    <button class="btn btn-primary">Editar perfil</button>
+                    <button class="btn btn-secondary">Ver archivo</button>
+                    <div class="profile-icon">⚙</div>
                 </div>
-                <div class="story-item">
-                    <div class="story-circle"></div>
-                    <span class="story-label">Destacada</span>
+                <div class="profile-stats">
+                    <div class="stat">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">publicaciones</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Amigos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">203</span>
+                        <span class="stat-label">seguidos</span>
+                    </div>
                 </div>
-                <div class="story-item">
-                    <div class="story-circle story-new"></div>
-                    <span class="story-label">Nuevo</span>
+                <div class="profile-description">
+                    Descripción del perfil del usuario aquí...
                 </div>
-            </div>
-        </div>
-        <div class="navigation-bar">
-            <div class="nav-container">
-                <div class="nav-items">
-                    <a href="#" class="nav-item active">Publicaciones</a>
-                    <a href="#" class="nav-item">Información</a>
-                    <a href="{% url 'usuarios:lista_amigos' %}" class="nav-item">Amigos</a>
-                    <a href="#" class="nav-item">Fotos</a>
-                    <a href="#" class="nav-item">Videos</a>
-                    <a href="#" class="nav-item">Reels</a>
-                    <a href="#" class="nav-item dropdown">Ver más</a>
-                </div>
-                <div class="nav-more">⋯</div>
             </div>
         </div>
     </div>
-</body>
-</html>
+
+    <div class="featured-stories">
+        <div class="stories-container">
+            <div class="story-item">
+                <div class="story-circle"></div>
+                <span class="story-label">...</span>
+            </div>
+            <div class="story-item">
+                <div class="story-circle"></div>
+                <span class="story-label">Destacada</span>
+            </div>
+            <div class="story-item">
+                <div class="story-circle story-new"></div>
+                <span class="story-label">Nuevo</span>
+            </div>
+        </div>
+    </div>
+    <div class="navigation-bar">
+        <div class="nav-container">
+            <div class="nav-items">
+                <a href="#" class="nav-item active">Publicaciones</a>
+                <!--<a href="#" class="nav-item">Información</a>-->
+                <a href="{% url 'usuarios:lista_amigos' %}" class="nav-item">Amigos</a>
+                <!--<a href="#" class="nav-item">Fotos</a>
+                <a href="#" class="nav-item">Videos</a>
+                <a href="#" class="nav-item">Reels</a>-->
+                <!--<a href="#" class="nav-item dropdown">Ver más</a>-->
+            </div>
+            <div class="nav-more">⋯</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+{% for sugerencia in sugerencias %}
+<div class="sug-card-sugerencia" data-usuario-id="{{ sugerencia.usuario.id }}">
+    <div class="sug-card-foto" onclick="verPerfil({{ sugerencia.usuario.id }}, '{{ sugerencia.usuario.nombres }}', '{{ sugerencia.en_comun }}')">
+        <div class="sug-foto-perfil-bg"></div>
+        <div class="sug-ver-perfil-overlay">
+            <button class="sug-ver-perfil-btn">Ver perfil</button>
+        </div>
+    </div>
+
+    <div class="sug-card-info">
+        <p><strong>{{ sugerencia.usuario.nombres }}</strong></p>
+        <p>{{ sugerencia.en_comun }} amigos en común</p>
+    </div>
+
+    <div class="sug-card-acciones">
+        {% if sugerencia.estado == 'agregar' %}
+            <button class="sug-enviar-solicitud-btn">Añadir amigo</button>
+        {% elif sugerencia.estado == 'cancelar' %}
+            <button class="sug-cancelar-solicitud-btn">Cancelar solicitud</button>
+        {% elif sugerencia.estado == 'amigos' %}
+            <button class="sug-ya-amigos-btn" disabled>✓ Amigos</button>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+
+<!-- Modal para ver perfil -->
+<div class="sug-modal-perfil" id="sugModalPerfil">
+    <div class="sug-modal-contenido">
+        <div class="sug-modal-header">
+            <div class="sug-modal-foto-perfil" id="sugModalFoto"></div>
+            <button class="sug-modal-cerrar" onclick="cerrarModalPerfil()">&times;</button>
+        </div>
+        <div class="sug-modal-info">
+            <div class="sug-modal-nombre" id="sugModalNombre"></div>
+            <div class="sug-modal-amigos" id="sugModalAmigos"></div>
+            <div class="sug-modal-stats">
+                <div class="sug-modal-stat">
+                    <span class="sug-modal-stat-number">234</span>
+                    <span class="sug-modal-stat-label">Amigos</span>
+                </div>
+                <div class="sug-modal-stat">
+                    <span class="sug-modal-stat-number">45</span>
+                    <span class="sug-modal-stat-label">Fotos</span>
+                </div>
+                <div class="sug-modal-stat">
+                    <span class="sug-modal-stat-number">12</span>
+                    <span class="sug-modal-stat-label">Posts</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function verPerfil(usuarioId, nombre, amigosComun) {
+    document.getElementById('sugModalNombre').textContent = nombre;
+    document.getElementById('sugModalAmigos').textContent = amigosComun + ' amigos en común';
+    document.getElementById('sugModalPerfil').classList.add('sug-active');
+}
+
+function cerrarModalPerfil() {
+    document.getElementById('sugModalPerfil').classList.remove('sug-active');
+}
+
+// Cerrar modal al hacer clic fuera
+document.getElementById('sugModalPerfil').addEventListener('click', function(e) {
+    if (e.target === this) {
+        cerrarModalPerfil();
+    }
+});
+
+// Cerrar modal con tecla Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        cerrarModalPerfil();
+    }
+});
+</script>

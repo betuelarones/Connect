@@ -32,7 +32,7 @@ def registro_usuario(request):
         form = UsuarioForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')  # o a donde quieras redirigir
+            return redirect('login')
     else:
         form = UsuarioForm()
     return render(request, 'register.html', {'form': form})

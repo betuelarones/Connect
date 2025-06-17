@@ -1,356 +1,450 @@
- * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* Ajustes generales para el cuerpo y el contenedor principal de la app
+   Asegúrate de que 'mainContent' pueda expandirse para el perfil */
+main#mainContent.spa-content-area {
+    padding: 0; /* Asegurar que no haya padding global aquí para el modo perfil */
+}
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #000000;
-            color: #fff;
-            min-height: 100vh;
-        }
+/* Modificaciones para que el perfil ocupe el área de contenido principal */
+#profileView {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* Permite que los hijos como .profile-container tomen todo el ancho */
+    padding: 0; /* Sin padding en la vista misma para que el contenido vaya al borde */
+    height: 100%; /* Asegura que la vista ocupe toda la altura disponible */
+    background-color: #f5f5f5; /* Color de fondo general de la vista */
+    overflow-y: auto; /* Permite el scroll solo si el contenido del perfil excede la altura de la vista */
+}
 
-        .profile-container {
-            max-width: 935px;
-            margin: 0 auto;
-            background-color: #000;
-        }
+/* Contenedor principal del perfil */
+.profile-container {
+    width: 100%; /* Ocupa todo el ancho de su padre (#profileView) */
+    background-color: white; /* Fondo blanco para el perfil */
+    color: #333; /* Color de texto predeterminado */
+    /* No poner height: 100% aquí si quieres que se ajuste al contenido
+       y que #profileView maneje el scroll si el contenido es muy largo */
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil para el contenedor principal */
+}
 
-        /* Top Section */
-        .profile-header {
-            padding: 30px 20px 20px;
-            background-color: #000;
-        }
+/* Header del perfil (contiene la foto, nombre, botones, stats, descripción) */
+.profile-header {
+    background-color: white;
+    border-bottom: 1px solid #efefef;
+    width: 100%;
+    padding: 0; /* El padding real estará en .profile-main */
+}
 
-        .profile-main {
-            display: flex;
-            align-items: flex-start;
-            gap: 50px;
-            margin-bottom: 20px;
-        }
+/* Sección principal del perfil: foto, info, etc. */
+.profile-main {
+    display: flex;
+    align-items: flex-start; /* Alinea los elementos al inicio (arriba) */
+    gap: 50px; /* Espacio entre la imagen de perfil y la información */
+    padding: 30px 40px; /* Espaciado interno para esta sección */
+    width: 100%;
+    box-sizing: border-box; /* Incluye padding en el ancho total */
+}
 
-        .profile-picture-container {
-            position: relative;
-            flex-shrink: 0;
-        }
+/* Contenedor de la imagen de perfil */
+.profile-picture-container {
+    position: relative;
+    flex-shrink: 0; /* Evita que la imagen se encoja */
+}
 
-        .note-dropdown {
-            position: absolute;
-            top: -25px;
-            left: 10px;
-            background-color: #262626;
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            cursor: pointer;
-            border: none;
-        }
+.note-dropdown {
+    position: absolute;
+    top: 5px; /* Ajusta según sea necesario para posicionar "Nota..." */
+    left: 5px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
 
-        .note-dropdown::after {
-            content: '▼';
-            margin-left: 5px;
-            font-size: 10px;
-        }
+/* Imagen de perfil (el div con el degradado) */
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    padding: 3px; /* Simula un borde de degradado */
+    cursor: pointer;
+    display: flex; /* Para centrar la imagen interna si es más pequeña */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Asegura que la imagen no se salga del círculo */
+}
 
-        .profile-picture {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 3px solid #262626;
-            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
-            padding: 3px;
-            cursor: pointer;
-        }
+/* La etiqueta <img> dentro de .profile-picture */
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover; /* Recorta la imagen para que cubra el área sin distorsionarse */
+    background-color: #f0f0f0; /* Fondo si la imagen no carga */
+    border: 3px solid white; /* Borde interior blanco */
+}
 
-        .profile-picture img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            background-color: #262626;
-        }
+/* Información del perfil (nombre, botones, stats, descripción) */
+.profile-info {
+    flex: 1; /* Ocupa el espacio restante horizontalmente */
+    padding-top: 5px; /* Pequeño ajuste para alinear con la foto si es necesario */
+    min-width: 0; /* Esencial para que el contenido flexible no desborde */
+}
 
-        .profile-info {
-            flex: 1;
-            padding-top: 10px;
-        }
+.profile-username {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #222;
+}
 
-        .profile-username {
-            font-size: 28px;
-            font-weight: 300;
-            margin-bottom: 20px;
-            color: #fff;
-        }
+.profile-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
-        .profile-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+.profile-actions .btn { /* Estilos para botones existentes como 'btn btn-primary', 'btn btn-secondary' */
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
 
-        .btn {
-            padding: 8px 24px;
-            border-radius: 8px;
-            border: none;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+.profile-actions .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
 
-        .btn-primary {
-            background-color: #0095f6;
-            color: #fff;
-        }
+.profile-actions .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
 
-        .btn-primary:hover {
-            background-color: #1877f2;
-        }
+.profile-actions .btn-secondary {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+}
 
-        .btn-secondary {
-            background-color: #262626;
-            color: #fff;
-            border: 1px solid #363636;
-        }
+.profile-actions .btn-secondary:hover {
+    background-color: #f0f0f0;
+}
 
-        .btn-secondary:hover {
-            background-color: #363636;
-        }
+.profile-icon { /* Para el icono de engranaje ⚙ */
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: #666;
+    transition: all 0.2s ease;
+}
 
-        .profile-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: #262626;
-            border: 1px solid #363636;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
+.profile-icon:hover {
+    background-color: #f0f0f0;
+    color: #007bff;
+}
 
-        .profile-stats {
-            display: flex;
-            gap: 40px;
-            margin-bottom: 20px;
-        }
 
-        .stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-        }
+.profile-stats {
+    display: flex;
+    gap: 40px; /* Espacio entre cada estadística */
+    margin-bottom: 15px;
+    font-size: 15px;
+}
 
-        .stat-number {
-            font-size: 18px;
-            font-weight: 600;
-            color: #fff;
-        }
+.profile-stats .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
 
-        .stat-label {
-            font-size: 14px;
-            color: #a8a8a8;
-            margin-top: 2px;
-        }
+.profile-stats .stat-number {
+    font-weight: bold;
+    color: #222;
+    font-size: 18px;
+}
 
-        .profile-description {
-            font-size: 14px;
-            line-height: 1.4;
-            color: #fff;
-            margin-bottom: 20px;
-        }
+.profile-stats .stat-label {
+    color: #666;
+}
 
-        /* Featured Stories Section */
-        .featured-stories {
-            padding: 20px 20px 15px;
-            background-color: #000;
-            border-bottom: 1px solid #262626;
-        }
+.profile-description {
+    line-height: 1.5;
+    color: #555;
+    font-size: 15px;
+}
 
-        .stories-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
 
-        .story-item {
-            flex-shrink: 0;
-            text-align: center;
-            cursor: pointer;
-        }
+/* Historias destacadas (general) */
+.featured-stories {
+    padding: 20px 0 15px; /* Espaciado vertical para la sección de historias */
+    background-color: white;
+    border-bottom: 1px solid #efefef;
+    border-top: 1px solid #efefef;
+    width: 100%;
+}
 
-        .story-circle {
-            width: 77px;
-            height: 77px;
-            border-radius: 50%;
-            background-color: #262626;
-            border: 2px solid #363636;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 8px;
-            transition: all 0.2s;
-        }
+.featured-stories .stories-container {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espacio entre cada historia destacada */
+    overflow-x: auto; /* Permite el scroll horizontal si hay muchas historias */
+    padding: 0 40px; /* Padding lateral para que no se peguen a los bordes */
+    scrollbar-width: none; /* Oculta la barra de scroll en Firefox */
+    -ms-overflow-style: none; /* Oculta la barra de scroll en IE/Edge */
+}
 
-        .story-circle:hover {
-            border-color: #555;
-        }
+.featured-stories .stories-container::-webkit-scrollbar {
+    display: none; /* Oculta la barra de scroll en Chrome/Safari */
+}
 
-        .story-new {
-            background: linear-gradient(45deg, #405de6, #5851db, #833ab4);
-            border: none;
-        }
+/* Estilos para cada item de historia destacada (si es diferente del .story-item global) */
+.featured-stories .story-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    flex-shrink: 0; /* Evita que las historias se encojan */
+    font-size: 13px;
+    color: #555;
+}
 
-        .story-new::after {
-            content: '+';
-            color: #fff;
-            font-size: 24px;
-            font-weight: 300;
-        }
+.featured-stories .story-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #eee; /* Fondo por defecto */
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #999;
+}
 
-        .story-label {
-            font-size: 12px;
-            color: #a8a8a8;
-            max-width: 77px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+.featured-stories .story-new {
+    background-color: #007bff; /* Color para "Nuevo" */
+    color: white;
+}
 
-        /* Navigation Bar */
-        .navigation-bar {
-            background-color: #000;
-            border-top: 1px solid #262626;
-            padding: 0 20px;
-        }
+.featured-stories .story-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70px;
+}
 
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 935px;
-            margin: 0 auto;
-        }
+/* Barra de navegación inferior (Publicaciones, Información, Amigos, etc.) */
+.navigation-bar {
+    background-color: white;
+    border-top: 1px solid #efefef;
+    width: 100%;
+    flex-shrink: 0; /* Evita que se encoja */
+    margin-top: 10px; /* Pequeño margen superior para separarlo de las historias */
+}
 
-        .nav-items {
-            display: flex;
-            align-items: center;
-        }
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px; /* Espaciado lateral para los ítems de navegación */
+    width: 100%;
+    box-sizing: border-box;
+}
 
-        .nav-item {
-            padding: 16px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #a8a8a8;
-            cursor: pointer;
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+.nav-items {
+    display: flex;
+    align-items: center;
+    overflow-x: auto; /* Scroll horizontal si hay muchos ítems de navegación */
+    flex: 1; /* Ocupa el espacio restante */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
 
-        .nav-item:hover {
-            color: #fff;
-        }
+.nav-items::-webkit-scrollbar {
+    display: none;
+}
 
-        .nav-item.active {
-            color: #fff;
-            border-bottom-color: #0095f6;
-        }
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px; /* Espaciado para cada ítem de navegación */
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    border-bottom: 2px solid transparent; /* Borde inferior para el indicador activo */
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
 
-        .nav-item.dropdown::after {
-            content: '▼';
-            font-size: 10px;
-            margin-left: 3px;
-        }
+.nav-item:hover {
+    color: #333;
+    background-color: #f9f9f9;
+}
 
-        .nav-more {
-            color: #a8a8a8;
-            cursor: pointer;
-            padding: 16px 10px;
-            font-size: 18px;
-        }
+.nav-item.active {
+    color: #007bff;
+    border-bottom-color: #007bff;
+    font-weight: 600;
+}
 
-        .nav-more:hover {
-            color: #fff;
-        }
+.nav-more {
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 10px;
+    margin-left: 10px;
+}
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .profile-main {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                text-align: center;
-            }
+/* Sección de contenido de las pestañas (Publicaciones, Información, etc.) */
+/* Esta clase debería estar en el contenedor de las publicaciones/contenido real */
+.profile-content-area {
+    flex: 1; /* Ocupa el espacio restante verticalmente */
+    overflow-y: auto; /* Permite scroll solo en esta área si es necesario */
+    padding: 20px 40px; /* Padding interno para el contenido de las pestañas */
+    background-color: #f5f5f5; /* Fondo de la sección de contenido */
+}
 
-            .profile-picture {
-                width: 120px;
-                height: 120px;
-            }
 
-            .profile-username {
-                font-size: 24px;
-            }
+/* Ajustes cuando el header principal de la app está oculto (si 'profile-active' se aplica a .app-wrapper) */
+.app-wrapper.profile-active #profileView {
+    height: 100vh; /* Asegura que la vista de perfil ocupe toda la altura */
+}
 
-            .profile-stats {
-                justify-content: center;
-            }
+/* MEDIA QUERIES (RESPONSIVE) */
 
-            .nav-items {
-                overflow-x: auto;
-                flex-wrap: nowrap;
-            }
+/* Tablet (768px y menores) */
+@media (max-width: 768px) {
+    .profile-main {
+        flex-direction: column; /* Apila la foto y la info en vertical */
+        align-items: center; /* Centra la foto y la info */
+        text-align: center; /* Centra el texto */
+        gap: 20px;
+        padding: 20px 20px; /* Ajusta el padding lateral */
+    }
 
-            .nav-item {
-                padding: 16px 15px;
-                font-size: 13px;
-                white-space: nowrap;
-            }
-        }
+    .profile-picture-container {
+        align-self: center; /* Asegura que la foto esté centrada en el flujo de columna */
+    }
 
-        @media (max-width: 480px) {
-            .profile-header {
-                padding: 20px 15px;
-            }
+    .profile-info {
+        width: 100%; /* La información ocupa todo el ancho */
+        padding-top: 0;
+    }
 
-            .featured-stories {
-                padding: 15px;
-            }
+    .profile-username {
+        font-size: 24px;
+    }
 
-            .profile-actions {
-                flex-direction: column;
-                gap: 10px;
-            }
+    .profile-actions {
+        justify-content: center; /* Centra los botones */
+        gap: 8px;
+    }
 
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
+    .profile-stats {
+        justify-content: center; /* Centra las estadísticas */
+        gap: 25px;
+    }
+    .profile-stats .stat {
+        align-items: center; /* Centra los textos de las estadísticas */
+    }
 
-            .profile-stats {
-                gap: 20px;
-            }
+    .featured-stories .stories-container {
+        padding: 0 20px; /* Ajusta el padding lateral */
+        gap: 15px;
+    }
 
-            .stories-container {
-                gap: 10px;
-            }
+    .navigation-bar {
+        margin-top: 5px;
+    }
 
-            .story-circle {
-                width: 65px;
-                height: 65px;
-            }
+    .nav-container {
+        padding: 0 20px; /* Ajusta el padding lateral */
+    }
 
-            .story-label {
-                max-width: 65px;
-            }
-        }
+    .nav-item {
+        padding: 12px 15px; /* Reduce el padding de los ítems de navegación */
+        font-size: 14px;
+    }
+
+    .profile-content-area {
+        padding: 15px 20px; /* Ajusta el padding del área de contenido */
+    }
+}
+
+/* Móvil pequeño (480px y menores) */
+@media (max-width: 480px) {
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-picture img {
+        border-width: 2px;
+    }
+
+    .note-dropdown {
+        top: 2px;
+        left: 2px;
+        padding: 2px 5px;
+        font-size: 10px;
+    }
+
+    .profile-username {
+        font-size: 22px;
+    }
+
+    .profile-actions .btn {
+        padding: 6px 14px;
+        font-size: 13px;
+    }
+
+    .profile-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+    }
+
+    .profile-stats {
+        gap: 20px;
+        font-size: 14px;
+    }
+    .profile-stats .stat-number {
+        font-size: 16px;
+    }
+
+    .profile-description {
+        font-size: 14px;
+    }
+
+    .profile-main,
+    .featured-stories .stories-container,
+    .nav-container,
+    .profile-content-area {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .nav-item {
+        padding: 10px 10px;
+        font-size: 13px;
+    }
+}
