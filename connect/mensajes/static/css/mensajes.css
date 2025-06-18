@@ -1,0 +1,186 @@
+.ms-container {
+  display: flex;
+  height: 100%;
+  background-color: #f0f2f5;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Sidebar */
+.ms-sidebar {
+  width: 300px;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-sidebar-header {
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  background-color: #fafafa;
+}
+
+.ms-sidebar-header h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.ms-new-btn {
+  background: #4A90E2;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.ms-new-btn:hover {
+  background-color: #357ABD;
+}
+
+/* Search bar */
+.ms-search-wrapper {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.ms-search-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+/* List of conversations */
+.ms-convo-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.ms-convo-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ms-convo-item:hover {
+  background-color: #f0f0f0;
+}
+
+.ms-avatar {
+  width: 45px;
+  height: 45px;
+  background-color: #bbb;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ms-info {
+  flex: 1;
+}
+
+.ms-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.ms-preview {
+  color: #777;
+  font-size: 13px;
+}
+
+/* Chat area */
+.ms-chat-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  position: relative;
+}
+
+.ms-empty {
+  margin: auto;
+  text-align: center;
+  color: #888;
+}
+
+/* Chat Header */
+.ms-chat-header {
+  padding: 16px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #fafafa;
+}
+
+.ms-chat-avatar {
+  width: 40px;
+  height: 40px;
+  background-color: #bbb;
+  border-radius: 50%;
+}
+
+.ms-chat-nombre {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Messages */
+.ms-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.loading-message {
+  color: #aaa;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Input */
+.ms-input-box {
+  padding: 12px 16px;
+  display: flex;
+  border-top: 1px solid #ddd;
+  gap: 12px;
+  background: #fafafa;
+}
+
+.ms-input-box textarea {
+  flex: 1;
+  resize: none;
+  padding: 10px;
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  min-height: 40px;
+}
+
+.ms-input-box button {
+  background: #4A90E2;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.ms-input-box button:hover {
+  background-color: #357ABD;
+}

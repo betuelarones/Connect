@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'principal',
     'widget_tweaks',
     'amistades',
+    'mensajes',
 ]
 
 MIDDLEWARE = [
@@ -77,20 +78,16 @@ LOGIN_URL: str = '/login/'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-import pymysql
 
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'connect_db',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'KNBCceayFfApSicKrqebKDvypaGEwPZI',
+        'HOST': 'nozomi.proxy.rlwy.net',
+        'PORT': '25412',
     }
 }
 

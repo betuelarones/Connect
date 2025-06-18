@@ -32,5 +32,6 @@ urlpatterns = [
     path('amistades/', include('amistades.urls')),
     path('usuarios/', include('usuarios.urls')),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('mensajes/', include('mensajes.urls', namespace='mensajes')),
 
 ]

@@ -1,0 +1,26 @@
+{% load static %}
+<div class="ms-container">
+  <!-- Sidebar de conversaciones -->
+  <div class="ms-sidebar" id="msSidebar">
+    <div class="ms-sidebar-header">
+      <h2>Mensajes</h2>
+      <button class="ms-new-btn" onclick="nuevoMensaje()">✉️</button>
+    </div>
+
+    <div class="ms-search-wrapper">
+      <input type="text" class="ms-search-input" placeholder="Buscar..." oninput="buscarConversaciones(this.value)">
+    </div>
+
+    <div class="ms-convo-list" id="msConvoList">
+      <!-- Conversaciones dinámicas -->
+    </div>
+  </div>
+  <div class="ms-chat-area" id="msChatArea">
+    <div class="ms-empty" id="msEmpty">
+      <h3>Selecciona una conversación</h3>
+      <p>Elige un chat para comenzar</p>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'mensajes/mensaje.js' %}"></script>

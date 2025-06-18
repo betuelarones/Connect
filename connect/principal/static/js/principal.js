@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 fetch(url, {
                                     method: 'POST',
                                     body: formData,
-                                    headers: { 'X-CSRFToken': formData.get('csrfmiddlewaretoken') }
+                                    headers: {'X-CSRFToken': formData.get('csrfmiddlewaretoken')}
                                 })
                                     .then(response => {
                                         if (!response.ok) {
@@ -156,6 +156,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
             }
         }
+        // ---------------------
+// Carga AJAX de MENSAJES
+// ---------------------
+        if (viewId === 'messages') {
+            const messagesView = document.getElementById('messagesView');
+            if (messagesView && !messagesView.dataset.loaded) {
+                console.log("Iniciando carga AJAX para Mensajes...");
+                fetch(urls.verMensajes)
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(text => {
+                                throw new Error(`Error del servidor: ${text}`);
+                            });
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        messagesView.innerHTML = html;
+                        messagesView.dataset.loaded = 'true';
+
+                        // Si tu módulo de mensajes usa funciones JS propias, inicialízalas aquí.
+                        if (typeof initMensajes === 'function') {
+                            initMensajes();  // puedes definir esto dentro de mensaje.js
+                        }
+                    })
+                    .catch(error => {
+                        messagesView.innerHTML = '<p class="error-message">Error al cargar los mensajes.</p>';
+                        console.error(error);
+                    });
+            }
+        }
+
     }
 
     navLinks.forEach(link => {
@@ -245,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         });
-        observer.observe(profileView, { attributes: true });
+        observer.observe(profileView, {attributes: true});
     }
 
     showView('home');

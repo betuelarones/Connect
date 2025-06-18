@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
     <link rel="stylesheet" href="{% static 'css/solicitudes.css' %}">
     <link rel="stylesheet" href="{% static 'css/sugerencias.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mensajes.css' %}">
 </head>
 <body>
     <div class="app-wrapper">
@@ -222,7 +223,6 @@
                         </div>
                     </div>
                 </div>
-
                 {# VISTA DE MENSAJES #}
                 <div id="messagesView" class="view">
                     <div class="section-content"> {# Usa un contenedor si quieres padding interno #}
@@ -230,7 +230,6 @@
                         <p>Lista de mensajes aquí...</p>
                     </div>
                 </div>
-
                 {# VISTA DE NOTIFICACIONES #}
                 <div id="notificationsView" class="view">
                     <div class="section-content">
@@ -263,6 +262,10 @@
     {% load static %}
     <script src="{% static 'js/sugerencias.js' %}"></script>
     <script src="{% static 'js/principal.js' %}"></script>
+    <script src="{% static 'js/mensajes.js' %}"></script>
+    <script>
+      window.currentUserId = {{ request.user.id }};
+    </script>
     <script>
         // Define las URLs de Django en un objeto global para que el JS pueda acceder
         const urls = {
@@ -270,6 +273,8 @@
             buscarUsuarios: "{% url 'amistades:buscar_usuarios' %}",
             verPerfil: "{% url 'usuarios:ver_perfil' request.user.id %}",
             solicitudes: "{% url 'amistades:solicitudes_pendientes' %}",
+            amigosMensajes: "{% url 'mensajes:amigos_json' %}",
+            verMensajes: "/mensajes/",
         };
     </script>
 </body>

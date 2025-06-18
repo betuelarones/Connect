@@ -5,7 +5,7 @@ from principal.forms import UsuarioForm
 from usuarios.models import Usuario
 from amistades.models import Amistad
 from django.contrib.auth import authenticate, login as auth_login
-
+from usuarios.forms import RegistroUsuarioForm
 
 # Create your views here.
 
@@ -29,13 +29,13 @@ def login(request):
 
 def registro_usuario(request):
     if request.method == 'POST':
-        form = UsuarioForm(request.POST)
+        form = RegistroUsuarioForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])  # Asegúrate de hashear
+            user.save()
             return redirect('login')
     else:
-        form = UsuarioForm()
+        form = RegistroUsuarioForm()
     return render(request, 'register.html', {'form': form})
-
-
 

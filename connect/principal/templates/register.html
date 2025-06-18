@@ -34,6 +34,10 @@
         {{ form.password|add_class:"input-style" }}
         <span style="color: red;">{{ form.password.errors }}</span>
 
+        <label for="id_password2">Confirmar contraseña:</label>
+        {{ form.password2|add_class:"input-style" }}
+        <span style="color: red;">{{ form.password2.errors }}</span>
+
         <label for="id_direccion">Dirección:</label>
         {{ form.direccion|add_class:"input-style" }}
         <span style="color: red;">{{ form.direccion.errors }}</span>
