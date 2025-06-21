@@ -40,7 +40,6 @@ def ver_conversacion(request, usuario_id):
         'otro_usuario': otro_usuario,
     })
 
-
 @login_required
 def lista_amigos_json(request):
     usuario = request.user
@@ -64,15 +63,18 @@ def lista_amigos_json(request):
             amigos_unicos.append(amigo)
             vistos.add(amigo.id)
 
-    # Serialización básica
-    data = [
-        {
+    # Serialización robusta
+    data = []
+    for amigo in amigos_unicos:
+        inicial_nombre = amigo.nombres[0] if amigo.nombres else 'U'
+        inicial_apellido = amigo.apellidos[0] if amigo.apellidos else ''
+        avatar = f"{inicial_nombre}{inicial_apellido}"
+
+        data.append({
             'id': amigo.id,
-            'nombre': f"{amigo.nombres} {amigo.apellidos}",
-            'avatar': f"{amigo.nombres[0]}{amigo.apellidos[0]}" if amigo.nombres and amigo.apellidos else "U"
-        }
-        for amigo in amigos_unicos
-    ]
+            'nombre': f"{amigo.nombres or ''} {amigo.apellidos or ''}".strip(),
+            'avatar': avatar
+        })
 
     return JsonResponse({'amigos': data})
 
