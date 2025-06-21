@@ -94,28 +94,8 @@ def obtener_mensajes(request, usuario_id):
         }
         for m in mensajes
     ]
-    return JsonResponse({'mensajes': mensajes_json})
-
-@login_required
-def obtener_mensajes(request, usuario_id):
-    usuario_actual = request.user
-    otro_usuario = get_object_or_404(Usuario, id=usuario_id)
-
-    mensajes = Mensaje.objects.filter(
-        Q(emisor=usuario_actual, receptor=otro_usuario) |
-        Q(emisor=otro_usuario, receptor=usuario_actual)
-    ).order_by('fecha_envio')
-
-    mensajes_json = [
-        {
-            'emisor_id': m.emisor.id,
-            'contenido': m.contenido,
-            'fecha': m.fecha_envio.strftime('%Y-%m-%d %H:%M'),
-        }
-        for m in mensajes
-    ]
 
     return JsonResponse({
         'mensajes': mensajes_json,
-        'usuario_actual_id': usuario_actual.id  # ✅ aquí está el truco
+        'usuario_actual_id': usuario_actual.id  
     })
