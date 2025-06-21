@@ -97,23 +97,25 @@ def obtener_mensajes(request, usuario_id):
     return JsonResponse({'mensajes': mensajes_json})
 
 @login_required
-def enviar_mensaje(request):
-    receptor_id = request.POST.get('receptor_id')
-    contenido = request.POST.get('contenido')
+def obtener_mensajes(request, usuario_id):
+    usuario_actual = request.user
+    otro_usuario = get_object_or_404(Usuario, id=usuario_id)
 
-    if not receptor_id or not contenido:
-        return JsonResponse({'error': 'Faltan datos'}, status=400)
+    mensajes = Mensaje.objects.filter(
+        Q(emisor=usuario_actual, receptor=otro_usuario) |
+        Q(emisor=otro_usuario, receptor=usuario_actual)
+    ).order_by('fecha_envio')
 
-    receptor = get_object_or_404(Usuario, id=receptor_id)
-
-    mensaje = Mensaje.objects.create(
-        emisor=request.user,
-        receptor=receptor,
-        contenido=contenido
-    )
+    mensajes_json = [
+        {
+            'emisor_id': m.emisor.id,
+            'contenido': m.contenido,
+            'fecha': m.fecha_envio.strftime('%Y-%m-%d %H:%M'),
+        }
+        for m in mensajes
+    ]
 
     return JsonResponse({
-        'mensaje': mensaje.contenido,
-        'fecha': mensaje.fecha_envio.strftime('%Y-%m-%d %H:%M'),
-        'emisor_id': mensaje.emisor.id,
+        'mensajes': mensajes_json,
+        'usuario_actual_id': usuario_actual.id  # ✅ aquí está el truco
     })

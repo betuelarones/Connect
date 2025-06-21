@@ -1,3 +1,5 @@
+let chatAbiertoId = null;
+
 /**
  * Inicializa la vista de mensajes: carga lista de amigos y prepara el panel.
  */
@@ -35,6 +37,10 @@ function initMensajes() {
  * Abre un chat con un amigo, actualiza la UI y carga mensajes.
  */
 function abrirChat(userId, nombre, avatar) {
+  // Si ya está abierto ese chat, no lo vuelvas a cargar
+  if (chatAbiertoId === userId) return;
+  chatAbiertoId = userId;
+
   // Mostrar header de chat y ocultar el de búsqueda (mobile)
   const mainHeader = document.getElementById('msMainHeader');
   const chatHeader = document.getElementById('msChatHeader');
@@ -45,17 +51,15 @@ function abrirChat(userId, nombre, avatar) {
     document.getElementById('msActiveChatAvatar').textContent = avatar;
   }
 
-  // Ocultar mensaje vacío
   const emptyState = document.getElementById('msEmpty');
   if (emptyState) emptyState.style.display = 'none';
 
   const chatArea = document.getElementById('msChatArea');
 
-  // Eliminar contenido anterior si ya había chat abierto
+  // Limpiar contenido anterior si existe
   document.getElementById('msMessages')?.remove();
   document.querySelector('.ms-input-box')?.remove();
 
-  // Agregar contenedores nuevos
   const messagesDiv = document.createElement('div');
   messagesDiv.className = 'ms-messages';
   messagesDiv.id = 'msMessages';
@@ -71,15 +75,14 @@ function abrirChat(userId, nombre, avatar) {
   chatArea.appendChild(messagesDiv);
   chatArea.appendChild(inputBox);
 
-  // En móvil, ocultar el sidebar
   if (window.innerWidth <= 768) {
     document.getElementById('msSidebar')?.classList.remove('show');
   }
 
-  // Cargar mensajes del backend
   fetch(`/mensajes/obtener/${userId}/`)
     .then(response => response.json())
     .then(data => {
+      const currentUserId = data.usuario_actual_id;
       messagesDiv.innerHTML = '';
 
       if (data.mensajes.length === 0) {
@@ -88,7 +91,7 @@ function abrirChat(userId, nombre, avatar) {
       }
 
       data.mensajes.forEach(msg => {
-        const esPropio = msg.emisor_id === window.currentUserId;
+        const esPropio = msg.emisor_id === currentUserId;
         const msgElem = document.createElement('div');
         msgElem.className = esPropio ? 'message sent' : 'message received';
         msgElem.innerHTML = `
@@ -118,14 +121,14 @@ function volverALista() {
   const emptyState = document.getElementById('msEmpty');
   if (emptyState) emptyState.style.display = 'block';
 
-  // Limpiar chat
   document.getElementById('msMessages')?.remove();
   document.querySelector('.ms-input-box')?.remove();
 
-  // Mostrar sidebar si es móvil
   if (window.innerWidth <= 768) {
     document.getElementById('msSidebar')?.classList.add('show');
   }
+
+  chatAbiertoId = null;
 }
 
 /**
