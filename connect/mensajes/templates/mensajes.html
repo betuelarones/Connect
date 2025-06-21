@@ -1,28 +1,23 @@
+<!-- mensajes.html (fragmento actualizado) -->
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/mensajes.css' %}">
 
 <div class="ms-container">
-  <!-- Sidebar de conversaciones -->
+  <!-- Sidebar -->
   <div class="ms-sidebar" id="msSidebar">
     <div class="ms-sidebar-header">
       <h2>Mensajes</h2>
       <button class="ms-new-btn" onclick="nuevoMensaje()" title="Nuevo mensaje">✉️</button>
     </div>
-
-    <!-- Búsqueda en sidebar (desktop) -->
     <div class="ms-search-wrapper">
       <input type="text" class="ms-search-input" placeholder="Buscar conversaciones..." oninput="buscarConversaciones(this.value)">
     </div>
-
-    <div class="ms-convo-list" id="msConvoList">
-      <!-- Conversaciones dinámicas -->
-    </div>
+    <div class="ms-convo-list" id="msConvoList"></div>
   </div>
 
-  <!-- Área de chat -->
+  <!-- Área de Chat -->
   <div class="ms-chat-area" id="msChatArea">
-
-    <!-- Cabecera principal (móvil): búsqueda -->
+    <!-- Header móvil de búsqueda -->
     <div class="ms-chat-header with-search" id="msMainHeader" style="display: none;">
       <button class="ms-back-btn" onclick="volverALista()">←</button>
       <div class="ms-search-wrapper-mobile">
@@ -30,22 +25,39 @@
       </div>
     </div>
 
-    <!-- Estado vacío -->
-    <div class="ms-empty" id="msEmpty">
-      <h3>Selecciona una conversación</h3>
-      <p>Elige un chat para comenzar a conversar</p>
-    </div>
-
-    <!-- Cabecera del chat activo -->
+    <!-- Header del chat activo -->
     <div class="ms-chat-header with-chat" id="msChatHeader" style="display: none;">
       <button class="ms-back-btn" onclick="volverALista()">←</button>
       <div class="ms-chat-avatar" id="msActiveChatAvatar"></div>
       <div class="ms-chat-nombre" id="msActiveChatName"></div>
     </div>
 
-    <!-- Los mensajes y la caja de entrada se insertan dinámicamente -->
+    <!-- Estado por defecto -->
+    <div class="ms-empty" id="msEmpty">
+      <h3>Selecciona una conversación</h3>
+      <p>Elige un chat para comenzar a conversar</p>
+    </div>
+
+    <!-- Zona de mensajes -->
+    <div class="ms-messages" id="msMessages"></div>
+
+    <!-- Caja de entrada de mensaje -->
+    <div class="ms-input-box">
+      <textarea id="msInput" placeholder="Escribe un mensaje..." oninput="habilitarBotonEnviar()"></textarea>
+      <button id="msSendBtn" onclick="enviarMensaje(chatAbiertoId)" disabled>
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
   </div>
 </div>
 
-<!-- Tu lógica JS para mensajería -->
 <script src="{% static 'mensajes/mensaje.js' %}"></script>
+<script>
+function habilitarBotonEnviar() {
+  const input = document.getElementById("msInput");
+  const btn = document.getElementById("msSendBtn");
+  btn.disabled = input.value.trim().length === 0;
+}
+</script>
