@@ -95,3 +95,25 @@ def obtener_mensajes(request, usuario_id):
         for m in mensajes
     ]
     return JsonResponse({'mensajes': mensajes_json})
+
+@login_required
+def enviar_mensaje(request):
+    receptor_id = request.POST.get('receptor_id')
+    contenido = request.POST.get('contenido')
+
+    if not receptor_id or not contenido:
+        return JsonResponse({'error': 'Faltan datos'}, status=400)
+
+    receptor = get_object_or_404(Usuario, id=receptor_id)
+
+    mensaje = Mensaje.objects.create(
+        emisor=request.user,
+        receptor=receptor,
+        contenido=contenido
+    )
+
+    return JsonResponse({
+        'mensaje': mensaje.contenido,
+        'fecha': mensaje.fecha_envio.strftime('%Y-%m-%d %H:%M'),
+        'emisor_id': mensaje.emisor.id,
+    })

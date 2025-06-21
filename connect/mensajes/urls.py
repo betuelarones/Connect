@@ -10,5 +10,5 @@ urlpatterns = [
     path('conversacion/<int:usuario_id>/', views.ver_conversacion, name='ver_conversacion'),
     path('amigos-json/', views.lista_amigos_json, name='amigos_json'),
     path('obtener/<int:usuario_id>/', views.obtener_mensajes, name='obtener_mensajes'),
-
+    path('enviar/', views.enviar_mensaje, name='enviar_mensaje'),
 ]
