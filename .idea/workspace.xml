@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5842a8e5-349d-40b5-abcb-1cb521ab23f7" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="Python Script" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../ProyectoConn" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../../../../../../Program Files/Python310/Lib/importlib/__init__.py" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2xcJcaswBS3jdXCtxG0Axh9A54h" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.127.0.0.1:8000.executor": "Run",
+    "JavaScript Debug.sidebar.html.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/betue/OneDrive/Documentos/Proyects-Django/ProyectoAlgoritms/connect/usuarios/static/img",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\betue\OneDrive\Documentos\Proyects-Django\ProyectoAlgoritms\connect\usuarios\static\img" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\betue\OneDrive\Documentos\Proyects-Django\ProyectoAlgoritms\connect\principal\templates" />
+      <recent name="C:\Users\betue\OneDrive\Documentos\Proyects-Django\ProyectoAlgoritms\connect\principal\components" />
+      <recent name="C:\Users\betue\OneDrive\Documentos\Proyects-Django\ProyectoAlgoritms\connect\principal" />
+      <recent name="C:\Users\betue\OneDrive\Documentos\Proyects-Django\ProyectoAlgoritms\connect\amistades\static\css" />
+      <recent name="C:\Users\betue\OneDrive\Documentos\Proyects-Django\ProyectoAlgoritms\connect\amistades\templates" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.127.0.0.1:8000">
+    <configuration name="127.0.0.1:8000" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://127.0.0.1:8000/">
+      <method v="2" />
+    </configuration>
+    <configuration name="sidebar.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/ProyectoAlgoritms/connect/principal/templates/sidebar.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.127.0.0.1:8000" />
+        <item itemvalue="JavaScript Debug.sidebar.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PY-251.25410.159" />
+        <option value="bundled-python-sdk-e0ed3721d81e-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.25410.159" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5842a8e5-349d-40b5-abcb-1cb521ab23f7" name="Changes" comment="" />
+      <created>1748231508380</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748231508380</updated>
+      <workItem from="1748231509413" duration="4582000" />
+      <workItem from="1748281161338" duration="426000" />
+      <workItem from="1748314107940" duration="499000" />
+      <workItem from="1748373038160" duration="12843000" />
+      <workItem from="1748386889566" duration="48000" />
+      <workItem from="1748446935873" duration="597000" />
+      <workItem from="1748476854210" duration="2467000" />
+      <workItem from="1748902189308" duration="2950000" />
+      <workItem from="1748911274724" duration="14146000" />
+      <workItem from="1748961483320" duration="413000" />
+      <workItem from="1748961947509" duration="276000" />
+      <workItem from="1749053657316" duration="5323000" />
+      <workItem from="1749083651001" duration="11645000" />
+      <workItem from="1749523560466" duration="4225000" />
+      <workItem from="1749561095651" duration="3118000" />
+      <workItem from="1749590804866" duration="13886000" />
+      <workItem from="1749658418485" duration="1225000" />
+      <workItem from="1749660127635" duration="6315000" />
+      <workItem from="1749738675186" duration="265000" />
+      <workItem from="1749756828581" duration="867000" />
+      <workItem from="1749759729313" duration="9058000" />
+      <workItem from="1749780947262" duration="8814000" />
+      <workItem from="1750004751113" duration="5046000" />
+      <workItem from="1750049929665" duration="4130000" />
+      <workItem from="1750079658109" duration="7796000" />
+      <workItem from="1750095246230" duration="4466000" />
+      <workItem from="1750108708975" duration="27396000" />
+      <workItem from="1750165605484" duration="1499000" />
+      <workItem from="1750173316220" duration="2719000" />
+      <workItem from="1750178188412" duration="6871000" />
+      <workItem from="1750199626532" duration="16818000" />
+      <workItem from="1750365434542" duration="1143000" />
+      <workItem from="1750478672791" duration="7915000" />
+      <workItem from="1750511300511" duration="587000" />
+      <workItem from="1750718249752" duration="13217000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
