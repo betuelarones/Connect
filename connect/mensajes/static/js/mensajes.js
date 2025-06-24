@@ -30,6 +30,12 @@ function initMensajes() {
 
         lista.appendChild(item);
       });
+
+      // ✅ Mostrar lista de conversaciones en móviles si no hay chat activo
+      if (window.innerWidth <= 768 && !chatAbiertoId) {
+        document.getElementById('msSidebar')?.classList.add('show');
+        document.querySelector('.ms-container')?.classList.remove('show-chat');
+      }
     });
 }
 
@@ -37,11 +43,9 @@ function initMensajes() {
  * Abre un chat con un amigo, actualiza la UI y carga mensajes.
  */
 function abrirChat(userId, nombre, avatar) {
-  // Si ya está abierto ese chat, no lo vuelvas a cargar
   if (chatAbiertoId === userId) return;
   chatAbiertoId = userId;
 
-  // Mostrar header de chat y ocultar el de búsqueda (mobile)
   const mainHeader = document.getElementById('msMainHeader');
   const chatHeader = document.getElementById('msChatHeader');
   if (mainHeader) mainHeader.style.display = 'none';
@@ -56,7 +60,6 @@ function abrirChat(userId, nombre, avatar) {
 
   const chatArea = document.getElementById('msChatArea');
 
-  // Limpiar contenido anterior si existe
   document.getElementById('msMessages')?.remove();
   document.querySelector('.ms-input-box')?.remove();
 
@@ -77,6 +80,7 @@ function abrirChat(userId, nombre, avatar) {
 
   if (window.innerWidth <= 768) {
     document.getElementById('msSidebar')?.classList.remove('show');
+    document.querySelector('.ms-container')?.classList.add('show-chat'); // <-- NUEVO
   }
 
   fetch(`/mensajes/obtener/${userId}/`)
@@ -126,6 +130,7 @@ function volverALista() {
 
   if (window.innerWidth <= 768) {
     document.getElementById('msSidebar')?.classList.add('show');
+    document.querySelector('.ms-container')?.classList.remove('show-chat'); // <-- NUEVO
   }
 
   chatAbiertoId = null;

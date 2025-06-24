@@ -798,3 +798,22 @@
   background: linear-gradient(135deg, var(--background-subtle) 0%, var(--hover-blue) 100%);
   color: var(--text-primary);
 }
+
+@media (max-width: 768px) {
+  /* Oculta solo el área de chat cuando no hay chat activo */
+  .ms-container:not(.show-chat) .ms-chat-header.with-chat,
+  .ms-container:not(.show-chat) #msMessages,
+  .ms-container:not(.show-chat) .ms-input-box {
+    display: none;
+  }
+
+  /* Oculta solo el área de conversaciones cuando hay un chat activo */
+  .ms-container.show-chat .ms-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .ms-container.show-chat .ms-empty,
+  .ms-container.show-chat .ms-chat-header.with-search {
+    display: none;
+  }
+}
