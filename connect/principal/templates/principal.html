@@ -264,6 +264,10 @@
     <script src="{% static 'js/principal.js' %}"></script>
     <script src="{% static 'js/mensajes.js' %}"></script>
     <script>
+      window.currentUserId = {{ request.user.id }};
+    </script>
+
+    <script>
         // Define las URLs de Django en un objeto global para que el JS pueda acceder
         const urls = {
             sugerencias: "{% url 'amistades:sugerencias_amigos_en_comun' %}",

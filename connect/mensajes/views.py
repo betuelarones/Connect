@@ -6,6 +6,8 @@ from .models import Mensaje
 from usuarios.models import Usuario
 from .structures import ListaMensajes
 from amistades.models import Amistad
+from django.utils import timezone
+
 
 @login_required
 def seccion_mensajes(request):
@@ -83,21 +85,62 @@ def obtener_mensajes(request, usuario_id):
     usuario_actual = request.user
     otro_usuario = get_object_or_404(Usuario, id=usuario_id)
 
-    mensajes = Mensaje.objects.filter(
+    # Obtener mensajes de la base de datos
+    mensajes_qs = Mensaje.objects.filter(
         Q(emisor=usuario_actual, receptor=otro_usuario) |
         Q(emisor=otro_usuario, receptor=usuario_actual)
     ).order_by('fecha_envio')
 
-    mensajes_json = [
-        {
+    # Usar la estructura de lista doblemente enlazada
+    lista_mensajes = ListaMensajes()
+    for mensaje in mensajes_qs:
+        lista_mensajes.insertar_mensaje(mensaje)
+
+    # Convertir la lista a JSON
+    mensajes_json = []
+    nodo = lista_mensajes.obtener_primero()
+    while nodo:
+        m = nodo.mensaje
+        mensajes_json.append({
             'emisor_id': m.emisor.id,
             'contenido': m.contenido,
             'fecha': m.fecha_envio.strftime('%Y-%m-%d %H:%M'),
-        }
-        for m in mensajes
-    ]
+        })
+        nodo = nodo.siguiente
 
     return JsonResponse({
         'mensajes': mensajes_json,
-        'usuario_actual_id': usuario_actual.id  
+        'usuario_actual_id': usuario_actual.id
+    })
+
+@login_required
+def enviar_mensaje(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
+
+    emisor = request.user
+    receptor_id = request.POST.get('receptor_id')
+    contenido = request.POST.get('contenido')
+
+    if not receptor_id or not contenido:
+        return JsonResponse({'error': 'Datos incompletos'}, status=400)
+
+    receptor = get_object_or_404(Usuario, id=receptor_id)
+
+    mensaje = Mensaje.objects.create(
+        emisor=emisor,
+        receptor=receptor,
+        contenido=contenido,
+        fecha_envio=timezone.now()
+    )
+
+    # Uso de la estructura obligatoria
+    lista = ListaMensajes()
+    lista.insertar_mensaje(mensaje)
+    nodo = lista.obtener_ultimo_nodo()
+
+    return JsonResponse({
+        'mensaje': nodo.mensaje.contenido,
+        'fecha': nodo.mensaje.fecha_envio.strftime('%Y-%m-%d %H:%M'),
+        'emisor_id': nodo.mensaje.emisor.id
     })

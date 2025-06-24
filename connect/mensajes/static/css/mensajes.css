@@ -252,8 +252,10 @@
 
 .message {
   display: flex;
-  margin-bottom: 8px;
+  flex-direction: column;
+  margin-bottom: 16px;
   animation: messageSlide 0.3s ease-out;
+  max-width: 70%;
 }
 
 .message.sent {
@@ -265,14 +267,15 @@
 }
 
 .message-bubble {
-  max-width: 70%;
   padding: 12px 16px;
   border-radius: 18px;
   font-size: 15px;
   line-height: 1.4;
   word-wrap: break-word;
   position: relative;
+  margin-bottom: 4px;
 }
+
 
 .message.sent .message-bubble {
   background: linear-gradient(135deg, #0084ff, #0066cc);
@@ -289,8 +292,8 @@
 .message-time {
   font-size: 12px;
   color: #65676b;
-  margin-top: 4px;
   text-align: center;
+  padding: 0 4px;
 }
 
 .loading-message {
@@ -433,8 +436,14 @@
   }
 
   .ms-messages {
-    padding: 16px;
-  }
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Cambiar de 12px a 0 ya que ahora el margin está en .message */
+}
 
   .message-bubble {
     max-width: 85%;
@@ -493,5 +502,21 @@
   .ms-input-box button {
     min-width: 40px;
     height: 40px;
+  }
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .message {
+    max-width: 85%;
+    margin-bottom: 12px;
+  }
+
+  .message-bubble {
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .message-time {
+    font-size: 11px;
   }
 }
