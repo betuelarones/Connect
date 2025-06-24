@@ -19,9 +19,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-1eq3hhhg(3$a0a^7j+%ofa131#e%!mh^lu$gp0!8m%1(r#0mu1'
-
 SECRET_KEY = 'django-insecure-1eq3hhhg(3$a0a^7j+%ofa131#e%!mh^lu$gp0!8m%1(r#0mu1'
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,27 +82,18 @@ LOGIN_URL: str = '/login/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 
-#DATABASES = {
- #   'default': {
-  #      'ENGINE': 'django.db.backends.postgresql',
-   #     'NAME': 'railway',
-    #    'USER': 'postgres',
-     #   'PASSWORD': 'ZAJnnGecvWkMGIvPpYvOeaKnRqTtBtTF',
-      #  'HOST': 'mainline.proxy.rlwy.net',
-       # 'PORT': '33527',
-   # }
-#}
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'connect_db',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'PASSWORD': 'ZAJnnGecvWkMGIvPpYvOeaKnRqTtBtTF',
+        'HOST': 'mainline.proxy.rlwy.net',
+        'PORT': '33527',
     }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
