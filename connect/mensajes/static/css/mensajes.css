@@ -817,3 +817,28 @@
     display: none;
   }
 }
+@media (max-width: 480px) {
+  .ms-input-box {
+    padding: 8px 12px;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .ms-input-box textarea {
+    font-size: 14px;
+    min-height: 36px;
+    max-height: 40px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    line-height: 1.2;
+    resize: none;
+  }
+
+  .ms-input-box button {
+    min-width: 36px;
+    height: 36px;
+    font-size: 13px;
+    padding: 0 10px;
+    border-radius: 18px;
+  }
+}
