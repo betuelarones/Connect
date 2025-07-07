@@ -1,0 +1,58 @@
+{% load static %}
+{% load humanize %}
+
+<div class="posts-grid"> {# Este div es el contenedor de la cuadrícula de publicaciones del perfil #}
+    {% if publicaciones %}
+        {% for post in publicaciones %}
+            <div class="post-card"> {# O usa la clase CSS que mejor se adapte a tus "cards" de publicación #}
+                <div class="post-header">
+                    <div class="post-avatar">{{ post.autor.nombres|slice:":1" }}</div>
+                    <div class="post-info">
+                        <h3>{{ post.autor.nombres }} {{ post.autor.apellidos }}</h3>
+                        <span>{{ post.fecha_creacion|naturaltime }}</span>
+                    </div>
+                    {% if post.autor == request.user %} {# Solo muestra el botón de eliminar si el usuario es el autor #}
+                    <div class="dropdown-container">
+                        <button class="menu-btn" onclick="toggleDropdown(this)">⋮</button>
+                        <div class="dropdown-options" style="display: none;">
+                            <button onclick="eliminarPublicacion({{ post.id }})">🗑️ Eliminar</button>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="post-content">{{ post.contenido }}</div>
+                {% if post.archivo %}
+                    <div class="post-media">
+                        {% if post.tipo == 'imagen' %}
+                            <img src="{{ post.archivo.url }}" alt="Publicación">
+                        {% elif post.tipo == 'video' %}
+                            <video controls src="{{ post.archivo.url }}"></video>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <div class="post-actions">
+                    <button class="action-btn react-btn" data-publicacion-id="{{ post.id }}" data-tipo-reaccion="like">
+                        👍 <span class="reaction-count">{{ post.reacciones.count }}</span>
+                    </button>
+                    <button class="action-btn comment-btn" data-publicacion-id="{{ post.id }}">
+                        💬 <span class="comment-count">{{ post.comentarios.count }}</span>
+                    </button>
+                </div>
+                <div class="comments-section" data-publicacion-id="{{ post.id }}" style="display: none;">
+                    {% for comentario in post.comentarios.all %}
+                        <div class="comment-item">
+                            <strong>{{ comentario.autor.nombres }} {{ comentario.autor.apellidos }}</strong> ({{ comentario.fecha_creacion|naturaltime }}): {{ comentario.contenido }}
+                        </div>
+                    {% endfor %}
+                    <form class="comment-form" data-publicacion-id="{{ post.id }}">
+                        <textarea placeholder="Escribe un comentario..." class="comment-input"></textarea>
+                        <button type="submit">Comentar</button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Aún no tienes publicaciones.</p>
+    {% endif %}
+</div>

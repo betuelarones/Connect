@@ -1,68 +1,239 @@
+/* Estilos Generales del Body y el Contenedor Principal */
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #e6e6e6;
+    background-color: #e6e6e6; /* Tu gris original */
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh; /* Asegura que el contenedor se estire para el 100% de la altura de la vista */
+    margin: 0;
+    padding: 10px; /* Reducir el padding general del body */
+    box-sizing: border-box;
+    overflow-y: auto; /* Permite scroll del body si el contenido es demasiado alto, aunque el objetivo es evitarlo */
 }
-        .form-container {
-        background: white;
-        border-radius: 15px;
-        padding: 30px 40px;
-        box-shadow: 0 8px 16px rgba(0,112,246, 0.5);
-        text-align: center;
-        position: relative;
-        width: 300px;
-        }
-        .form-container img {
-        border-radius: 50%;
-        width: 80px;
-        position: absolute;
-        top: -30px;
-        left: 50%;
-        transform: translateX(-50%);
-        }
-        .form-container h1 {
-        margin-top: 30px;
-        font-weight: bold;
-        }
-        .form-container small {
-        display: block;
-        margin-bottom: 10px;
-        padding-bottom: 20px;
-        border-bottom: solid 1px #ccc;
-        }
-        .form-container small a {
-        color: #007BFF;
-        }
-        label {
-        display: block;
-        text-align: left;
-        margin: 15px 0 5px;
-        font-weight: bold;
-        }
-        input[type="text"], input[type="email"], input[type="password"] {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        outline: none;
-        }
-        button {
-        margin-top: 20px;
-        width: 100%;
-        background: #007BFF;
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: .5s;
-        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.9);
-        &:hover {
-            transform: scale(0.98);
-            box-shadow: none;
-            }
-        }
+
+.form-container {
+    background: white;
+    border-radius: 15px;
+    padding: 20px 30px; /* Reducir el padding interno del contenedor */
+    box-shadow: 0 8px 16px rgba(0,112,246, 0.5);
+    text-align: center;
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Remover padding-bottom fijo si queremos que se ajuste automáticamente */
+    /* min-height: 600px; */ /* Considera un min-height si es necesario, pero el objetivo es que se ajuste */
+}
+
+/* Estilos del Logo y Título */
+.form-container img {
+    border-radius: 50%;
+    width: 70px; /* Ligeramente más pequeño para ahorrar espacio */
+    height: 70px;
+    object-fit: cover;
+    position: absolute;
+    top: -35px; /* Ajustar posición por el nuevo tamaño */
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.form-container h1 {
+    margin-top: 40px; /* Ajustar margen por el nuevo tamaño del logo */
+    margin-bottom: 5px; /* Reducir margen inferior */
+    font-weight: bold;
+    color: #333;
+    font-size: 2em; /* Ligeramente más pequeño */
+    letter-spacing: -0.5px;
+}
+
+.form-container small {
+    display: block;
+    margin-bottom: 15px; /* Reducir margen inferior */
+    padding-bottom: 15px; /* Reducir padding inferior */
+    border-bottom: solid 1px #ccc;
+    color: #666;
+    font-size: 0.85em; /* Ligeramente más pequeño */
+    line-height: 1.3;
+}
+
+.form-container small a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-container small a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos de los Grupos de Formulario (Label e Input) */
+.form-group {
+    width: 100%;
+    margin-bottom: 10px; /* ¡CLAVE! Reducir el espacio entre grupos de formulario */
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px; /* Reducir espacio entre label y input */
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9em; /* Ligeramente más pequeño */
+}
+
+/* Estilo para todos los Inputs (Texto, Email, Password, Selects) */
+.input-style {
+    width: 100%;
+    padding: 8px 10px; /* ¡CLAVE! Reducir el padding de los inputs para hacerlos más cortos */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px; /* Ligeramente más pequeño */
+    font-family: inherit;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Eliminar la flecha por defecto de los inputs de texto/password */
+.input-style[type="text"],
+.input-style[type="email"],
+.input-style[type="password"] {
+    background-image: none;
+}
+
+/* Estilo para SELECT con la flecha personalizada */
+.input-style select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23555' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 8px center; /* Ajustar posición de la flecha */
+    background-size: 14px; /* Ajustar tamaño de la flecha */
+    padding-right: 25px; /* Dejar espacio para la flecha */
+    cursor: pointer;
+}
+
+/* Para mejorar accesibilidad visual al enfocar */
+.input-style:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
+}
+
+/* --- ESTILO DEL BOTÓN REGISTRARSE --- */
+button[type="submit"] {
+    margin-top: 15px; /* Reducir margen superior del botón */
+    width: 100%;
+    background: #007BFF; /* Tu color azul original */
+    color: white;
+    border: none;
+    padding: 10px 10px; /* Reducir el padding del botón */
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em; /* Ligeramente más pequeño */
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 5px rgba(0, 112, 246, 0.5);
+}
+
+button[type="submit"]:hover {
+    transform: scale(0.98);
+    box-shadow: none;
+    background-color: #0069d9;
+}
+
+button[type="submit"]:active {
+    transform: scale(0.96);
+    box-shadow: none;
+}
+
+/* --- ESTILOS PARA LA DISPOSICIÓN DE LOS CAMPOS --- */
+
+/* Fila para Nombre y Apellidos (uno al lado del otro) */
+.form-row {
+    display: flex;
+    gap: 10px; /* Reducir espacio entre campos en la misma fila */
+    margin-bottom: 10px; /* Reducir margen inferior de la fila */
+    width: 100%;
+}
+
+/* Cada columna en la fila (Nombre y Apellidos) */
+.form-group.half-width {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+/* Contenedor de los 3 desplegables de Fecha de Nacimiento */
+.date-select-container {
+    display: flex;
+    gap: 8px; /* Reducir espacio entre Día, Mes y Año */
+    width: 100%;
+}
+
+/* Estilo para los desplegables de Día, Mes, Año */
+.date-select-container .input-style {
+    flex: 1;
+    min-width: 0;
+    padding-right: 10px; /* Ajustar padding derecho */
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23555' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 6px center; /* Ajustar posición de la flecha */
+    background-size: 12px; /* Ajustar tamaño de la flecha */
+    cursor: pointer;
+}
+
+/* Mensajes de error de Django */
+span[style="color: red;"] {
+    display: block;
+    margin-top: 3px; /* Reducir margen superior */
+    font-size: 0.8em; /* Ligeramente más pequeño */
+    color: #dc3545;
+    text-align: left;
+}
+
+/* --- Media Queries para Responsividad --- */
+@media (max-width: 550px) {
+    body {
+        padding: 5px; /* Menos padding en pantallas muy pequeñas */
+    }
+    .form-container {
+        padding: 15px 20px; /* Menos padding interno en pantallas muy pequeñas */
+        margin: 5px; /* Menos margen externo */
+    }
+    .form-group {
+        margin-bottom: 8px; /* Ajuste aún más el margen en móviles */
+    }
+    label {
+        font-size: 0.85em; /* Ajuste el tamaño de la fuente de las etiquetas en móviles */
+    }
+    .input-style {
+        padding: 6px 8px; /* Ajuste el padding del input en móviles */
+        font-size: 14px; /* Ajuste el tamaño de la fuente del input en móviles */
+    }
+    button[type="submit"] {
+        padding: 8px 10px; /* Ajuste el padding del botón en móviles */
+        font-size: 0.9em; /* Ajuste el tamaño de la fuente del botón en móviles */
+    }
+    .form-row, .date-select-container {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .form-group.half-width {
+        margin-bottom: 8px;
+    }
+    .form-group.half-width:last-child {
+        margin-bottom: 0;
+    }
+    span[style="color: red;"] {
+        font-size: 0.75em;
+    }
+}

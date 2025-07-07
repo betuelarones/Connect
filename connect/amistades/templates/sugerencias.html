@@ -51,7 +51,7 @@
         </div>
     </div>
 </div>
-
+<script src="% static 'js/sugerencias.js"></script>
 <script>
 function verPerfil(usuarioId, nombre, amigosComun) {
     document.getElementById('sugModalNombre').textContent = nombre;
@@ -75,5 +75,10 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         cerrarModalPerfil();
     }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    initSugerenciasButtons();  // <--- Esto activa los botones
 });
 </script>

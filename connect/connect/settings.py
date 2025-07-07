@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,16 +19,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+#SECRET_KEY = 'django-insecure-1eq3hhhg(3$a0a^7j+%ofa131#e%!mh^lu$gp0!8m%1(r#0mu1'
+
 SECRET_KEY = 'django-insecure-1eq3hhhg(3$a0a^7j+%ofa131#e%!mh^lu$gp0!8m%1(r#0mu1'
-
-
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.up.railway.app']
-
-CSRF_TRUSTED_ORIGINS = ['https://connect-production-fea1.up.railway.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'connect-production.up.railway.app']
 
 
 # Application definition
@@ -40,17 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'connect',
     'usuarios',
     'principal',
     'widget_tweaks',
     'amistades',
     'mensajes',
+    'publicaciones',
+    'historias',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -64,7 +64,7 @@ ROOT_URLCONF = 'connect.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +79,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'connect.wsgi.application'
 
 # URL para redirigir a login si el usuario no está autenticado
-LOGIN_URL: str = '/login/'
+#LOGIN_URL: str = '/login/'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -88,14 +88,13 @@ LOGIN_URL: str = '/login/'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'ZAJnnGecvWkMGIvPpYvOeaKnRqTtBtTF',
+        'PASSWORD': 'llnwISMgDVnnlkZbOYuzjQlPZqQzQETu',
         'HOST': 'mainline.proxy.rlwy.net',
-        'PORT': '33527',
+        'PORT': '20637',
     }
 }
-
 
 
 # Password validation
@@ -132,11 +131,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-import os
-
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [ BASE_DIR / 'static' ]
+#STATICFILES_DIRS = [ BASE_DIR / 'static' ]
+MEDIA_URL = '/media/' # URL para acceder a los archivos subidos
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

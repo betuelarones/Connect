@@ -88,7 +88,7 @@ body {
     flex-direction: column;
     flex-shrink: 0; /* Asegura que el sidebar no se encoja */
     transition: width 0.3s ease;
-    z-index: 1100;
+    z-index: 999;
     position: relative;
 }
 
@@ -348,8 +348,8 @@ main#mainContent.spa-content-area {
     padding: 15px; /* Este padding es INTERNO al contenedor de historias */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     flex-shrink: 0;
-    position: sticky;
-    top: 0; /* Sticky al top de su contenedor scrollable (que es la .view) */
+    position: relative;
+    top: auto; /* Sticky al top de su contenedor scrollable (que es la .view) */
     z-index: 10;
     box-sizing: border-box;
 }
@@ -893,5 +893,527 @@ main#mainContent.spa-content-area {
     .post-actions {
         gap: 12px;
         font-size: 14px;
+    }
+}}
+/* principal.css */
+
+/* ... (tu código existente arriba, no lo toques) ... */
+
+
+/* Posts Feed */
+.posts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1;
+    /* CLAVE PARA ESCRITORIO: Define un ancho máximo para el feed de posts.
+       Este valor asegura que el feed no se vea "chiquito" en laptops,
+       pero que tampoco se extienda demasiado en monitores muy anchos. */
+    max-width: 750px; /* Aumentado a 750px para dar más espacio al video en laptops */
+    margin: 20px auto; /* Centra el feed y le da un margen superior e inferior */
+    padding: 0 10px; /* Un poco de padding horizontal para que no se pegue a los bordes de la vista */
+    box-sizing: border-box; /* Incluye padding en el ancho total */
+}
+
+.post {
+    background: white;
+    border-radius: 8px;
+    padding: 20px; /* Padding interno del post, para dar "aire" al contenido */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%; /* El post ocupa el 100% del .posts-feed */
+    box-sizing: border-box;
+    overflow: hidden; /* Muy importante para que el contenido multimedia no se desborde */
+}
+
+/* ... (tu código existente para .post-header, .post-avatar, etc. no lo toques) ... */
+
+.post-content {
+    margin-bottom: 15px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    font-size: 16px; /* Asegura un tamaño de fuente legible para el texto del post */
+}
+
+
+/* Contenedor para el video/imagen para que sea responsive */
+/* ESTO ES LO CRÍTICO PARA EL VIDEO RESPONSIVE */
+.post-media {
+    position: relative; /* Necesario para posicionar el video absoluto dentro */
+    padding-bottom: 56.25%; /* Crea una relación de aspecto 16:9 (altura = 56.25% del ancho) */
+    height: 0; /* Reinicia la altura para que padding-bottom la defina */
+    overflow: hidden; /* Recorta cualquier parte del video que intente salirse */
+    max-width: 100%; /* Asegura que no sea más ancho que su padre (.post) */
+    background: #000; /* Fondo negro mientras carga o si el video tiene barras negras */
+    margin-top: 15px; /* Espacio superior para separar del texto del post */
+    margin-bottom: 15px; /* Espacio inferior para separar de las acciones del post */
+    border-radius: 4px; /* Bordes ligeramente redondeados para el contenedor del video */
+}
+
+/* El video o la imagen dentro del contenedor responsive */
+.post-media video,
+.post-media img {
+    position: absolute; /* Posicionamiento absoluto dentro de .post-media */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa el 100% del ancho del contenedor .post-media */
+    height: 100%; /* Ocupa el 100% de la altura del contenedor .post-media */
+    object-fit: contain; /* Ajusta el video dentro del contenedor, manteniendo su relación de aspecto.
+                            Puede dejar barras negras si la relación del video no es 16:9,
+                            pero asegura que el video completo es visible. Usa 'cover' si prefieres
+                            que el video llene el espacio, recortando los bordes. */
+    border: none;
+    display: block; /* Elimina espacio extra que algunos navegadores añaden a videos */
+}
+
+/* Si tu imagen NO está dentro de .post-media pero quieres que sea responsive */
+.post-content img {
+    max-width: 100%; /* Asegura que la imagen no desborde el contenido */
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block; /* Elimina espacio extra que algunos navegadores añaden a imágenes */
+    margin: 15px 0; /* Margen para separar de otros contenidos si no está dentro de post-media */
+}
+
+
+/* ... (tu código existente para .post-actions, .post-action, etc. no lo toques) ... */
+
+
+/* ------------------------------------ */
+/* MEDIA QUERIES (RESPONSIVE) */
+/* ------------------------------------ */
+
+/* Tablet y Laptops pequeñas - hasta 992px */
+@media (max-width: 992px) {
+    /* ... (tu código existente para .search-container, .profile-link, .sidebar, etc.) ... */
+
+    /* CLAVE PARA TABLET/LAPTOP PEQUEÑA: Ancho del feed de posts */
+    .posts-feed {
+        max-width: 650px; /* Un buen tamaño para tablets y laptops pequeñas.
+                             Asegura que no se vea "muy chiquito" pero tampoco ocupe todo el ancho. */
+        padding: 0 15px; /* Más padding lateral que en móvil, menos que en desktop */
+    }
+    .post {
+        padding: 18px; /* Un poco menos de padding interno en tablet */
+    }
+}
+
+/* Móvil - hasta 768px */
+@media (max-width: 768px) {
+    /* ... (tu código existente para hamburger, sidebar, header, etc.) ... */
+
+    /* Main content y ajustes para componentes específicos en móvil */
+    .view {
+        padding: 15px 10px; /* Menos padding lateral en móvil para que ocupe más ancho */
+    }
+
+    .stories-container,
+    .status-container {
+        padding: 15px; /* Padding interno */
+        margin: 0 5px; /* Pequeño margen para separar de los bordes de la pantalla */
+    }
+
+    /* CLAVE PARA MÓVIL: El feed de posts debe ocupar casi todo el ancho */
+    .posts-feed {
+        max-width: 100%; /* En móvil, el feed debe ocupar todo el ancho disponible */
+        margin: 15px auto; /* Centra el feed y ajusta margen */
+        padding: 0 5px; /* Un pequeño padding lateral para que el contenido no se pegue a los bordes */
+    }
+
+    .post {
+        padding: 10px; /* Reducido para más compactación en móvil */
+        margin-bottom: 15px; /* Espacio entre posts */
+    }
+
+    .post-media {
+        margin-top: 10px; /* Menos margen en móvil */
+        margin-bottom: 10px; /* Menos margen en móvil */
+    }
+
+    /* ... (resto de tu código existente para .story-avatar, .status-input, etc.) ... */
+}
+
+/* Móvil pequeño - 480px y menores */
+@media (max-width: 480px) {
+    /* ... (tu código existente para hamburger, header, search-bar, etc.) ... */
+
+    .view {
+        padding: 10px 5px; /* Padding aún más reducido para pantallas muy pequeñas */
+    }
+
+    .stories-container,
+    .status-container,
+    .post {
+        padding: 12px; /* Padding reducido para compactación */
+        margin: 0 2px; /* Margen aún más reducido */
+    }
+
+    /* ... (resto de tu código existente para .story-avatar, .post-header, etc.) ... */
+}
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-options {
+    position: absolute;
+    right: 0;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    z-index: 100;
+    padding: 5px;
+    border-radius: 5px;
+}
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+/* Fondo opaco para el modal */
+#storyModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85); /* Oscurece todo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+/* Contenido centrado */
+#storyModal .modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Botón de cerrar */
+#storyModal .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Visor de historias profesional */
+.story-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.viewer-content {
+    position: relative;
+    background: #000;
+    border-radius: 20px;
+    padding: 0;
+    max-width: 400px;
+    width: 90%;
+    height: 80vh;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Header con información del usuario */
+.story-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.story-header .story-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff006e, #8338ec);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 12px;
+    color: white;
+    font-size: 16px;
+}
+
+.story-user-info h4 {
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.story-timestamp {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+/* Barra de progreso */
+.story-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 10;
+}
+
+.story-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff006e, #8338ec);
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* Contenido principal - AQUÍ ESTÁ LA CORRECCIÓN */
+#viewerBody {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    text-align: center; /* AÑADIDO: Centra el texto horizontalmente */
+}
+
+#viewerBody img, #viewerBody video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+/* Contenedor para centrar el contenido */
+#viewerBody > div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* AÑADIDO: Asegura que el texto esté centrado */
+}
+
+/* Texto superpuesto sobre la imagen - MEJORADO */
+.story-text-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.8));
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    z-index: 5;
+    text-align: center; /* AÑADIDO: Centra el texto en el overlay */
+}
+
+.story-text-overlay p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center; /* AÑADIDO: Centra específicamente el párrafo */
+}
+
+/* AÑADIDO: Estilo específico para texto sin imagen de fondo */
+#viewerBody > p,
+#viewerBody > div > p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+/* Botón de cerrar mejorado */
+.close-viewer {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.close-viewer:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+/* Botones de navegación */
+.story-nav-buttons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.story-nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    backdrop-filter: blur(10px);
+}
+
+.story-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.story-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.story-nav-btn:disabled:hover {
+    transform: none;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Indicadores de historia */
+.story-indicators {
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    right: 60px;
+    display: flex;
+    gap: 4px;
+    z-index: 10;
+}
+
+.story-indicator {
+    flex: 1;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.story-indicator.active {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.story-indicator.completed {
+    background: white;
+}
+
+/* Zonas de clic para navegación */
+.story-click-area {
+    position: absolute;
+    top: 0;
+    width: 30%;
+    height: 100%;
+    z-index: 5;
+    cursor: pointer;
+}
+
+.story-click-area.prev {
+    left: 0;
+}
+
+.story-click-area.next {
+    right: 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .viewer-content {
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        max-width: 100%;
+    }
+
+    .story-nav-buttons {
+        padding: 0 10px;
+    }
+
+    .story-indicators {
+        left: 10px;
+        right: 50px;
+    }
+
+    .story-header {
+        padding: 10px 15px;
+    }
+
+    /* AÑADIDO: Ajustes de texto para móvil */
+    #viewerBody > p,
+    #viewerBody > div > p {
+        font-size: 16px;
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .story-text-overlay {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        padding: 15px;
     }
 }

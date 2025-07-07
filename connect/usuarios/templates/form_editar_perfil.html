@@ -1,0 +1,36 @@
+{# Este archivo NO es el perfil.html completo. Es solo el HTML del formulario. #}
+{# Se cargará dinámicamente en el modal de edición. #}
+
+<form method="post" action="{% url 'usuarios:editar_perfil_ajax' %}" class="edit-profile-form">
+    {% csrf_token %} {# ¡MUY IMPORTANTE! Token CSRF para seguridad en el envío del formulario #}
+
+    {# Bucle que renderiza automáticamente cada campo de tu EditarPerfilForm #}
+    {# Incluirá nombres, apellidos, carrera (select), sede (select), ciclo (select), cumpleaños (date), descripcion (textarea) #}
+    {% for field in form_editar %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }} {# Esto renderiza el input/select/textarea HTML del campo, pre-rellenado con los datos del usuario #}
+
+            {# Mostrar el texto de ayuda si existe #}
+            {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+
+            {# Mostrar errores de validación específicos del campo #}
+            {% for error in field.errors %}
+                <div class="invalid-feedback d-block">{{ error }}</div> {# Clase d-block para asegurar que se muestre #}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    {# Mostrar errores que no están asociados a un campo específico (ej. errores generales del formulario) #}
+    {% if form_editar.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form_editar.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>

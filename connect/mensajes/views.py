@@ -104,7 +104,7 @@ def obtener_mensajes(request, usuario_id):
         mensajes_json.append({
             'emisor_id': m.emisor.id,
             'contenido': m.contenido,
-            'fecha': m.fecha_envio.strftime('%Y-%m-%d %H:%M'),
+            'fecha': m.fecha_envio.strftime('%H:%M'),
         })
         nodo = nodo.siguiente
 

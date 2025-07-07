@@ -1,6 +1,11 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 
+SEDE_CHOICES = [
+    ('Arequipa', ' Arequipa'),
+    ('Trujillo', ' Trujillo'),
+    ('Lima', ' Lima'),
+]
 class UsuarioManager(BaseUserManager):
     def create_user(self, correo, password=None, **extra_fields):
         if not correo:
@@ -20,9 +25,15 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     nombres = models.CharField(max_length=100)
     apellidos = models.CharField(max_length=100)
     correo = models.EmailField(max_length=100, unique=True)
-    direccion = models.CharField(max_length=100)
+    carrera = models.CharField(max_length=100, blank=True, null=True)
+    sede = models.CharField(max_length=100, choices=SEDE_CHOICES)
+    ciclo = models.CharField(max_length=10, blank=True, null=True)
+    cumpleaños = models.DateField(blank=True, null=True)
+    descripcion = models.TextField(blank=True, null=True)
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+
 
     objects = UsuarioManager()
 

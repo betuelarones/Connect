@@ -1,340 +1,426 @@
- * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* ================================= */
+/* VISTA DE AMIGOS - CSS ÚNICO */
+/* ================================= */
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #18191a;
-            color: #e4e6ea;
-            min-height: 100vh;
-        }
+/* Contenedor principal de amigos */
+.friends-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: transparent;
+    box-sizing: border-box;
+}
 
-        .friends-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background-color: #242526;
-            min-height: 100vh;
-        }
+/* Header de la vista de amigos */
+.friends-container .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e1e5e9;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px 25px;
+}
 
-        /* Header Section */
-        .header {
-            background-color: #242526;
-            padding: 16px 20px;
-            border-bottom: 1px solid #3a3b3c;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+/* Contenedor de búsqueda específico para amigos */
+.friends-container .search-container {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5;
+    border-radius: 25px;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    min-width: 250px;
+    max-width: 400px;
+}
 
-        .header-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #e4e6ea;
-            flex-shrink: 0;
-        }
+/* Barra de búsqueda específica para amigos */
+.friends-container .search-bar {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 15px;
+    color: #333;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+}
 
-        .search-container {
-            flex: 1;
-            max-width: 400px;
-            position: relative;
-        }
+.friends-container .search-bar::placeholder {
+    color: #888;
+}
 
-        .search-bar {
-            width: 100%;
-            padding: 10px 16px;
-            background-color: #3a3b3c;
-            border: none;
-            border-radius: 20px;
-            color: #e4e6ea;
-            font-size: 15px;
-            outline: none;
-        }
+/* Acciones del header */
+.friends-container .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-        .search-bar::placeholder {
-            color: #b0b3b8;
-        }
+/* Botones del header */
+.friends-container .btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid;
+    white-space: nowrap;
+}
 
-        .search-bar:focus {
-            background-color: #4e4f50;
-        }
+.friends-container .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
-        }
+.friends-container .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
 
-        .btn {
-            padding: 10px 16px;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
+.friends-container .btn-secondary {
+    background-color: #e9ecef;
+    color: #495057;
+    border-color: #ced4da;
+}
 
-        .btn-primary {
-            background-color: #1877f2;
-            color: #fff;
-        }
+.friends-container .btn-secondary:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+}
 
-        .btn-primary:hover {
-            background-color: #166fe5;
-        }
+/* Botón de menú */
+.friends-container .menu-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .btn-secondary {
-            background-color: #3a3b3c;
-            color: #e4e6ea;
-        }
+.friends-container .menu-btn:hover {
+    background-color: #f0f2f5;
+}
 
-        .btn-secondary:hover {
-            background-color: #4e4f50;
-        }
+/* Navegación por pestañas */
+.friends-container .nav-tabs {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
 
-        .menu-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: #3a3b3c;
-            border: none;
-            color: #e4e6ea;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: all 0.2s;
-        }
+.friends-container .nav-container {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
 
-        .menu-btn:hover {
-            background-color: #4e4f50;
-        }
+.friends-container .nav-container::-webkit-scrollbar {
+    display: none;
+}
 
-        /* Navigation Tabs */
-        .nav-tabs {
-            background-color: #242526;
-            padding: 0 20px;
-            border-bottom: 1px solid #3a3b3c;
-            overflow-x: auto;
-        }
+.friends-container .nav-tab {
+    flex-shrink: 0;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+}
 
-        .nav-container {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            min-width: max-content;
-        }
+.friends-container .nav-tab:hover {
+    color: #007bff;
+    background-color: #f8f9fa;
+}
 
-        .nav-tab {
-            padding: 16px 0;
-            font-size: 15px;
-            font-weight: 600;
-            color: #b0b3b8;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.2s;
-            white-space: nowrap;
-            text-decoration: none;
-        }
+.friends-container .nav-tab.active {
+    color: #007bff;
+    border-bottom-color: #007bff;
+    background-color: #f0f8ff;
+}
 
-        .nav-tab:hover {
-            color: #e4e6ea;
-        }
+/* Lista de amigos */
+.friends-container .friends-list {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+}
 
-        .nav-tab.active {
-            color: #1877f2;
-            border-bottom-color: #1877f2;
-        }
+/* Grid de amigos */
+.friends-container .friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    padding: 0;
+}
 
-        /* Friends List Section */
-        .friends-list {
-            padding: 20px;
-            background-color: #18191a;
-        }
+/* Tarjeta de amigo */
+.friends-container .friend-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    background: white;
+    transition: all 0.2s ease;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
 
-        .friends-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 12px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+.friends-container .friend-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
 
-        .friend-card {
-            background-color: #242526;
-            border-radius: 8px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.2s;
-            cursor: pointer;
-        }
+/* Avatar del amigo */
+.friends-container .friend-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
 
-        .friend-card:hover {
-            background-color: #2d2e2f;
-        }
+.friends-container .friend-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
 
-        .friend-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584);
-            padding: 2px;
-            flex-shrink: 0;
-        }
+/* Información del amigo */
+.friends-container .friend-info {
+    flex-grow: 1;
+    overflow: hidden;
+}
 
-        .friend-avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            background-color: #3a3b3c;
-        }
+.friends-container .friend-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-        .friend-info {
-            flex: 1;
-            min-width: 0;
-        }
+.friends-container .mutual-friends {
+    font-size: 14px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-        .friend-name {
-            font-size: 17px;
-            font-weight: 600;
-            color: #e4e6ea;
-            margin-bottom: 4px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+/* Botón de menú del amigo */
+.friends-container .friend-menu {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
 
-        .mutual-friends {
-            font-size: 13px;
-            color: #b0b3b8;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+.friends-container .friend-menu:hover {
+    background-color: #f0f2f5;
+}
 
-        .friend-menu {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background-color: transparent;
-            border: none;
-            color: #b0b3b8;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
+/* Mensaje cuando no hay amigos */
+.friends-container .friends-grid p {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    margin: 40px 0;
+    grid-column: 1 / -1;
+}
 
-        .friend-menu:hover {
-            background-color: #3a3b3c;
-            color: #e4e6ea;
-        }
+/* ================================= */
+/* RESPONSIVE DESIGN */
+/* ================================= */
 
-        /* Loading skeleton for demonstration */
-        .skeleton {
-            background: linear-gradient(90deg, #3a3b3c 25%, #4e4f50 50%, #3a3b3c 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
+/* Tablet - 992px y menores */
+@media (max-width: 992px) {
+    .friends-container .header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
 
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
+    .friends-container .header-actions {
+        justify-content: center;
+    }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
+    .friends-container .search-container {
+        max-width: 100%;
+        min-width: auto;
+    }
 
-            .header-title {
-                text-align: center;
-            }
+    .friends-container .friends-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
 
-            .search-container {
-                max-width: none;
-            }
+/* Móvil - 768px y menores */
+@media (max-width: 768px) {
+    .friends-container .header {
+        padding: 15px 20px;
+    }
 
-            .header-actions {
-                justify-content: center;
-                flex-wrap: wrap;
-            }
+    .friends-container .header-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
 
-            .friends-grid {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
+    .friends-container .btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
 
-            .friend-card {
-                padding: 12px;
-            }
+    .friends-container .nav-tab {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
 
-            .friend-avatar {
-                width: 50px;
-                height: 50px;
-            }
+    .friends-container .friends-list {
+        padding: 15px;
+    }
 
-            .friend-name {
-                font-size: 16px;
-            }
+    .friends-container .friends-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
 
-            .mutual-friends {
-                font-size: 12px;
-            }
+    .friends-container .friend-card {
+        padding: 12px;
+    }
 
-            .nav-container {
-                gap: 20px;
-            }
+    .friends-container .friend-avatar {
+        width: 50px;
+        height: 50px;
+        margin-right: 12px;
+        font-size: 20px;
+    }
 
-            .nav-tab {
-                font-size: 14px;
-            }
-        }
+    .friends-container .friend-name {
+        font-size: 15px;
+    }
 
-        @media (max-width: 480px) {
-            .header {
-                padding: 12px 15px;
-            }
+    .friends-container .mutual-friends {
+        font-size: 13px;
+    }
+}
 
-            .friends-list {
-                padding: 15px;
-            }
+/* Móvil pequeño - 480px y menores */
+@media (max-width: 480px) {
+    .friends-container .header {
+        padding: 12px 15px;
+    }
 
-            .friends-grid {
-                grid-template-columns: 1fr;
-            }
+    .friends-container .header-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
 
-            .friend-card {
-                padding: 10px;
-                gap: 10px;
-            }
+    .friends-container .btn {
+        width: 100%;
+        text-align: center;
+    }
 
-            .friend-avatar {
-                width: 45px;
-                height: 45px;
-            }
+    .friends-container .nav-tab {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
 
-            .btn {
-                padding: 8px 12px;
-                font-size: 14px;
-            }
+    .friends-container .friends-list {
+        padding: 12px;
+    }
 
-            .header-actions {
-                gap: 8px;
-            }
-        }
+    .friends-container .friend-card {
+        padding: 10px;
+    }
+
+    .friends-container .friend-avatar {
+        width: 45px;
+        height: 45px;
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .friends-container .friend-name {
+        font-size: 14px;
+    }
+
+    .friends-container .mutual-friends {
+        font-size: 12px;
+    }
+}
+
+/* ================================= */
+/* ESTADOS DE HOVER Y FOCUS */
+/* ================================= */
+
+.friends-container .search-bar:focus {
+    outline: none;
+}
+
+.friends-container .search-container:focus-within {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.friends-container .nav-tab:focus {
+    outline: 2px solid #007bff;
+    outline-offset: -2px;
+}
+
+.friends-container .btn:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+.friends-container .friend-menu:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}

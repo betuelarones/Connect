@@ -1,70 +1,122 @@
 {% load static %}
-<div class="profile-container">
-    <div class="profile-header">
-        <div class="profile-main">
-            <div class="profile-picture-container">
-                <button class="note-dropdown">Nota...</button>
-                <div class="profile-picture">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23262626'/%3E%3Ctext x='75' y='80' text-anchor='middle' fill='%23666' font-size='20' font-family='Arial'%3EFoto%3C/text%3E%3C/svg%3E" alt="Foto de perfil">
+<body>
+    <div id="profileView">
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-main">
+                    <div class="profile-picture-container">
+                        <button class="note-dropdown">Nota...</button>
+                        <div class="profile-picture">
+                            {# Aquí puedes poner la lógica para la foto de perfil del usuario si tienes una URL #}
+                            {# Por ejemplo: <img src="{{ request.user.profile_picture.url }}" alt="Foto de perfil"> #}
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23262626'/%3E%3Ctext x='75' y='80' text-anchor='middle' fill='%23666' font-size='20' font-family='Arial'%3EFoto%3C/text%3E%3C/svg%3E"
+                                 alt="Foto de perfil">
+                        </div>
+                    </div>
+
+                    <div class="profile-info">
+                        <h1 class="profile-username">{{ request.user.nombres }} {{ request.user.apellidos }}</h1>
+                        <div class="profile-actions">
+                            <button type="button" class="btn btn-primary" id="btnEditarPerfil">Editar perfil</button>
+                        </div>
+
+                        <div class="profile-stats-container">
+                            <div class="profile-stats">
+                                <div class="stat">
+                                    <span class="stat-number">0</span> {# Este será actualizado por JS para publicaciones #}
+                                    <span class="stat-label">publicaciones</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">3</span> {# Este será actualizado por JS para amigos #}
+                                    <span class="stat-label">amigos</span>
+                                </div>
+                            </div>
+
+                            <div class="profile-details">
+                                <div class="profile-details-grid">
+                                    {# CARRERA #}
+                                    <div class="detail-card">
+                                        <div class="detail-item" data-type="career">
+                                            <div class="detail-icon">🎓</div>
+                                            <div class="detail-content">
+                                                <span class="detail-label">Carrera</span>
+                                                <span class="detail-value">{{ request.user.carrera|default:"" }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {# SEDE #}
+                                    <div class="detail-card">
+                                        <div class="detail-item" data-type="location">
+                                            <div class="detail-icon">📍</div>
+                                            <div class="detail-content">
+                                                <span class="detail-label">Sede</span>
+                                                <span class="detail-value">{{ request.user.sede|default:"" }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {# CICLO #}
+                                    <div class="detail-card">
+                                        <div class="detail-item" data-type="cycle">
+                                            <div class="detail-icon">📚</div>
+                                            <div class="detail-content">
+                                                <span class="detail-label">Ciclo</span>
+                                                <span class="detail-value">{{ request.user.ciclo|default:"" }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {# CUMPLEAÑOS #}
+                                    <div class="detail-card">
+                                        <div class="detail-item" data-type="birthday">
+                                            <div class="detail-icon">🎂</div>
+                                            <div class="detail-content">
+                                                <span class="detail-label">Cumpleaños</span>
+                                                {# Asumiendo que cumpleaños es un campo Date, puedes formatearlo #}
+                                                <span class="detail-value">{{ request.user.cumpleaños|date:"j \d\e F"|default:"" }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-description">
+                            {{ request.user.descripcion|default:"Descripción del perfil del usuario aquí..." }}
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="profile-info">
-                <h1 class="profile-username">{{ request.user.nombres }} {{ request.user.apellidos }}</h1>
-                <div class="profile-actions">
-                    <button class="btn btn-primary">Editar perfil</button>
-                    <button class="btn btn-secondary">Ver archivo</button>
-                    <div class="profile-icon">⚙</div>
+            <div class="featured-stories">
                 </div>
-                <div class="profile-stats">
-                    <div class="stat">
-                        <span class="stat-number">0</span>
-                        <span class="stat-label">publicaciones</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">Amigos</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">203</span>
-                        <span class="stat-label">seguidos</span>
-                    </div>
-                </div>
-                <div class="profile-description">
-                    Descripción del perfil del usuario aquí...
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="featured-stories">
-        <div class="stories-container">
-            <div class="story-item">
-                <div class="story-circle"></div>
-                <span class="story-label">...</span>
+            <div class="navigation-bar">
+                <div class="nav-container">
+                    <div class="nav-items">
+                        <a href="#" class="nav-item active" id="navPublicaciones">Publicaciones</a>
+                        {# Asegúrate de que esta URL sea correcta para tu vista de lista de amigos #}
+                        <a href="{% url 'usuarios:lista_amigos' %}" class="nav-item" id="navAmigos">Amigos</a>
+                    </div>
+                    <div class="nav-more">⋯</div>
+                </div>
             </div>
-            <div class="story-item">
-                <div class="story-circle"></div>
-                <span class="story-label">Destacada</span>
-            </div>
-            <div class="story-item">
-                <div class="story-circle story-new"></div>
-                <span class="story-label">Nuevo</span>
+
+            <div id="dynamic-content-area">
+                </div>
+        </div>
+
+        <div id="editProfileModal" class="profile-edit-modal"> {# Clase única para el contenedor principal del modal #}
+            <div class="profile-edit-modal-content"> {# Clase única para el contenido del modal #}
+                <span class="profile-edit-modal-close-button">&times;</span> {# Clase única para el botón de cerrar #}
+                <h2>Editar Perfil</h2>
+                <div id="editProfileFormContainer" class="profile-edit-modal-form-container"> {# Clase única para el contenedor del formulario #}
+                    {# Aquí el formulario se cargará vía AJAX cuando se abra el modal #}
+                    <p>Cargando formulario...</p>
+                </div>
+                <div id="profileEditModalMessages" class="profile-edit-modal-messages"></div> {# Clase única para los mensajes #}
             </div>
         </div>
-    </div>
-    <div class="navigation-bar">
-        <div class="nav-container">
-            <div class="nav-items">
-                <a href="#" class="nav-item active">Publicaciones</a>
-                <!--<a href="#" class="nav-item">Información</a>-->
-                <a href="{% url 'usuarios:lista_amigos' %}" class="nav-item">Amigos</a>
-                <!--<a href="#" class="nav-item">Fotos</a>
-                <a href="#" class="nav-item">Videos</a>
-                <a href="#" class="nav-item">Reels</a>-->
-                <!--<a href="#" class="nav-item dropdown">Ver más</a>-->
-            </div>
-            <div class="nav-more">⋯</div>
         </div>
-    </div>
-</div>
+</body>

@@ -188,4 +188,9 @@ function enviarMensaje(userId) {
       alert("No se pudo enviar el mensaje");
       console.error('Error al enviar mensaje:', error);
     });
+
 }
+// ... (todo tu código JavaScript actual) ...
+
+// Llama a la función de inicialización cuando el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', initMensajes);

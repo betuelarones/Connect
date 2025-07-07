@@ -9,43 +9,202 @@
 <body>
 
     <div class="form-container">
-    <img src="../static/img/connect.png" alt="logo">
-    <h1>Connect</h1>
-    <small>¿Ya tienes cuenta? <a href="/login"><b>Inicia sesión aquí</b></a></small>
+        <img src="../static/img/connect.png" alt="logo">
+        <h1>Connect</h1>
+        <small>¿Ya tienes cuenta? <a href="/login"><b>Inicia sesión aquí</b></a></small>
 
-    <form method="POST" action="{% url 'register' %}">
+        <form method="POST" action="{% url 'register' %}" class="registration-form">
+            {% csrf_token %}
+            {% load widget_tweaks %}
 
-        {% csrf_token %}
-        {% load widget_tweaks %}
+            <div class="form-row">
+                <div class="form-group half-width">
+                    <label for="id_nombres">Nombre:</label>
+                    {{ form.nombres|add_class:"input-style"|attr:"placeholder:Nombre" }}
+                    <span style="color: red;">{{ form.nombres.errors }}</span>
+                </div>
+                <div class="form-group half-width">
+                    <label for="id_apellidos">Apellidos:</label>
+                    {{ form.apellidos|add_class:"input-style"|attr:"placeholder:Apellidos" }}
+                    <span style="color: red;">{{ form.apellidos.errors }}</span>
+                </div>
+            </div>
 
-        <label for="id_nombres">Nombres:</label>
-        {{ form.nombres|add_class:"input-style" }}
-        <span style="color: red;">{{ form.nombres.errors }}</span>
+            <div class="form-group">
+                <label for="id_correo">Correo electrónico:</label>
+                {{ form.correo|add_class:"input-style"|attr:"placeholder:Correo electrónico" }}
+                <span style="color: red;">{{ form.correo.errors }}</span>
+            </div>
 
-        <label for="id_apellidos">Apellidos:</label>
-        {{ form.apellidos|add_class:"input-style" }}
-        <span style="color: red;">{{ form.apellidos.errors }}</span>
+            <div class="form-row">
+                <div class="form-group half-width">
+                    <label for="id_password">Contraseña:</label>
+                    {{ form.password|add_class:"input-style"|attr:"placeholder:Nueva contraseña" }}
+                    <span style="color: red;">{{ form.password.errors }}</span>
+                </div>
+                <div class="form-group half-width">
+                    <label for="id_password2">Confirmar contraseña:</label>
+                    {{ form.password2|add_class:"input-style"|attr:"placeholder:Confirmar contraseña" }}
+                    <span style="color: red;">{{ form.password2.errors }}</span>
+                </div>
+            </div>
 
-        <label for="id_correo">Correo electrónico:</label>
-        {{ form.correo|add_class:"input-style" }}
-        <span style="color: red;">{{ form.correo.errors }}</span>
+            <div class="form-group">
+                <label>Fecha de nacimiento:</label>
+                <div class="date-select-container">
+                    <select id="id_cumpleaños_day" name="cumpleaños_day" class="input-style">
+                        <option value="">Día</option>
+                        {% for day in days %}
+                            <option value="{{ day }}">{{ day }}</option>
+                        {% endfor %}
+                    </select>
+                    <select id="id_cumpleaños_month" name="cumpleaños_month" class="input-style">
+                        <option value="">Mes</option>
+                        <option value="1">Ene</option>
+                        <option value="2">Feb</option>
+                        <option value="3">Mar</option>
+                        <option value="4">Abr</option>
+                        <option value="5">May</option>
+                        <option value="6">Jun</option>
+                        <option value="7">Jul</option>
+                        <option value="8">Ago</option>
+                        <option value="9">Sep</option>
+                        <option value="10">Oct</option>
+                        <option value="11">Nov</option>
+                        <option value="12">Dic</option>
+                    </select>
+                    <select id="id_cumpleaños_year" name="cumpleaños_year" class="input-style">
+                        <option value="">Año</option>
+                        {% for year in years %}
+                            <option value="{{ year }}">{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <span style="color: red;">{{ form.cumpleaños.errors }}</span>
+            </div>
 
-        <label for="id_password">Contraseña:</label>
-        {{ form.password|add_class:"input-style" }}
-        <span style="color: red;">{{ form.password.errors }}</span>
+            <div class="form-row">
+                <div class="form-group half-width">
+                    <label for="id_departamento_carrera">Área de la Carrera:</label>
+                    <select id="id_departamento_carrera" class="input-style">
+                        <option value="">Selecciona un área</option>
+                        <option value="Tecnología Digital">Tecnología Digital</option>
+                        <option value="Gestión y Producción">Gestión y Producción</option>
+                        <option value="Minería y Procesos Químicos">Minería y Procesos Químicos</option>
+                        <option value="Electricidad y Electrónica">Electricidad y Electrónica</option>
+                        <option value="Mecánica">Mecánica</option>
+                    </select>
+                </div>
+                <div class="form-group half-width">
+                    <label for="id_carrera">Carrera:</label>
+                    {{ form.carrera|add_class:"input-style"|attr:"disabled:disabled" }}
+                    <span style="color: red;">{{ form.carrera.errors }}</span>
+                </div>
+            </div>
 
-        <label for="id_password2">Confirmar contraseña:</label>
-        {{ form.password2|add_class:"input-style" }}
-        <span style="color: red;">{{ form.password2.errors }}</span>
+            <div class="form-row">
+                <div class="form-group half-width">
+                    <label for="id_sede">Sede:</label>
+                    {{ form.sede|add_class:"input-style" }}
+                    <span style="color: red;">{{ form.sede.errors }}</span>
+                </div>
+                <div class="form-group half-width">
+                    <label for="id_ciclo">Ciclo:</label>
+                    {{ form.ciclo|add_class:"input-style" }}
+                    <span style="color: red;">{{ form.ciclo.errors }}</span>
+                </div>
+            </div>
 
-        <label for="id_direccion">Dirección:</label>
-        {{ form.direccion|add_class:"input-style" }}
-        <span style="color: red;">{{ form.direccion.errors }}</span>
-
-        <button type="submit">Registrarse</button>
-    </form>
-
+            <button type="submit">Registrarse</button>
+        </form>
     </div>
+
+    <script>
+        // JavaScript para el filtrado dinámico de Carrera y para armar la fecha de cumpleaños
+        document.addEventListener('DOMContentLoaded', function() {
+            const departamentoSelect = document.getElementById('id_departamento_carrera');
+            const carreraSelect = document.getElementById('id_carrera');
+
+            const daySelect = document.getElementById('id_cumpleaños_day');
+            const monthSelect = document.getElementById('id_cumpleaños_month');
+            const yearSelect = document.getElementById('id_cumpleaños_year');
+
+            let birthdayHiddenInput = document.querySelector('input[name="cumpleaños"]');
+            if (!birthdayHiddenInput) {
+                birthdayHiddenInput = document.createElement('input');
+                birthdayHiddenInput.type = 'hidden';
+                birthdayHiddenInput.name = 'cumpleaños';
+                document.querySelector('.registration-form').appendChild(birthdayHiddenInput);
+            }
+
+            const careerOptions = {
+                'Tecnología Digital': [
+                    { value: 'Ingeniería de Software', text: 'Ingeniería de Software' },
+                    { value: 'Administración de Redes y Comunicaciones', text: 'Administración de Redes y Comunicaciones' },
+                    { value: 'Diseño y Desarrollo de Simuladores y Videojuegos', text: 'Diseño y Desarrollo de Simuladores y Videojuegos' },
+                    { value: 'Big Data y Ciencia de Datos', text: 'Big Data y Ciencia de Datos' },
+                ],
+                'Gestión y Producción': [
+                    { value: 'Producción y Gestión Industrial', text: 'Producción y Gestión Industrial' },
+                ],
+                'Minería y Procesos Químicos': [
+                    { value: 'Operaciones Mineras y Metalúrgica', text: 'Operaciones Mineras y Metalúrgica' },
+                    { value: 'Química Industrial', text: 'Química Industrial' },
+                ],
+                'Electricidad y Electrónica': [
+                    { value: 'Electricidad y Electrónica Industrial', text: 'Electricidad y Electrónica Industrial' },
+                    { value: 'Automatización Industrial', text: 'Automatización Industrial' },
+                    { value: 'Mecatrónica Industrial', text: 'Mecatrónica Industrial' },
+                ],
+                'Mecánica': [
+                    { value: 'Mantenimiento y Gestión de Plantas Industriales', text: 'Mantenimiento y Gestión de Plantas Industriales' },
+                    { value: 'Gestión y Mantenimiento de Maquinaria Industrial', text: 'Gestión y Mantenimiento de Maquinaria Industrial' },
+                ],
+            };
+
+            function updateCarreraOptions() {
+                const selectedDepartamento = departamentoSelect.value;
+                carreraSelect.innerHTML = '<option value="">Selecciona tu carrera</option>';
+                carreraSelect.disabled = true;
+                carreraSelect.value = "";
+
+                if (selectedDepartamento) {
+                    const careers = careerOptions[selectedDepartamento];
+                    if (careers) {
+                        careers.forEach(career => {
+                            const option = document.createElement('option');
+                            option.value = career.value;
+                            option.textContent = career.text;
+                            carreraSelect.appendChild(option);
+                        });
+                        carreraSelect.disabled = false;
+                    }
+                }
+            }
+
+            function updateBirthdayHiddenInput() {
+                const day = daySelect.value;
+                const month = monthSelect.value;
+                const year = yearSelect.value;
+
+                if (day && month && year) {
+                    const formattedMonth = month.padStart(2, '0');
+                    const formattedDay = day.padStart(2, '0');
+                    birthdayHiddenInput.value = `${year}-${formattedMonth}-${formattedDay}`;
+                } else {
+                    birthdayHiddenInput.value = '';
+                }
+            }
+
+            departamentoSelect.addEventListener('change', updateCarreraOptions);
+            daySelect.addEventListener('change', updateBirthdayHiddenInput);
+            monthSelect.addEventListener('change', updateBirthdayHiddenInput);
+            yearSelect.addEventListener('change', updateBirthdayHiddenInput);
+
+            updateCarreraOptions();
+            updateBirthdayHiddenInput();
+        });
+    </script>
 
 </body>
 </html>

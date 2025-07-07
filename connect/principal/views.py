@@ -6,6 +6,7 @@ from usuarios.models import Usuario
 from amistades.models import Amistad
 from django.contrib.auth import authenticate, login as auth_login
 from usuarios.forms import RegistroUsuarioForm
+from datetime import date # <--- ASEGÚRATE DE QUE ESTA LÍNEA EXISTA Y NO ESTÉ COMENTADA
 
 # Create your views here.
 
@@ -28,14 +29,26 @@ def login(request):
 
 
 def registro_usuario(request):
+    # Generar días y años SIEMPRE, ya que son necesarios para el renderizado final.
+    days = list(range(1, 32))
+    current_year = date.today().year
+    years = list(range(current_year, current_year - 101, -1))
+
     if request.method == 'POST':
         form = RegistroUsuarioForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])  # Asegúrate de hashear
+            user.set_password(form.cleaned_data['password'])
             user.save()
             return redirect('login')
-    else:
+        else:
+            # Si el formulario NO es válido en un POST, simplemente
+            # continúa el flujo para renderizar la plantilla con los errores del formulario.
+            pass # No necesitas hacer nada especial aquí, el render de abajo se encargará.
+    else: # Si es una solicitud GET (primera carga de la página)
         form = RegistroUsuarioForm()
-    return render(request, 'register.html', {'form': form})
+
+    # Este render se ejecuta tanto para GET (cuando se carga la página por primera vez)
+    # como para POST cuando el formulario no es válido (mostrando los errores).
+    return render(request, 'register.html', {'form': form, 'days': days, 'years': years})
 

@@ -5,278 +5,228 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connect</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/principal.css' %}">
-    <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
-    <link rel="stylesheet" href="{% static 'css/solicitudes.css' %}">
-    <link rel="stylesheet" href="{% static 'css/sugerencias.css' %}">
-    <link rel="stylesheet" href="{% static 'css/mensajes.css' %}">
+    <link rel="stylesheet" href="/static/css/principal.css">
+    <link rel="stylesheet" href="/static/css/perfil.css">
+    <link rel="stylesheet" href="/static/css/solicitudes.css">
+    <link rel="stylesheet" href="/static/css/sugerencias.css">
+    <link rel="stylesheet" href="/static/css/mensajes.css">
+    <link rel="stylesheet" href="/static/css/amigos.css">
 </head>
 <body>
-    <div class="app-wrapper">
-        {# INCLUSIÓN DEL SIDEBAR - Debe ser un hijo directo de .app-wrapper #}
-        {% include 'sidebar.html' %}
-        {# main-content-wrapper ES EL CONTENEDOR FLEX PARA HEADER y main#mainContent #}
-        <div class="main-content-wrapper">
-            <header id="header">
-                <div class="search">
-                    <form action="{% url 'amistades:buscar_usuarios' %}" method="get" class="search-container">
-                        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                        <input type="text" name="q" placeholder="Buscar..." class="search-bar"/>
-                    </form>
-                </div>
-                {# Un solo contenedor profile-link, el <a> es el elemento interactivo #}
-                <a href="{% url 'usuarios:ver_perfil' request.user.id %}" id="headerProfileLink" class="profile-link" data-page="profile">
-                    <div class="user-avatar">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </div>
-                    <span>{{ request.user.nombres }}</span>
-                </a>
-            </header>
+<div class="app-wrapper">
+    {% include "sidebar.html" %}
+    <div class="main-content-wrapper">
+        <header id="header">
+            <div class="search">
+                <form action="/amistades/buscar/" method="get" class="search-container">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                         width="15" height="15">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" name="q" placeholder="Buscar..." class="search-bar"/>
+                </form>
+            </div>
 
-            {# main#mainContent ES EL CONTENEDOR PARA LAS VISTAS SPA (.view) #}
-            {# La clase 'spa-content-area' se añade en JS, pero puedes ponerla aquí directamente #}
-            <main id="mainContent" class="spa-content-area">
-                <div id="homeView" class="view active">
-                    <div class="stories-container" id="storiesContainer">
-                        <div class="stories-scroll">
-                            <div class="story-item" onclick="addStory()">
-                                <div class="story-avatar own">
-                                    <div class="story-avatar-placeholder">U</div>
-                                    <div class="story-plus">+</div>
-                                </div>
-                                <div class="story-name">Tu historia</div>
+            <a href="{% url 'usuarios:ver_perfil' request.user.id %}" id="headerProfileLink" class="profile-link"
+               data-page="profile">
+                <div class="user-avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <span>{{ request.user.nombres }}</span>
+            </a>
+        </header>
+
+
+        <main id="mainContent" class="spa-content-area">
+            <div id="homeView" class="view active">
+                <div class="stories-container" id="storiesContainer">
+                    <div class="stories-scroll">
+                        <!-- Tu historia -->
+                        <div class="story-item" onclick="addStory()">
+                            <div class="story-avatar own">
+                                <div class="story-avatar-placeholder">U</div>
+                                <div class="story-plus">+</div>
                             </div>
-                            <div class="story-item" onclick="viewStory('juan')">
-                                <div class="story-avatar">
-                                    <div class="story-avatar-placeholder">J</div>
-                                </div>
-                                <div class="story-name">Juan</div>
-                            </div>
-                            <div class="story-item" onclick="viewStory('maria')">
-                                <div class="story-avatar">
-                                    <div class="story-avatar-placeholder">M</div>
-                                </div>
-                                <div class="story-name">María</div>
-                            </div>
-                            <div class="story-item" onclick="viewStory('carlos')">
-                                <div class="story-avatar viewed">
-                                    <div class="story-avatar-placeholder">C</div>
-                                </div>
-                                <div class="story-name">Carlos</div>
-                            </div>
-                            <div class="story-item" onclick="viewStory('ana')">
-                                <div class="story-avatar">
-                                    <div class="story-avatar-placeholder">A</div>
-                                </div>
-                                <div class="story-name">Ana</div>
-                            </div>
-                            <div class="story-item" onclick="viewStory('pedro')">
-                                <div class="story-avatar">
-                                    <div class="story-avatar-placeholder">P</div>
-                                </div>
-                                <div class="story-name">Pedro</div>
-                            </div>
-                            <div class="story-item" onclick="viewStory('lucia')">
-                                <div class="story-avatar viewed">
-                                    <div class="story-avatar-placeholder">L</div>
-                                </div>
-                                <div class="story-name">Lucía</div>
-                            </div>
-                            <div class="story-item" onclick="viewStory('diego')">
-                                <div class="story-avatar">
-                                    <div class="story-avatar-placeholder">D</div>
-                                </div>
-                                <div class="story-name">Diego</div>
-                            </div>
+                            <div class="story-name">Tu historia</div>
                         </div>
                     </div>
-                    <div class="status-container" id="statusContainer">
+                </div>
+                <script>
+                    const USER_ID = {{ request.user.id }};
+                </script>
+                <div class="stories-scroll"
+                     style="display: flex; gap: 10px; overflow-x: auto; padding: 10px; margin-bottom: 20px;">
+                    <!-- Aquí JS inyectará las historias (propias y de amigos) -->
+                </div>
+                <!-- MODAL para agregar historia -->
+                <div id="storyModal" class="modal" style="display:none;">
+                    <div class="modal-content">
+                        <span class="close" onclick="closeStoryModal()">&times;</span>
+                        <form action="/historias/publicar/" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <textarea name="contenido" placeholder="¿Qué quieres compartir?" rows="4"
+                                      style="width:100%;" required></textarea><br><br>
+                            <input type="file" name="imagen" accept="image/*,video/*" id="mediaInput">
+                            <small style="color: gray;">Solo se aceptan imágenes o videos de hasta 30 segundos.</small>
+                            <div id="previewHistoria" style="margin-top: 10px;"></div>
+                            <button type="submit">Publicar</button>
+                        </form>
+                    </div>
+                </div>
+                <!-- CONTENEDOR DE VISUALIZACIÓN DE HISTORIA -->
+                <!-- CONTENEDOR DE VISUALIZACIÓN DE HISTORIA MEJORADO -->
+                <div id="storyViewer" class="story-viewer" style="display: none;">
+                    <div class="viewer-content">
+                        <!-- Indicadores de progreso -->
+                        <div class="story-indicators" id="storyIndicators">
+                            <!-- Se llenarán dinámicamente -->
+                        </div>
+
+                        <!-- Botón de cerrar -->
+                        <span class="close-viewer" onclick="closeStoryViewer()">×</span>
+
+                        <!-- Header con info del usuario -->
+                        <div class="story-header">
+                            <div class="story-avatar" id="storyAvatar">
+                                <!-- Inicial del usuario -->
+                            </div>
+                            <div class="story-user-info">
+                                <h4 id="storyUsername">Usuario</h4>
+                                <div class="story-timestamp" id="storyTimestamp">hace 2h</div>
+                            </div>
+                        </div>
+
+                        <!-- Contenido principal -->
+                        <div id="viewerBody">
+                            <!-- Aquí irá la historia -->
+                        </div>
+
+                        <!-- Zonas de clic para navegación -->
+                        <div class="story-click-area prev" onclick="prevStory()"></div>
+                        <div class="story-click-area next" onclick="nextStory()"></div>
+
+                        <!-- Botones de navegación -->
+                        <div class="story-nav-buttons">
+                            <button class="story-nav-btn" id="prevBtn" onclick="prevStory()">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2">
+                                    <polyline points="15,18 9,12 15,6"></polyline>
+                                </svg>
+                            </button>
+                            <button class="story-nav-btn" id="nextBtn" onclick="nextStory()">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                     stroke-width="2">
+                                    <polyline points="9,18 15,12 9,6"></polyline>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="status-container" id="statusContainer">
+                    <form id="formPublicar" method="POST" action="{% url 'publicaciones:publicar_ajax' %}"
+                          enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div style="display: flex; align-items: flex-start; gap: 12px;">
-                            <div class="user-avatar" style="width: 40px; height: 40px; flex-shrink: 0;">U</div>
+                            <div class="user-avatar" style="width: 40px; height: 40px; flex-shrink: 0;">
+                                {{ request.user.nombres|slice:":1" }}
+                            </div>
                             <div style="flex: 1;">
-                                <textarea class="status-input" placeholder="¿Qué está pasando?" rows="3"></textarea>
+                                <textarea class="status-input" name="contenido" placeholder="¿Qué está pasando?"
+                                          rows="3"></textarea>
+
+                                <input type="file" name="archivo" id="archivoInput" style="display: none;">
+
                                 <div class="status-actions">
                                     <div class="status-options">
-                                        <button class="status-btn" title="Agregar foto">
+                                        <button type="button" class="status-btn" title="Agregar foto/video"
+                                                onclick="document.getElementById('archivoInput').click();">
                                             <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                                                <path fill-rule="evenodd"
+                                                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                                                      clip-rule="evenodd"/>
                                             </svg>
                                         </button>
-                                        <button class="status-btn" title="Agregar video">
-                                            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                                                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
-                                            </svg>
+
+                                        <button class="status-btn" title="Agregar ubicación" type="button">
+                                            📍
                                         </button>
-                                        <button class="status-btn" title="Agregar ubicación">
-                                            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                                            </svg>
-                                        </button>
-                                        <button class="status-btn" title="Agregar emoji">
-                                            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd"/>
-                                            </svg>
+                                        <button class="status-btn" title="Agregar emoji" type="button">
+                                            😊
                                         </button>
                                     </div>
-                                    <button class="post-btn" disabled>Publicar</button>
+                                    <button class="post-btn" type="submit">Publicar</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="posts-feed" id="postsFeed">
-                        <div class="post">
-                            <div class="post-header">
-                                <div class="post-avatar">J</div>
-                                <div class="post-info">
-                                    <h3>Juan Pérez</h3>
-                                    <span>hace 2 horas</span>
-                                </div>
-                            </div>
-                            <div class="post-content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            </div>
-                            <div class="post-actions">
-                                <div class="post-action">
-                                    <span>❤️</span>
-                                    <span>12</span>
-                                </div>
-                                <div class="post-action">
-                                    <span>💬</span>
-                                    <span>3</span>
-                                </div>
-                                <div class="post-action">
-                                    <span>🔄</span>
-                                    <span>1</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="post">
-                            <div class="post-header">
-                                <div class="post-avatar">M</div>
-                                <div class="post-info">
-                                    <h3>María González</h3>
-                                    <span>hace 4 horas</span>
-                                </div>
-                            </div>
-                            <div class="post-content">
-                                ¡Un día genial explorando nuevas tecnologías! ¡Siempre aprendiendo!
-                            </div>
-                            <div class="post-actions">
-                                <div class="post-action">
-                                    <span>❤️</span>
-                                    <span>25</span>
-                                </div>
-                                <div class="post-action">
-                                    <span>💬</span>
-                                    <span>8</span>
-                                </div>
-                                <div class="post-action">
-                                    <span>🔄</span>
-                                    <span>5</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
+                <div class="posts-feed" id="postsFeed">
+                </div>
+            </div>
 
-                {# VISTA DE PERFIL - INCLUYE el contenido de perfil.html #}
-                <div id="profileView" class="view">
+            <div id="profileView" class="view">
+
+                <div class="profile-container">
                     {% include 'perfil.html' %}
-                    {# Los posts del perfil NO deben estar fuera de perfil.html si este es la vista #}
-                    {# Si perfil.html ya incluye la sección de posts, elimina esto: #}
-                    <div class="profile-content-sections">
-                        <div class="section-posts">
-                            <div class="post">
-                                <div class="post-header">
-                                    <div class="post-avatar">U</div>
-                                    <div class="post-info">
-                                        <h3>Usuario Connect</h3>
-                                        <span>hace 1 día</span>
-                                    </div>
-                                </div>
-                                <div class="post-content">
-                                    Un gran día explorando nuevas tecnologías. ¡Siempre aprendiendo!
-                                </div>
-                                <div class="post-actions">
-                                    <div class="post-action">
-                                        <span>❤️</span>
-                                        <span>45</span>
-                                    </div>
-                                    <div class="post-action">
-                                        <span>💬</span>
-                                        <span>10</span>
-                                    </div>
-                                    <div class="post-action">
-                                        <span>🔄</span>
-                                        <span>2</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                {# VISTA DE MENSAJES #}
-                <div id="messagesView" class="view">
-                    <div class="section-content"> {# Usa un contenedor si quieres padding interno #}
-                        <h2>Mensajes</h2>
-                        <p>Lista de mensajes aquí...</p>
-                    </div>
+            </div>
+
+            <div id="messagesView" class="view">
+                <div class="section-content">
+                    <h2>Mensajes</h2>
+                    <p>Lista de mensajes aquí...</p>
                 </div>
-                {# VISTA DE NOTIFICACIONES #}
-                <div id="notificationsView" class="view">
-                    <div class="section-content">
-                        <h2>Notificaciones</h2>
-                        <p>Lista de notificaciones aquí...</p>
-                    </div>
-                </div>
+            </div>
 
-                {# VISTA DE CONFIGURACIÓN #}
-                <div id="settingsView" class="view">
-                    <div class="section-content">
-                        <h2>Configuración</h2>
-                        <p>Opciones de configuración del usuario...</p>
-                    </div>
-                </div>
+            <div id="sugerenciasView" class="view">
 
-                {# VISTA DE SUGERENCIAS #}
-                <div id="sugerenciasView" class="view">
-                    {# Este es el mensaje temporal que se reemplazará con contenido AJAX #}
-                    <p class="loading-message">Cargando sugerencias de amigos...</p>
-                </div>
+                <p class="loading-message">Cargando sugerencias de amigos...</p>
+            </div>
 
-                <div id="solicitudesView" class="view"></div>
+            <div id="solicitudesView" class="view"></div>
+
+        </main>
+    </div>
+</div>
 
 
-            </main> {# CIERRE DE main#mainContent #}
-        </div> {# CIERRE DE main-content-wrapper #}
-    </div> {# CIERRE DE app-wrapper #}
+<script src="/static/js/sugerencias.js"></script>
+<script src="/static/js/principal.js"></script>
+<script src="/static/js/mensajes.js"></script>
+<script src="/static/js/perfil.js"></script>
+<script src="/static/js/historias.js"></script>
 
-    {% load static %}
-    <script src="{% static 'js/sugerencias.js' %}"></script>
-    <script src="{% static 'js/principal.js' %}"></script>
-    <script src="{% static 'js/mensajes.js' %}"></script>
-    <script>
-      window.currentUserId = {{ request.user.id }};
-    </script>
 
-    <script>
-        // Define las URLs de Django en un objeto global para que el JS pueda acceder
-        const urls = {
-            sugerencias: "{% url 'amistades:sugerencias_amigos_en_comun' %}",
-            buscarUsuarios: "{% url 'amistades:buscar_usuarios' %}",
-            verPerfil: "{% url 'usuarios:ver_perfil' request.user.id %}",
-            solicitudes: "{% url 'amistades:solicitudes_pendientes' %}",
-            amigosMensajes: "{% url 'mensajes:amigos_json' %}",
-            verMensajes: "/mensajes/",
-        };
-    </script>
+<script>
+    // Define las URLs de Django en un objeto global para que el JS pueda acceder
+    const urls = {
+        sugerencias: "/amistades/sugerencias/",
+        buscarUsuarios: "/amistades/buscar/",
+        verPerfil: "/usuarios/perfil/1/",
+        solicitudes: "/amistades/solicitudes/",
+        amigosMensajes: "/mensajes/amigos-json/",
+        verMensajes: "/mensajes/",
+    };
+</script>
+<script>
+    const djangoUrls = {
+        publicar_ajax: "{% url 'publicaciones:publicar_ajax' %}",
+        listar_mis_publicaciones_ajax: "{% url 'publicaciones:listar_mis_publicaciones_ajax' %}",
+        obtener_publicaciones: "{% url 'publicaciones:obtener_publicaciones' %}",
+        get_amigos_count_ajax: "{% url 'usuarios:get_amigos_count_ajax' %}",
+        // === CAMBIO AQUÍ: QUITAR el .replace('/0/', '') ===
+        // Dejamos el '0' como parte de la cadena, que luego el JS reemplazará.
+        agregar_comentario: "{% url 'publicaciones:agregar_comentario' publicacion_id=0 %}",
+        agregar_reaccion: "{% url 'publicaciones:agregar_reaccion' publicacion_id=0 %}",
+        eliminar_publicacion: "{% url 'publicaciones:eliminar_publicacion' 0 %}",
+        editar_perfil_ajax: "{% url 'usuarios:editar_perfil_ajax' %}",
+    };
+    console.log("URLs de Django cargadas en JavaScript:", djangoUrls); // Para depuración
+</script>
 </body>
 </html>

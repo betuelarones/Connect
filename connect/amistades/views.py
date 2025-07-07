@@ -96,6 +96,8 @@ def buscar_usuarios(request):
         'query': query,
         'solicitudes_enviadas': enviados
     })
+
+
 User = get_user_model()
 @login_required
 @require_POST

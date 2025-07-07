@@ -21,7 +21,8 @@ from principal import views
 from principal import views as principal_views
 #from usuarios import views as usuario_views
 from django.contrib.auth.views import LogoutView
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,7 +32,10 @@ urlpatterns = [
     path('register/', views.registro_usuario, name='register'),
     path('amistades/', include('amistades.urls')),
     path('usuarios/', include('usuarios.urls')),
+    path('publicaciones/', include('publicaciones.urls', namespace='publicaciones')),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('mensajes/', include('mensajes.urls', namespace='mensajes')),
-
+    path('historias/', include('historias.urls')),
 ]
+if settings.DEBUG: # This ensures it only runs when DEBUG is True
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

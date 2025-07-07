@@ -5,7 +5,7 @@ import re
 class UsuarioForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ['nombres', 'apellidos', 'correo', 'password', 'direccion']
+        fields = ['nombres', 'apellidos', 'correo', 'password', 'sede']
         widgets = {
             'password': forms.PasswordInput(),
         }
