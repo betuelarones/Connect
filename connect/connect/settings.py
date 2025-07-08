@@ -17,14 +17,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default_insecure_key_for_development')
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = 'django-insecure-1eq3hhhg(3$a0a^7j+%ofa131#e%!mh^lu$gp0!8m%1(r#0mu1'
 
-SECRET_KEY = 'django-insecure-1eq3hhhg(3$a0a^7j+%ofa131#e%!mh^lu$gp0!8m%1(r#0mu1'
+#SECRET_KEY = 'django-insecure-1eq3hhhg(3$a0a^7j+%ofa131#e%!mh^lu$gp0!8m%1(r#0mu1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
+
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'connect-production.up.railway.app']
 
