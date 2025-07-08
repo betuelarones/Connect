@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'default_insecure_key_for_devel
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 
-#ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'connect-production-fea1.up.railway.app']
+ALLOWED_HOSTS = ['connect-production-fea1.up.railway.app']
 
 
 # Application definition
