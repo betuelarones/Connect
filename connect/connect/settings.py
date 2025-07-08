@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'connect.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'railway',
         'USER': 'postgres',
         'PASSWORD': 'llnwISMgDVnnlkZbOYuzjQlPZqQzQETu',
         'HOST': 'mainline.proxy.rlwy.net',
