@@ -109,6 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(r => r.text())
                     .then(html => {
                         document.getElementById("solicitudesView").innerHTML = html;
+                        if (typeof initSolicitudesHandlers === 'function') {
+                            initSolicitudesHandlers();  // <--- Esto enlaza los botones de nuevo
+                        } else {
+                            console.warn("initSolicitudesHandlers() no está definida. Asegúrate de cargar solicitudes.js.");
+                        }
                     })
                     .catch(err => console.error("Error cargando solicitudes:", err));
             } else {

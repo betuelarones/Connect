@@ -17,14 +17,15 @@
           {% if solicitud.aceptada %}
             <button class="solicitud-btn solicitud-btn-friends" disabled>✓ Amigos</button>
           {% else %}
-            <form method="POST" action="{% url 'amistades:aceptar_solicitud' solicitud.id %}" class="solicitud-form">
+                    <form method="POST" class="solicitud-form form-aceptar" data-id="{{ solicitud.id }}">
               {% csrf_token %}
               <button type="submit" class="solicitud-btn solicitud-btn-accept">Aceptar</button>
-            </form>
-            <form method="POST" action="{% url 'amistades:rechazar_solicitud' solicitud.id %}" class="solicitud-form">
+          </form>
+
+          <form method="POST" class="solicitud-form form-rechazar" data-id="{{ solicitud.id }}">
               {% csrf_token %}
               <button type="submit" class="solicitud-btn solicitud-btn-reject">Eliminar</button>
-            </form>
+          </form>
           {% endif %}
         </div>
       </div>
