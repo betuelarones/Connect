@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connect</title>
     {% load static %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="/static/css/principal.css">
     <link rel="stylesheet" href="/static/css/perfil.css">
     <link rel="stylesheet" href="/static/css/solicitudes.css">
@@ -219,8 +220,6 @@
         listar_mis_publicaciones_ajax: "{% url 'publicaciones:listar_mis_publicaciones_ajax' %}",
         obtener_publicaciones: "{% url 'publicaciones:obtener_publicaciones' %}",
         get_amigos_count_ajax: "{% url 'usuarios:get_amigos_count_ajax' %}",
-        // === CAMBIO AQUÍ: QUITAR el .replace('/0/', '') ===
-        // Dejamos el '0' como parte de la cadena, que luego el JS reemplazará.
         agregar_comentario: "{% url 'publicaciones:agregar_comentario' publicacion_id=0 %}",
         agregar_reaccion: "{% url 'publicaciones:agregar_reaccion' publicacion_id=0 %}",
         eliminar_publicacion: "{% url 'publicaciones:eliminar_publicacion' 0 %}",
