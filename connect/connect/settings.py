@@ -146,3 +146,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'usuarios.Usuario'
 LOGIN_URL = 'login'
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://connect-production-fea1.up.railway.app',
+]

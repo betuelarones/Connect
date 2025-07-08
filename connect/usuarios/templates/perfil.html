@@ -7,13 +7,11 @@
                     <div class="profile-picture-container">
                         <button class="note-dropdown">Nota...</button>
                         <div class="profile-picture">
-                            {# Aquí puedes poner la lógica para la foto de perfil del usuario si tienes una URL #}
-                            {# Por ejemplo: <img src="{{ request.user.profile_picture.url }}" alt="Foto de perfil"> #}
+                            <img src="{{ request.user.profile_picture.url }}" alt="Foto de perfil"> #}
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Crect width='150' height='150' fill='%23262626'/%3E%3Ctext x='75' y='80' text-anchor='middle' fill='%23666' font-size='20' font-family='Arial'%3EFoto%3C/text%3E%3C/svg%3E"
                                  alt="Foto de perfil">
                         </div>
                     </div>
-
                     <div class="profile-info">
                         <h1 class="profile-username">{{ request.user.nombres }} {{ request.user.apellidos }}</h1>
                         <div class="profile-actions">
@@ -44,7 +42,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     {# SEDE #}
                                     <div class="detail-card">
                                         <div class="detail-item" data-type="location">
@@ -66,14 +63,11 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    {# CUMPLEAÑOS #}
                                     <div class="detail-card">
                                         <div class="detail-item" data-type="birthday">
                                             <div class="detail-icon">🎂</div>
                                             <div class="detail-content">
                                                 <span class="detail-label">Cumpleaños</span>
-                                                {# Asumiendo que cumpleaños es un campo Date, puedes formatearlo #}
                                                 <span class="detail-value">{{ request.user.cumpleaños|date:"j \d\e F"|default:"" }}</span>
                                             </div>
                                         </div>
@@ -96,7 +90,6 @@
                 <div class="nav-container">
                     <div class="nav-items">
                         <a href="#" class="nav-item active" id="navPublicaciones">Publicaciones</a>
-                        {# Asegúrate de que esta URL sea correcta para tu vista de lista de amigos #}
                         <a href="{% url 'usuarios:lista_amigos' %}" class="nav-item" id="navAmigos">Amigos</a>
                     </div>
                     <div class="nav-more">⋯</div>
@@ -107,15 +100,15 @@
                 </div>
         </div>
 
-        <div id="editProfileModal" class="profile-edit-modal"> {# Clase única para el contenedor principal del modal #}
-            <div class="profile-edit-modal-content"> {# Clase única para el contenido del modal #}
-                <span class="profile-edit-modal-close-button">&times;</span> {# Clase única para el botón de cerrar #}
+        <div id="editProfileModal" class="profile-edit-modal"> 
+            <div class="profile-edit-modal-content"> 
+                <span class="profile-edit-modal-close-button">&times;</span> 
                 <h2>Editar Perfil</h2>
-                <div id="editProfileFormContainer" class="profile-edit-modal-form-container"> {# Clase única para el contenedor del formulario #}
-                    {# Aquí el formulario se cargará vía AJAX cuando se abra el modal #}
+                <div id="editProfileFormContainer" class="profile-edit-modal-form-container"> 
+                    {% csrf_token %}
                     <p>Cargando formulario...</p>
                 </div>
-                <div id="profileEditModalMessages" class="profile-edit-modal-messages"></div> {# Clase única para los mensajes #}
+                <div id="profileEditModalMessages" class="profile-edit-modal-messages"></div> 
             </div>
         </div>
         </div>

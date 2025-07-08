@@ -400,9 +400,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// AVISO IMPORTANTE: Las funciones `toggleDropdown`, `eliminarPublicacion`,
-// `handleReaccion`, `toggleCommentsSection`, `handleComentario`
-// DEBEN ser accesibles globalmente (ej. `window.nombreDeFuncion = ...`)
-// o estar definidas en un script que se cargue antes o ser parte de `main.js`
-// y que `main.js` las exponga para que `perfil.js` las pueda llamar
-// a través de `initPostActionListeners`.

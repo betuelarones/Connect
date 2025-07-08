@@ -1,6 +1,5 @@
 {% load static %}
 {% load humanize %}
-
 <div class="posts-grid"> {# Este div es el contenedor de la cuadrícula de publicaciones del perfil #}
     {% if publicaciones %}
         {% for post in publicaciones %}
@@ -46,6 +45,7 @@
                         </div>
                     {% endfor %}
                     <form class="comment-form" data-publicacion-id="{{ post.id }}">
+                        {% csrf_token %}
                         <textarea placeholder="Escribe un comentario..." class="comment-input"></textarea>
                         <button type="submit">Comentar</button>
                     </form>
