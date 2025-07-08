@@ -1,0 +1,1419 @@
+/* principal.css */
+
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden; /* Importante para que el scroll lo controle mainContent */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* ------------------------------------ */
+/* CONTENEDOR PRINCIPAL DE LA APLICACIÓN */
+/* Envuelve el sidebar y el resto del contenido (main-content-wrapper) */
+/* ------------------------------------ */
+.app-wrapper {
+    display: flex;
+    height: 100vh; /* Ocupa toda la altura del viewport */
+    overflow: hidden;
+    position: relative;
+}
+
+/* ------------------------------------ */
+/* HAMBURGER MENU BUTTON (Solo visible en móvil) */
+/* ------------------------------------ */
+.hamburger-menu {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1300;
+    background: white;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu:hover {
+    background: #f0f8ff;
+    border-color: #007bff;
+}
+
+.hamburger-line {
+    width: 20px;
+    height: 2px;
+    background: #007bff;
+    border-radius: 1px;
+    transition: all 0.3s ease;
+}
+
+/* Animación del hamburger cuando está activo */
+.hamburger-menu.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* ------------------------------------ */
+/* SIDEBAR */
+/* ------------------------------------ */
+.sidebar {
+    width: 250px;
+    background: white;
+    border-right: 1px solid #e1e5e9;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0; /* Asegura que el sidebar no se encoja */
+    transition: width 0.3s ease;
+    z-index: 999;
+    position: relative;
+}
+
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid #e1e5e9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.sidebar-nav {
+    flex: 1; /* Permite que el nav ocupe el espacio restante */
+    padding: 20px 0;
+    overflow-y: auto; /* Permite el scroll en el nav si hay muchos elementos */
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 5px;
+}
+
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 8px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    border-radius: 0 20px 20px 0;
+    margin-right: 10px;
+}
+
+.sidebar-nav a:hover {
+    background-color: #f0f8ff;
+}
+
+.sidebar-nav a.active {
+    background-color: #e3f2fd;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.sidebar-nav svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.nav-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #007bff;
+    transition: transform 0.3s ease;
+}
+
+.toggle-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* ------------------------------------ */
+/* ESTADO COLAPSADO DEL SIDEBAR (APLICADO AL .app-wrapper) */
+/* ------------------------------------ */
+.app-wrapper.sidebar-collapsed .sidebar {
+    width: 70px;
+}
+
+.app-wrapper.sidebar-collapsed .logo {
+    font-size: 0;
+    width: 0;
+    padding: 0;
+}
+
+.app-wrapper.sidebar-collapsed .nav-text {
+    opacity: 0;
+    width: 0;
+    pointer-events: none;
+}
+
+.app-wrapper.sidebar-collapsed .sidebar-nav a {
+    justify-content: center;
+    padding: 8px;
+    margin-right: 0;
+    border-radius: 50%;
+}
+
+.app-wrapper.sidebar-collapsed .sidebar-nav svg {
+    margin-right: 0;
+}
+
+/* ------------------------------------ */
+/* ÁREA DE CONTENIDO PRINCIPAL (HEADER + MAIN CONTENT) */
+/* Este contenedor ocupa el resto del ancho y gestiona el header y las vistas SPA */
+/* ------------------------------------ */
+.main-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Ocupa el espacio restante horizontalmente */
+    height: 100vh; /* Asegura que ocupe todo el alto del viewport */
+    overflow: hidden; /* Controla el overflow de este contenedor */
+}
+
+/* ------------------------------------ */
+/* HEADER */
+/* ------------------------------------ */
+header {
+    height: 60px;
+    background: white;
+    border-bottom: 1px solid #e1e5e9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    background-color: #f0f2f5;
+    border-radius: 25px;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+.search-icon {
+    margin-right: 10px;
+    color: #888;
+    width: 18px;
+    height: 18px;
+}
+
+.search-bar {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 15px;
+    color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+.search-bar::placeholder {
+    color: #888;
+}
+
+.profile-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* ------------------------------------ */
+/* CONTENIDO PRINCIPAL (MAIN) - Área SPA */
+/* Este es el contenedor que contendrá todas las vistas SPA */
+/* ------------------------------------ */
+main#mainContent.spa-content-area {
+    flex-grow: 1; /* Ocupa todo el espacio vertical restante dentro de main-content-wrapper */
+    overflow-y: auto; /* Permite el scroll del contenido principal de la SPA */
+    /* *** CAMBIO CLAVE AQUÍ: Eliminar el padding global de mainContent *** */
+    padding: 0; /* Asegura que no haya padding global en mainContent */
+    position: relative; /* Necesario para que .view (con position: absolute) se posicione respecto a este */
+    background-color: #f5f5f5; /* Color de fondo general del área de contenido */
+}
+
+/* ------------------------------------ */
+/* VISTAS SPA (SINGLE-PAGE APPLICATION) */
+/* ------------------------------------ */
+.view {
+    position: absolute;
+    top: 0; /* Se posiciona en la parte superior de su padre posicionado (#mainContent) */
+    left: 0;
+    width: 100%;
+    height: 100%; /* Ocupa el 100% del alto de su padre (#mainContent) */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    overflow-y: auto; /* ¡CRÍTICO! Cada vista puede tener su propio scroll si su contenido es largo */
+    /* *** CAMBIO CLAVE AQUÍ: Mover el padding a la vista individual *** */
+    padding: 20px; /* Esto creará un espacio de 20px alrededor del contenido de cada vista */
+    box-sizing: border-box; /* Crucial para que el padding no desborde el 100% de width/height */
+    background-color: transparent; /* Permite que el background de mainContent o el contenido de la vista se vea */
+    display: block; /* Asegura que se muestren como bloque */
+}
+
+.view.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ------------------------------------ */
+/* ESTILOS ESPECÍFICOS DE LAS VISTAS */
+/* ------------------------------------ */
+
+/* Vista de Home */
+#homeView {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* padding-bottom: 20px; <-- Esto ya lo maneja el padding de .view si lo deseas, puedes eliminarlo si es redundante. */
+}
+
+/* Stories Container */
+.stories-container {
+    background: white;
+    border-radius: 8px;
+    padding: 15px; /* Este padding es INTERNO al contenedor de historias */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    position: relative;
+    top: auto; /* Sticky al top de su contenedor scrollable (que es la .view) */
+    z-index: 10;
+    box-sizing: border-box;
+}
+
+.stories-scroll {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 5px 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+.stories-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.story-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.story-item:hover {
+    transform: scale(1.05);
+}
+
+.story-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.story-avatar.viewed {
+    background: #ddd;
+}
+
+.story-avatar.own {
+    background: #007bff;
+}
+
+.story-avatar-placeholder {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #666;
+    font-size: 18px;
+}
+
+.story-plus {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 20px;
+    height: 20px;
+    background: #007bff;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.story-name {
+    font-size: 12px;
+    color: #333;
+    text-align: center;
+    max-width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Status Container (para crear una publicación) */
+.status-container {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.status-input {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 8px;
+    resize: none;
+    font-family: inherit;
+    font-size: 16px;
+    outline: none;
+    background: transparent;
+}
+
+.status-input::placeholder {
+    color: #666;
+    font-size: 18px;
+}
+
+.status-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.status-options {
+    display: flex;
+    gap: 10px;
+}
+
+.status-btn {
+    padding: 8px;
+    border: 1px solid #e1e5e9;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: #007bff;
+}
+
+.status-btn:hover {
+    background-color: #f0f8ff;
+    border-color: #007bff;
+}
+
+.post-btn {
+    padding: 8px 24px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.2s;
+}
+
+.post-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.post-btn:not(:disabled):hover {
+    background: #0056b3;
+}
+
+/* Posts Feed */
+.posts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1;
+}
+
+.post {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.post-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.post-info {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.post-info h3 {
+    font-size: 16px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-info span {
+    color: #666;
+    font-size: 14px;
+}
+
+.post-content {
+    margin-bottom: 15px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.post-actions {
+    display: flex;
+    gap: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e1e5e9;
+}
+
+.post-action {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.post-action:hover {
+    color: #007bff;
+}
+
+/* Vista de Perfil - Estilos generales de la vista #profileView */
+/* *** CAMBIO CLAVE AQUÍ: Asegurar que no hay padding-top extra para la vista de perfil *** */
+#profileView {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0; /* Ya lo maneja el .view, se asegura que no haya extra aquí */
+}
+
+/* Clases para ocultar/mostrar elementos */
+.stories-container.hidden,
+.status-container.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease-out;
+}
+
+/* Ocultar el header para la vista de perfil */
+.app-wrapper.profile-active header {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Ajustar el main spa-content-area cuando el header está oculto */
+.app-wrapper.profile-active main#mainContent.spa-content-area {
+    padding-top: 0; /* Asegura que no haya padding superior cuando el header está oculto */
+}
+
+/* Overlay para móvil cuando el sidebar está abierto */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1150;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ------------------------------------ */
+/* MEDIA QUERIES (RESPONSIVE) */
+/* ------------------------------------ */
+
+/* Tablet - 992px y menores */
+@media (max-width: 992px) {
+    .search-container {
+        max-width: 300px;
+    }
+
+    .profile-link span {
+        display: none;
+    }
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .app-wrapper.sidebar-collapsed .sidebar {
+        width: 60px;
+    }
+}
+
+/* Móvil - 768px y menores */
+@media (max-width: 768px) {
+    /* Mostrar el botón hamburguesa */
+    .hamburger-menu {
+        display: flex;
+    }
+
+    /* Sidebar en móvil - Convertir a overlay deslizable */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 1200;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .sidebar.show {
+        transform: translateX(0);
+    }
+
+    /* Resetear estados colapsados en móvil */
+    .app-wrapper.sidebar-collapsed .sidebar {
+        width: 280px;
+        transform: translateX(-100%);
+    }
+
+    .sidebar.show.sidebar-collapsed {
+        transform: translateX(0);
+    }
+
+    .app-wrapper.sidebar-collapsed .logo {
+        font-size: 24px;
+        width: auto;
+        padding: 20px;
+    }
+
+    .app-wrapper.sidebar-collapsed .nav-text {
+        opacity: 1;
+        width: auto;
+        pointer-events: auto;
+    }
+
+    .app-wrapper.sidebar-collapsed .sidebar-nav a {
+        justify-content: flex-start;
+        padding: 12px 20px;
+        margin-right: 10px;
+        border-radius: 0 20px 20px 0;
+    }
+
+    .app-wrapper.sidebar-collapsed .sidebar-nav svg {
+        margin-right: 12px;
+    }
+
+    /* Header ajustes para móvil */
+    header {
+        padding: 0 60px 0 15px; /* Espacio para el hamburger */
+    }
+
+    .search-container {
+        margin-right: 10px;
+        max-width: none;
+        flex-grow: 1;
+    }
+
+    /* Main content sin padding lateral extra en móvil */
+    .view {
+        padding: 15px 10px; /* Menos padding lateral en móvil */
+    }
+
+    /* Ajustes para componentes específicos en móvil */
+    .stories-container,
+    .status-container,
+    .post {
+        padding: 15px;
+        margin: 0 5px;
+    }
+
+    .story-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .story-avatar-placeholder {
+        width: 44px;
+        height: 44px;
+        font-size: 16px;
+    }
+
+    .story-name {
+        font-size: 11px;
+        max-width: 60px;
+    }
+
+    .status-input {
+        font-size: 14px;
+    }
+
+    .status-input::placeholder {
+        font-size: 16px;
+    }
+
+    .status-options {
+        gap: 8px;
+    }
+
+    .status-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .post-actions {
+        gap: 15px;
+    }
+
+    /* Perfil en móvil */
+    .app-wrapper.profile-active header {
+        transform: translateY(-100%);
+    }
+
+    .app-wrapper.profile-active main#mainContent.spa-content-area {
+        padding-top: 0;
+    }
+}
+
+/* Móvil pequeño - 480px y menores */
+@media (max-width: 480px) {
+    .hamburger-menu {
+        top: 10px;
+        left: 10px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .hamburger-line {
+        width: 18px;
+    }
+
+    header {
+        height: 50px;
+        padding: 0 50px 0 10px;
+    }
+
+    .search-container {
+        padding: 6px 12px;
+        border-radius: 20px;
+    }
+
+    .search-bar {
+        font-size: 14px;
+    }
+
+    .user-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    .view {
+        padding: 10px 5px;
+    }
+
+    .stories-container,
+    .status-container,
+    .post {
+        padding: 12px;
+        margin: 0 2px;
+    }
+
+    .stories-scroll {
+        gap: 10px;
+    }
+
+    .story-avatar {
+        width: 45px;
+        height: 45px;
+    }
+
+    .story-avatar-placeholder {
+        width: 39px;
+        height: 39px;
+        font-size: 14px;
+    }
+
+    .story-plus {
+        width: 16px;
+        height: 16px;
+        font-size: 10px;
+    }
+
+    .post-header {
+        margin-bottom: 12px;
+    }
+
+    .post-avatar {
+        width: 36px;
+        height: 36px;
+        margin-right: 10px;
+    }
+
+    .post-info h3 {
+        font-size: 15px;
+    }
+
+    .post-info span {
+        font-size: 13px;
+    }
+
+    .post-content {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .post-actions {
+        gap: 12px;
+        font-size: 14px;
+    }
+}}
+/* principal.css */
+
+/* ... (tu código existente arriba, no lo toques) ... */
+
+
+/* Posts Feed */
+.posts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex-grow: 1;
+    /* CLAVE PARA ESCRITORIO: Define un ancho máximo para el feed de posts.
+       Este valor asegura que el feed no se vea "chiquito" en laptops,
+       pero que tampoco se extienda demasiado en monitores muy anchos. */
+    max-width: 750px; /* Aumentado a 750px para dar más espacio al video en laptops */
+    margin: 20px auto; /* Centra el feed y le da un margen superior e inferior */
+    padding: 0 10px; /* Un poco de padding horizontal para que no se pegue a los bordes de la vista */
+    box-sizing: border-box; /* Incluye padding en el ancho total */
+}
+
+.post {
+    background: white;
+    border-radius: 8px;
+    padding: 20px; /* Padding interno del post, para dar "aire" al contenido */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%; /* El post ocupa el 100% del .posts-feed */
+    box-sizing: border-box;
+    overflow: hidden; /* Muy importante para que el contenido multimedia no se desborde */
+}
+
+/* ... (tu código existente para .post-header, .post-avatar, etc. no lo toques) ... */
+
+.post-content {
+    margin-bottom: 15px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    font-size: 16px; /* Asegura un tamaño de fuente legible para el texto del post */
+}
+
+
+/* Contenedor para el video/imagen para que sea responsive */
+/* ESTO ES LO CRÍTICO PARA EL VIDEO RESPONSIVE */
+.post-media {
+    position: relative; /* Necesario para posicionar el video absoluto dentro */
+    padding-bottom: 56.25%; /* Crea una relación de aspecto 16:9 (altura = 56.25% del ancho) */
+    height: 0; /* Reinicia la altura para que padding-bottom la defina */
+    overflow: hidden; /* Recorta cualquier parte del video que intente salirse */
+    max-width: 100%; /* Asegura que no sea más ancho que su padre (.post) */
+    background: #000; /* Fondo negro mientras carga o si el video tiene barras negras */
+    margin-top: 15px; /* Espacio superior para separar del texto del post */
+    margin-bottom: 15px; /* Espacio inferior para separar de las acciones del post */
+    border-radius: 4px; /* Bordes ligeramente redondeados para el contenedor del video */
+}
+
+/* El video o la imagen dentro del contenedor responsive */
+.post-media video,
+.post-media img {
+    position: absolute; /* Posicionamiento absoluto dentro de .post-media */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ocupa el 100% del ancho del contenedor .post-media */
+    height: 100%; /* Ocupa el 100% de la altura del contenedor .post-media */
+    object-fit: contain; /* Ajusta el video dentro del contenedor, manteniendo su relación de aspecto.
+                            Puede dejar barras negras si la relación del video no es 16:9,
+                            pero asegura que el video completo es visible. Usa 'cover' si prefieres
+                            que el video llene el espacio, recortando los bordes. */
+    border: none;
+    display: block; /* Elimina espacio extra que algunos navegadores añaden a videos */
+}
+
+/* Si tu imagen NO está dentro de .post-media pero quieres que sea responsive */
+.post-content img {
+    max-width: 100%; /* Asegura que la imagen no desborde el contenido */
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block; /* Elimina espacio extra que algunos navegadores añaden a imágenes */
+    margin: 15px 0; /* Margen para separar de otros contenidos si no está dentro de post-media */
+}
+
+
+/* ... (tu código existente para .post-actions, .post-action, etc. no lo toques) ... */
+
+
+/* ------------------------------------ */
+/* MEDIA QUERIES (RESPONSIVE) */
+/* ------------------------------------ */
+
+/* Tablet y Laptops pequeñas - hasta 992px */
+@media (max-width: 992px) {
+    /* ... (tu código existente para .search-container, .profile-link, .sidebar, etc.) ... */
+
+    /* CLAVE PARA TABLET/LAPTOP PEQUEÑA: Ancho del feed de posts */
+    .posts-feed {
+        max-width: 650px; /* Un buen tamaño para tablets y laptops pequeñas.
+                             Asegura que no se vea "muy chiquito" pero tampoco ocupe todo el ancho. */
+        padding: 0 15px; /* Más padding lateral que en móvil, menos que en desktop */
+    }
+    .post {
+        padding: 18px; /* Un poco menos de padding interno en tablet */
+    }
+}
+
+/* Móvil - hasta 768px */
+@media (max-width: 768px) {
+    /* ... (tu código existente para hamburger, sidebar, header, etc.) ... */
+
+    /* Main content y ajustes para componentes específicos en móvil */
+    .view {
+        padding: 15px 10px; /* Menos padding lateral en móvil para que ocupe más ancho */
+    }
+
+    .stories-container,
+    .status-container {
+        padding: 15px; /* Padding interno */
+        margin: 0 5px; /* Pequeño margen para separar de los bordes de la pantalla */
+    }
+
+    /* CLAVE PARA MÓVIL: El feed de posts debe ocupar casi todo el ancho */
+    .posts-feed {
+        max-width: 100%; /* En móvil, el feed debe ocupar todo el ancho disponible */
+        margin: 15px auto; /* Centra el feed y ajusta margen */
+        padding: 0 5px; /* Un pequeño padding lateral para que el contenido no se pegue a los bordes */
+    }
+
+    .post {
+        padding: 10px; /* Reducido para más compactación en móvil */
+        margin-bottom: 15px; /* Espacio entre posts */
+    }
+
+    .post-media {
+        margin-top: 10px; /* Menos margen en móvil */
+        margin-bottom: 10px; /* Menos margen en móvil */
+    }
+
+    /* ... (resto de tu código existente para .story-avatar, .status-input, etc.) ... */
+}
+
+/* Móvil pequeño - 480px y menores */
+@media (max-width: 480px) {
+    /* ... (tu código existente para hamburger, header, search-bar, etc.) ... */
+
+    .view {
+        padding: 10px 5px; /* Padding aún más reducido para pantallas muy pequeñas */
+    }
+
+    .stories-container,
+    .status-container,
+    .post {
+        padding: 12px; /* Padding reducido para compactación */
+        margin: 0 2px; /* Margen aún más reducido */
+    }
+
+    /* ... (resto de tu código existente para .story-avatar, .post-header, etc.) ... */
+}
+
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-options {
+    position: absolute;
+    right: 0;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    z-index: 100;
+    padding: 5px;
+    border-radius: 5px;
+}
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+/* Fondo opaco para el modal */
+#storyModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85); /* Oscurece todo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+/* Contenido centrado */
+#storyModal .modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Botón de cerrar */
+#storyModal .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Visor de historias profesional */
+.story-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.viewer-content {
+    position: relative;
+    background: #000;
+    border-radius: 20px;
+    padding: 0;
+    max-width: 400px;
+    width: 90%;
+    height: 80vh;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Header con información del usuario */
+.story-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.story-header .story-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff006e, #8338ec);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 12px;
+    color: white;
+    font-size: 16px;
+}
+
+.story-user-info h4 {
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.story-timestamp {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+/* Barra de progreso */
+.story-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 10;
+}
+
+.story-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff006e, #8338ec);
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+/* Contenido principal - AQUÍ ESTÁ LA CORRECCIÓN */
+#viewerBody {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+    text-align: center; /* AÑADIDO: Centra el texto horizontalmente */
+}
+
+#viewerBody img, #viewerBody video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+/* Contenedor para centrar el contenido */
+#viewerBody > div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* AÑADIDO: Asegura que el texto esté centrado */
+}
+
+/* Texto superpuesto sobre la imagen - MEJORADO */
+.story-text-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.8));
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    z-index: 5;
+    text-align: center; /* AÑADIDO: Centra el texto en el overlay */
+}
+
+.story-text-overlay p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.4;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    color: white;
+    text-align: center; /* AÑADIDO: Centra específicamente el párrafo */
+}
+
+/* AÑADIDO: Estilo específico para texto sin imagen de fondo */
+#viewerBody > p,
+#viewerBody > div > p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+/* Botón de cerrar mejorado */
+.close-viewer {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.close-viewer:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+/* Botones de navegación */
+.story-nav-buttons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.story-nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    backdrop-filter: blur(10px);
+}
+
+.story-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.story-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.story-nav-btn:disabled:hover {
+    transform: none;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Indicadores de historia */
+.story-indicators {
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    right: 60px;
+    display: flex;
+    gap: 4px;
+    z-index: 10;
+}
+
+.story-indicator {
+    flex: 1;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.story-indicator.active {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.story-indicator.completed {
+    background: white;
+}
+
+/* Zonas de clic para navegación */
+.story-click-area {
+    position: absolute;
+    top: 0;
+    width: 30%;
+    height: 100%;
+    z-index: 5;
+    cursor: pointer;
+}
+
+.story-click-area.prev {
+    left: 0;
+}
+
+.story-click-area.next {
+    right: 0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .viewer-content {
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        max-width: 100%;
+    }
+
+    .story-nav-buttons {
+        padding: 0 10px;
+    }
+
+    .story-indicators {
+        left: 10px;
+        right: 50px;
+    }
+
+    .story-header {
+        padding: 10px 15px;
+    }
+
+    /* AÑADIDO: Ajustes de texto para móvil */
+    #viewerBody > p,
+    #viewerBody > div > p {
+        font-size: 16px;
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    .story-text-overlay {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        padding: 15px;
+    }
+}

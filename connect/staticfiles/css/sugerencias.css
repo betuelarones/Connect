@@ -1,0 +1,459 @@
+/* CSS específico para sugerencias - Solo clases sug- */
+
+/* Contenedor responsive para las cards - Estilo Facebook */
+.sugerencias-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 18px;
+    padding: 16px;
+    max-width: 100%;
+    margin: 0;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.sug-card-sugerencia {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #e4e6ea;
+    width: 242px;
+    min-width: 242px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.sug-card-sugerencia:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #1877f2;
+}
+
+.sug-card-foto {
+    width: 100%;
+    height: 160px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    background: #f8f9fa;
+}
+
+.sug-foto-perfil-bg {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.sug-card-foto::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%);
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.sug-card-foto:hover::before {
+    opacity: 1;
+}
+
+.sug-ver-perfil-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(24, 119, 242, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.sug-card-foto:hover .sug-ver-perfil-overlay {
+    opacity: 1;
+}
+
+.sug-ver-perfil-btn {
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 11px;
+    color: #1877f2;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sug-ver-perfil-btn:hover {
+    background: white;
+    transform: scale(1.05);
+}
+
+.sug-card-info {
+    padding: 10px 12px 6px 12px;
+    background: white;
+}
+
+.sug-card-info p:first-child {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1c1e21;
+    margin-bottom: 2px;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sug-card-info p:last-child {
+    font-size: 11px;
+    color: #65676b;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+.sug-card-acciones {
+    padding: 0 12px 12px 12px;
+    background: white;
+}
+
+.sug-enviar-solicitud-btn {
+    width: 100%;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #1877f2;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.sug-enviar-solicitud-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.sug-enviar-solicitud-btn:hover::before {
+    left: 100%;
+}
+
+.sug-enviar-solicitud-btn:hover {
+    background-color: #166fe5;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+}
+
+.sug-enviar-solicitud-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(24, 119, 242, 0.3);
+}
+
+.sug-cancelar-solicitud-btn {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #d0d2d6;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: #f5f6f7;
+    color: #1c1e21;
+}
+
+.sug-cancelar-solicitud-btn:hover {
+    background-color: #e4e6ea;
+    border-color: #bcc0c4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sug-cancelar-solicitud-btn:active {
+    transform: translateY(0);
+    background-color: #d8dadf;
+}
+
+.sug-ya-amigos-btn {
+    width: 100%;
+    padding: 10px 16px;
+    border: 1px solid #42b883;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: default;
+    background-color: #42b883;
+    color: white;
+    opacity: 0.8;
+    position: relative;
+}
+
+.sug-ya-amigos-btn::before {
+    content: '✓ ';
+    margin-right: 4px;
+    font-weight: bold;
+}
+
+/* Modal para ver perfil */
+.sug-modal-perfil {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+}
+
+.sug-modal-perfil.sug-active {
+    display: flex;
+    animation: sug-fadeIn 0.3s ease;
+}
+
+@keyframes sug-fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.sug-modal-contenido {
+    background: white;
+    border-radius: 12px;
+    max-width: 480px;
+    width: 90%;
+    max-height: 85vh;
+    overflow: hidden;
+    position: relative;
+    animation: sug-slideUp 0.3s ease;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes sug-slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.sug-modal-header {
+    height: 180px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+}
+
+.sug-modal-foto-perfil {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 4px solid white;
+    background: #e4e6ea;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sug-modal-info {
+    padding: 24px;
+    text-align: left;
+}
+
+.sug-modal-nombre {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1c1e21;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.sug-modal-amigos {
+    color: #65676b;
+    font-size: 15px;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+.sug-modal-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 16px 0;
+    border-top: 1px solid #e4e6ea;
+    margin-top: 12px;
+}
+
+.sug-modal-stat {
+    text-align: center;
+}
+
+.sug-modal-stat-number {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1c1e21;
+    display: block;
+}
+
+.sug-modal-stat-label {
+    font-size: 12px;
+    color: #65676b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.sug-modal-cerrar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #65676b;
+}
+
+.sug-modal-cerrar:hover {
+    background: white;
+    transform: scale(1.1);
+    color: #1c1e21;
+}
+
+/* Animaciones adicionales */
+.sug-card-sugerencia {
+    animation: sug-cardAppear 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+@keyframes sug-cardAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sugerencias-container {
+        gap: 16px;
+        padding: 12px;
+    }
+
+    .sug-card-sugerencia {
+        width: 202px;
+        flex: 0 0 202px;
+        margin-bottom: 0;
+    }
+
+    .sug-card-foto {
+        height: 140px;
+    }
+
+    .sug-modal-contenido {
+        width: 95%;
+        margin: 20px;
+    }
+
+    .sug-modal-header {
+        height: 160px;
+    }
+
+    .sug-modal-foto-perfil {
+        width: 70px;
+        height: 70px;
+    }
+
+    .sug-modal-nombre {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sugerencias-container {
+        gap: 14px;
+        padding: 10px;
+    }
+
+    .sug-card-sugerencia {
+        width: 162px;
+        flex: 0 0 162px;
+    }
+
+    .sug-card-foto {
+        height: 120px;
+    }
+
+    .sug-card-info {
+        padding: 8px 10px 5px 10px;
+    }
+
+    .sug-card-info p:first-child {
+        font-size: 13px;
+    }
+
+    .sug-card-info p:last-child {
+        font-size: 10px;
+    }
+
+    .sug-card-acciones {
+        padding: 0 10px 10px 10px;
+    }
+
+    .sug-enviar-solicitud-btn,
+    .sug-cancelar-solicitud-btn,
+    .sug-ya-amigos-btn {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .sug-card-sugerencia {
+        width: 262px;
+        flex: 0 0 262px;
+    }
+}

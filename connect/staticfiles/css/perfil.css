@@ -1,0 +1,616 @@
+/* Ajustes generales para el cuerpo y el contenedor principal de la app */
+main#mainContent.spa-content-area {
+    padding: 0;
+}
+
+/* Modificaciones para que el perfil ocupe el área de contenido principal */
+#profileView {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    height: 100%;
+    background-color: #f5f5f5;
+    overflow-y: auto;
+}
+
+/* Contenedor principal del perfil */
+.profile-container {
+    width: 100%;
+    background-color: white;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Header del perfil */
+.profile-header {
+    background-color: white;
+    border-bottom: 1px solid #efefef;
+    width: 100%;
+    padding: 0;
+}
+
+/* Sección principal del perfil */
+.profile-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 30px 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Contenedor de la imagen de perfil */
+.profile-picture-container {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.note-dropdown {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Imagen de perfil */
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    padding: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #f0f0f0;
+    border: 3px solid white;
+}
+
+/* Información del perfil */
+.profile-info {
+    flex: 1;
+    padding-top: 5px;
+    min-width: 0;
+}
+
+.profile-username {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.profile-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.profile-actions .btn {
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-weight: 500;
+}
+
+.profile-actions .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.profile-actions .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.profile-actions .btn-secondary {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.profile-actions .btn-secondary:hover {
+    background-color: #f0f0f0;
+}
+
+/* MEJORADO: Contenedor de estadísticas y detalles */
+.profile-stats-container {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 30px;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.profile-stats .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-stats .stat-number {
+    font-weight: bold;
+    color: #222;
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+.profile-stats .stat-label {
+    color: #666;
+    font-size: 14px;
+}
+
+/* MEJORADO: Detalles del perfil con diseño en tarjetas */
+.profile-details {
+    flex: 1;
+    min-width: 0;
+    /* Añadir display flex y align-items para que si el grid queda vacío o con pocos elementos, no se desplace */
+    display: flex;
+    align-items: flex-start; /* O center, dependiendo de tu preferencia de alineación vertical */
+}
+
+.profile-details-grid {
+    /* CAMBIO CLAVE: Definimos 2 columnas fijas si el contenedor es suficientemente grande */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Esto creará 2 columnas de igual ancho */
+    gap: 15px; /* Aumentado ligeramente el espacio entre tarjetas para una mejor separación */
+    margin-bottom: 15px;
+    width: 100%; /* Asegura que la cuadrícula ocupe el espacio disponible */
+    max-width: 450px; /* Limita el ancho máximo para que el 2x2 no se estire demasiado en pantallas muy grandes */
+    /* Centrar el grid si la pantalla es más ancha que el max-width */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.detail-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.detail-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    transition: width 0.3s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+    border-color: #007bff;
+}
+
+.detail-card:hover::before {
+    width: 100%;
+    opacity: 0.05;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.detail-icon {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.detail-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #495057;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+    display: block;
+}
+
+.detail-value {
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.detail-value:empty::after {
+    content: "No especificado";
+    color: #999;
+    font-style: italic;
+}
+
+/* Descripción del perfil */
+.profile-description {
+    line-height: 1.6;
+    color: #555;
+    font-size: 15px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+/* Historias destacadas */
+.featured-stories {
+    padding: 20px 0 15px;
+    background-color: white;
+    border-bottom: 1px solid #efefef;
+    border-top: 1px solid #efefef;
+    width: 100%;
+}
+
+/* Navegación */
+.navigation-bar {
+    background-color: white;
+    border-top: 1px solid #efefef;
+    width: 100%;
+    flex-shrink: 0;
+    margin-top: 10px;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    flex: 1;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.nav-items::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.nav-item:hover {
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.nav-item.active {
+    color: #007bff;
+    border-bottom-color: #007bff;
+    font-weight: 600;
+}
+
+.nav-more {
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-main {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .profile-stats-container {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .profile-stats {
+        justify-content: center;
+        gap: 25px;
+    }
+
+    .profile-details {
+        width: 100%;
+    }
+
+    .profile-details-grid {
+        /* Para pantallas más pequeñas, volvemos a una sola columna (1x4) */
+        grid-template-columns: 1fr;
+        gap: 10px;
+        max-width: 350px; /* Ajusta el ancho máximo para una mejor presentación móvil */
+    }
+
+    .detail-card {
+        padding: 10px 14px;
+    }
+
+    .nav-container {
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-picture {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-username {
+        font-size: 22px;
+    }
+
+    .profile-actions .btn {
+        padding: 6px 14px;
+        font-size: 13px;
+    }
+
+    .profile-stats {
+        gap: 20px;
+        font-size: 14px;
+    }
+
+    .profile-stats .stat-number {
+        font-size: 16px;
+    }
+
+    .profile-description {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .profile-main {
+        padding: 15px;
+    }
+
+    .nav-container {
+        padding: 0 15px;
+    }
+}
+
+/* static/css/perfil.css */
+
+/* --- Estilos para el Modal de Edición (Clases Únicas) --- */
+.profile-edit-modal {
+    display: none; /* OCULTAR POR DEFECTO */
+    position: fixed; /* Posición fija para cubrir toda la pantalla */
+    z-index: 1000; /* Asegurar que esté por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    overflow: auto; /* Habilitar scroll si el contenido es demasiado grande */
+    background-color: rgba(0,0,0,0.6); /* Fondo semi-transparente oscuro */
+    justify-content: center; /* Centrar horizontalmente si es display: flex */
+    align-items: center; /* Centrar verticalmente si es display: flex */
+    padding: 20px; /* Un poco de padding para que no se pegue a los bordes */
+    box-sizing: border-box; /* Para incluir padding en el ancho/alto */
+}
+
+.profile-edit-modal-content {
+    background-color: #fff; /* Fondo blanco del contenido del modal */
+    margin: auto; /* Centrar el bloque (redundante si usas flex en el padre, pero útil si cambias) */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    width: 90%; /* Ancho relativo */
+    max-width: 500px; /* Ancho máximo para pantallas grandes */
+    animation-name: animatetop; /* Animación de entrada */
+    animation-duration: 0.4s;
+    display: flex; /* Para organizar el contenido internamente */
+    flex-direction: column;
+    gap: 20px; /* Espacio entre elementos del modal */
+}
+
+/* Animación para que el modal aparezca desde arriba */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+.profile-edit-modal-close-button {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.profile-edit-modal-close-button:hover,
+.profile-edit-modal-close-button:focus {
+    color: #333;
+    text-decoration: none;
+}
+
+.profile-edit-modal-content h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 24px;
+}
+
+.profile-edit-modal-form-container { /* Nueva clase para el contenedor del formulario */
+    /* Estilos para el contenedor del formulario cargado dinámicamente */
+    min-height: 100px; /* Para evitar saltos de diseño mientras carga */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%; /* Asegurar que el contenedor ocupe el ancho disponible */
+}
+
+.profile-edit-modal-form-container p {
+    color: #666;
+    font-style: italic;
+}
+
+/* Estilos para los mensajes del modal (éxito/error) */
+.profile-edit-modal-messages { /* Nueva clase para los mensajes */
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    width: 100%; /* Asegurar que ocupe todo el ancho del modal-content */
+    box-sizing: border-box; /* Incluir padding y border en el ancho */
+}
+
+.profile-edit-modal-messages.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.profile-edit-modal-messages.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.profile-edit-modal-messages ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.profile-edit-modal-messages ul li {
+    margin-bottom: 5px;
+}
+
+/* Estilos para los campos del formulario dentro del modal (se asume que Django los renderiza) */
+.profile-edit-modal-form-container form {
+    width: 100%; /* Asegurar que el formulario ocupe el ancho de su contenedor */
+}
+
+.profile-edit-modal-form-container form div { /* Para envolver etiquetas e inputs */
+    margin-bottom: 15px;
+}
+
+.profile-edit-modal-form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+    font-size: 14px;
+}
+
+.profile-edit-modal-form-container input[type="text"],
+.profile-edit-modal-form-container input[type="email"],
+.profile-edit-modal-form-container input[type="date"],
+.profile-edit-modal-form-container select,
+.profile-edit-modal-form-container textarea {
+    width: 100%; /* Ocupar todo el ancho disponible */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* Para incluir padding en el ancho */
+    transition: border-color 0.2s ease;
+}
+
+.profile-edit-modal-form-container input[type="text"]:focus,
+.profile-edit-modal-form-container input[type="email"]:focus,
+.profile-edit-modal-form-container input[type="date"]:focus,
+.profile-edit-modal-form-container select:focus,
+.profile-edit-modal-form-container textarea:focus {
+    border-color: #007bff; /* Color de enfoque */
+    outline: none;
+}
+
+.profile-edit-modal-form-container textarea {
+    resize: vertical; /* Permitir redimensionar verticalmente */
+    min-height: 80px;
+}
+
+.profile-edit-modal-form-container button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Ocupar todo el ancho */
+    margin-top: 10px;
+}
+
+.profile-edit-modal-form-container button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments para el modal */
+@media (max-width: 768px) {
+    .profile-edit-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+}

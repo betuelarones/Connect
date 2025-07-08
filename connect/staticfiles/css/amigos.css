@@ -1,0 +1,426 @@
+/* ================================= */
+/* VISTA DE AMIGOS - CSS ÚNICO */
+/* ================================= */
+
+/* Contenedor principal de amigos */
+.friends-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+/* Header de la vista de amigos */
+.friends-container .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e1e5e9;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px 25px;
+}
+
+/* Contenedor de búsqueda específico para amigos */
+.friends-container .search-container {
+    display: flex;
+    align-items: center;
+    background-color: #f0f2f5;
+    border-radius: 25px;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+    min-width: 250px;
+    max-width: 400px;
+}
+
+/* Barra de búsqueda específica para amigos */
+.friends-container .search-bar {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 15px;
+    color: #333;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+}
+
+.friends-container .search-bar::placeholder {
+    color: #888;
+}
+
+/* Acciones del header */
+.friends-container .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Botones del header */
+.friends-container .btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid;
+    white-space: nowrap;
+}
+
+.friends-container .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.friends-container .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.friends-container .btn-secondary {
+    background-color: #e9ecef;
+    color: #495057;
+    border-color: #ced4da;
+}
+
+.friends-container .btn-secondary:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+}
+
+/* Botón de menú */
+.friends-container .menu-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.friends-container .menu-btn:hover {
+    background-color: #f0f2f5;
+}
+
+/* Navegación por pestañas */
+.friends-container .nav-tabs {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.friends-container .nav-container {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.friends-container .nav-container::-webkit-scrollbar {
+    display: none;
+}
+
+.friends-container .nav-tab {
+    flex-shrink: 0;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+}
+
+.friends-container .nav-tab:hover {
+    color: #007bff;
+    background-color: #f8f9fa;
+}
+
+.friends-container .nav-tab.active {
+    color: #007bff;
+    border-bottom-color: #007bff;
+    background-color: #f0f8ff;
+}
+
+/* Lista de amigos */
+.friends-container .friends-list {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+/* Grid de amigos */
+.friends-container .friends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    padding: 0;
+}
+
+/* Tarjeta de amigo */
+.friends-container .friend-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #e1e5e9;
+    border-radius: 8px;
+    background: white;
+    transition: all 0.2s ease;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.friends-container .friend-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+/* Avatar del amigo */
+.friends-container .friend-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+.friends-container .friend-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Información del amigo */
+.friends-container .friend-info {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.friends-container .friend-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.friends-container .mutual-friends {
+    font-size: 14px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Botón de menú del amigo */
+.friends-container .friend-menu {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.friends-container .friend-menu:hover {
+    background-color: #f0f2f5;
+}
+
+/* Mensaje cuando no hay amigos */
+.friends-container .friends-grid p {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    margin: 40px 0;
+    grid-column: 1 / -1;
+}
+
+/* ================================= */
+/* RESPONSIVE DESIGN */
+/* ================================= */
+
+/* Tablet - 992px y menores */
+@media (max-width: 992px) {
+    .friends-container .header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .friends-container .header-actions {
+        justify-content: center;
+    }
+
+    .friends-container .search-container {
+        max-width: 100%;
+        min-width: auto;
+    }
+
+    .friends-container .friends-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+/* Móvil - 768px y menores */
+@media (max-width: 768px) {
+    .friends-container .header {
+        padding: 15px 20px;
+    }
+
+    .friends-container .header-actions {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .friends-container .btn {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+
+    .friends-container .nav-tab {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+
+    .friends-container .friends-list {
+        padding: 15px;
+    }
+
+    .friends-container .friends-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .friends-container .friend-card {
+        padding: 12px;
+    }
+
+    .friends-container .friend-avatar {
+        width: 50px;
+        height: 50px;
+        margin-right: 12px;
+        font-size: 20px;
+    }
+
+    .friends-container .friend-name {
+        font-size: 15px;
+    }
+
+    .friends-container .mutual-friends {
+        font-size: 13px;
+    }
+}
+
+/* Móvil pequeño - 480px y menores */
+@media (max-width: 480px) {
+    .friends-container .header {
+        padding: 12px 15px;
+    }
+
+    .friends-container .header-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .friends-container .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .friends-container .nav-tab {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .friends-container .friends-list {
+        padding: 12px;
+    }
+
+    .friends-container .friend-card {
+        padding: 10px;
+    }
+
+    .friends-container .friend-avatar {
+        width: 45px;
+        height: 45px;
+        margin-right: 10px;
+        font-size: 18px;
+    }
+
+    .friends-container .friend-name {
+        font-size: 14px;
+    }
+
+    .friends-container .mutual-friends {
+        font-size: 12px;
+    }
+}
+
+/* ================================= */
+/* ESTADOS DE HOVER Y FOCUS */
+/* ================================= */
+
+.friends-container .search-bar:focus {
+    outline: none;
+}
+
+.friends-container .search-container:focus-within {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.friends-container .nav-tab:focus {
+    outline: 2px solid #007bff;
+    outline-offset: -2px;
+}
+
+.friends-container .btn:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+.friends-container .friend-menu:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
