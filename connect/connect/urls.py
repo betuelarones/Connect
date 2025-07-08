@@ -37,5 +37,9 @@ urlpatterns = [
     path('mensajes/', include('mensajes.urls', namespace='mensajes')),
     path('historias/', include('historias.urls')),
 ]
+# Sirve archivos estáticos (CSS, JS, imágenes) en desarrollo o producción simple
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 if settings.DEBUG: # This ensures it only runs when DEBUG is True
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    
