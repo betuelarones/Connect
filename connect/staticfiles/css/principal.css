@@ -940,8 +940,7 @@ main#mainContent.spa-content-area {
     border-radius: 4px;
 }
 
-.post-media video,
-.post-media img {
+.post-media video,.post-media img {
     position: absolute;
     top: 0;
     left: 0;
