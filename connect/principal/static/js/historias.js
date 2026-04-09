@@ -2,17 +2,14 @@ let historiasUsuario = [];
 let indiceActual = 0;
 let autoPlayTimer = null;
 
-// Abrir el modal para agregar historia
 function addStory() {
     document.getElementById('storyModal').style.display = 'block';
 }
 
-// Cerrar el modal
 function closeStoryModal() {
     document.getElementById('storyModal').style.display = 'none';
 }
 
-// Previsualización de imagen o video
 document.getElementById('mediaInput').addEventListener('change', function () {
     const file = this.files[0];
     const preview = document.getElementById('previewHistoria');
@@ -54,7 +51,6 @@ function cargarHistoriasPropias() {
             const contenedor = document.querySelector('.stories-scroll');
             const historia = data.historias[0];
 
-            // Evita duplicar
             const yaExiste = Array.from(contenedor.children).some(child => {
                 return child.querySelector('.story-name')?.textContent === 'Mi Historia';
             });
@@ -117,7 +113,6 @@ function viewStory(usuarioID) {
     .then(res => res.json())
     .then(data => {
         historiasUsuario = data.historias;
-        console.log("📸 Historias cargadas:", historiasUsuario);
         indiceActual = 0;
         mostrarHistoriaLateral();
         actualizarIndicadores();
@@ -129,7 +124,6 @@ function viewStory(usuarioID) {
     });
 }
 
-// Crear indicadores de progreso
 function actualizarIndicadores() {
     const indicadores = document.getElementById('storyIndicators');
     indicadores.innerHTML = '';
@@ -146,7 +140,6 @@ function actualizarIndicadores() {
     });
 }
 
-// Función para formatear tiempo
 function formatearTiempo(fechaCreacion) {
     if (!fechaCreacion) return 'hace un momento';
 
@@ -164,12 +157,10 @@ function formatearTiempo(fechaCreacion) {
     return 'hace un momento';
 }
 
-// Mostrar la historia actual en el visor
 function mostrarHistoriaLateral() {
     const contenedor = document.getElementById("viewerBody");
     const historia = historiasUsuario[indiceActual];
 
-    // Actualizar información del usuario
     const username = document.getElementById('storyUsername');
     const timestamp = document.getElementById('storyTimestamp');
     const avatar = document.getElementById('storyAvatar');
@@ -178,7 +169,6 @@ function mostrarHistoriaLateral() {
     timestamp.textContent = formatearTiempo(historia.fecha_creacion);
     avatar.textContent = (historia.autor || 'U').charAt(0).toUpperCase();
 
-    // Contenido principal
     contenedor.innerHTML = `
         <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
             ${historia.imagen ? `<img src="${historia.imagen}" style="width: 100%; height: 100%; object-fit: cover;">` : ''}
@@ -192,7 +182,6 @@ function mostrarHistoriaLateral() {
         </div>
     `;
 
-    // Actualizar botones de navegación
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
@@ -202,7 +191,6 @@ function mostrarHistoriaLateral() {
     actualizarIndicadores();
 }
 
-// Auto-play de historias
 function startAutoPlay() {
     stopAutoPlay();
     autoPlayTimer = setTimeout(() => {
@@ -211,7 +199,7 @@ function startAutoPlay() {
         } else {
             closeStoryViewer();
         }
-    }, 5000); // 5 segundos por historia
+    }, 5000);
 }
 
 function stopAutoPlay() {
@@ -221,7 +209,6 @@ function stopAutoPlay() {
     }
 }
 
-// Navegar entre historias
 function prevStory() {
     if (indiceActual > 0) {
         indiceActual--;
@@ -240,13 +227,11 @@ function nextStory() {
     }
 }
 
-// Cerrar visor de historia
 function closeStoryViewer() {
     document.getElementById("storyViewer").style.display = "none";
     stopAutoPlay();
 }
 
-// Pausar auto-play cuando el usuario interactúa
 document.addEventListener('DOMContentLoaded', function() {
     const storyViewer = document.getElementById('storyViewer');
 
@@ -254,7 +239,6 @@ document.addEventListener('DOMContentLoaded', function() {
         storyViewer.addEventListener('mouseenter', stopAutoPlay);
         storyViewer.addEventListener('mouseleave', startAutoPlay);
 
-        // Navegación con teclado
         document.addEventListener('keydown', function(e) {
             if (storyViewer.style.display === 'block') {
                 if (e.key === 'ArrowLeft') prevStory();
@@ -265,7 +249,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Inicialización
 document.addEventListener("DOMContentLoaded", function () {
     cargarHistoriasPropias();
     cargarHistoriasDeAmigos();

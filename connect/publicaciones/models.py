@@ -22,11 +22,10 @@ class Publicacion(models.Model):
 class Reaccion(models.Model):
     publicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='reacciones_db')
     autor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='mis_reacciones')
-    tipo = models.CharField(max_length=20) # Ej: 'like', 'heart', 'laugh', 'sad'
+    tipo = models.CharField(max_length=20)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        # Esto asegura que un usuario solo pueda dar 1 reacción de un tipo por publicación
         unique_together = ('publicacion', 'autor', 'tipo') 
         ordering = ['-fecha_creacion']
 

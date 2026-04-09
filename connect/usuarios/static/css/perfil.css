@@ -1,9 +1,7 @@
-/* Ajustes generales para el cuerpo y el contenedor principal de la app */
 main#mainContent.spa-content-area {
     padding: 0;
 }
 
-/* Modificaciones para que el perfil ocupe el área de contenido principal */
 #profileView {
     display: flex;
     flex-direction: column;
@@ -14,7 +12,6 @@ main#mainContent.spa-content-area {
     overflow-y: auto;
 }
 
-/* Contenedor principal del perfil */
 .profile-container {
     width: 100%;
     background-color: white;
@@ -26,7 +23,6 @@ main#mainContent.spa-content-area {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Header del perfil */
 .profile-header {
     background-color: white;
     border-bottom: 1px solid #efefef;
@@ -34,7 +30,6 @@ main#mainContent.spa-content-area {
     padding: 0;
 }
 
-/* Sección principal del perfil */
 .profile-main {
     display: flex;
     align-items: flex-start;
@@ -44,7 +39,6 @@ main#mainContent.spa-content-area {
     box-sizing: border-box;
 }
 
-/* Contenedor de la imagen de perfil */
 .profile-picture-container {
     position: relative;
     flex-shrink: 0;
@@ -64,7 +58,6 @@ main#mainContent.spa-content-area {
     z-index: 10;
 }
 
-/* Imagen de perfil */
 .profile-picture {
     width: 150px;
     height: 150px;
@@ -87,7 +80,6 @@ main#mainContent.spa-content-area {
     border: 3px solid white;
 }
 
-/* Información del perfil */
 .profile-info {
     flex: 1;
     padding-top: 5px;

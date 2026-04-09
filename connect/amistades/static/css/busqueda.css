@@ -1,4 +1,3 @@
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
@@ -47,14 +46,12 @@ li:last-child {
     border-bottom: none;
 }
 
-/* Contenedor flex horizontal para avatar y datos */
 .info-usuario {
     display: flex;
     align-items: flex-start;
     gap: 12px;
 }
 
-/* Avatar circulo con iniciales */
 li[data-initials] .avatar {
     width: 60px;
     height: 60px;

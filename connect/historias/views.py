@@ -16,7 +16,6 @@ def ver_historias(request):
     ahora = timezone.now()
     hace_24_horas = ahora - timedelta(hours=24)
 
-    # Si se pasa un usuario_id, intenta obtener ese usuario
     user = None
     if usuario_id:
         try:
@@ -25,14 +24,12 @@ def ver_historias(request):
             return JsonResponse({'historias': []})
 
     if user:
-        # Solo mostrar historias de ese usuario
         historias = Historia.objects.filter(
             autor=user,
             fecha_creacion__gte=hace_24_horas,
             activa=True
         )
     else:
-        # Mostrar mis historias + las de mis amigos (caso general)
         grafo = GrafoAmistades(request.user)
         amigos = grafo.amigos
 
@@ -48,7 +45,6 @@ def ver_historias(request):
         )
         historias = list(mi_historia) + list(historias_amigos)
 
-    # Si es una petición AJAX
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         data = [{
             'autor': h.autor.nombres,
@@ -66,7 +62,7 @@ def ver_historias(request):
     grafo = GrafoAmistades(request.user)
     return render(request, 'principal.html', {
         'historias': lista.recorrer(),
-        'amigos': grafo.amigos  # 👈 Necesario para el HTML que mostraste
+        'amigos': grafo.amigos
     })
 
 

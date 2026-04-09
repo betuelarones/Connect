@@ -1,49 +1,43 @@
-# usuarios/views.py
-import json  # <--- ¡NUEVA IMPORTACIÓN!
+import json
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.contrib.humanize.templatetags import humanize
-from django.views.decorators.http import require_POST  # <--- ¡NUEVA IMPORTACIÓN!
-from django.views.decorators.csrf import csrf_exempt  # <--- ¡NUEVA IMPORTACIÓN! (TEMPORAL: QUITAR EN PRODUCCIÓN)
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 
 
-# Importamos los modelos de Django para interactuar con la BD
 from publicaciones.models import Publicacion as PublicacionDB, Reaccion as ReaccionDB, Comentario as ComentarioDB
-# Importamos la utilidad que maneja la lista enlazada en memoria
 from .utils import obtener_lista_publicaciones
 
 
 @login_required
 @require_POST  # Asegura que esta vista solo acepta solicitudes POST
 def publicar_ajax(request):
-    # Esta vista ya usa request.POST porque el JS la llama con FormData
     contenido = request.POST.get("contenido", "").strip()
-    archivo_subido = request.FILES.get("archivo")  # Nombre de tu input file es 'archivo'
+    archivo_subido = request.FILES.get("archivo")
     tipo = "texto"
 
-    if archivo_subido:  # Si hay un archivo subido
+    if archivo_subido:
         nombre_archivo = archivo_subido.name.lower()
         if nombre_archivo.endswith((".jpg", ".jpeg", ".png", ".gif")):
             tipo = "imagen"
         elif nombre_archivo.endswith((".mp4", ".webm", ".avi", ".mov")):
             tipo = "video"
 
-    if not contenido and not archivo_subido:  # Ambos vacíos
+    if not contenido and not archivo_subido:
         return JsonResponse({"ok": False, "error": "Debes añadir contenido o un archivo."}, status=400)
 
     try:
-        # 1. Guarda la publicación en la base de datos (¡persistente!)
         publicacion_db_obj = PublicacionDB.objects.create(
-            autor=request.user,  # Asigna el objeto User autenticado
+            autor=request.user,
             contenido=contenido,
             tipo=tipo,
-            archivo=archivo_subido  # Django FileField se encarga de guardar el archivo físico
+            archivo=archivo_subido
         )
 
-        # 2. Agrega la nueva publicación a la lista enlazada en memoria
         lista_publicaciones = obtener_lista_publicaciones()
-        lista_publicaciones.agregar(publicacion_db_obj)  # Le pasas el objeto del modelo de Django
+        lista_publicaciones.agregar(publicacion_db_obj)
 
         return JsonResponse(
             {"ok": True, "mensaje": "Publicado correctamente.", "publicacion_id": publicacion_db_obj.id})
@@ -51,18 +45,16 @@ def publicar_ajax(request):
         print(f"Error al guardar la publicación: {e}")
         return JsonResponse({"ok": False, "error": f"Error al guardar la publicación: {str(e)}"}, status=500)
 
-    # El return al final para "Método no permitido" ya no es necesario si usas @require_POST
 
 
 @login_required
 def obtener_publicaciones(request):
 
-    # Esta vista no es POST, no necesita @require_POST
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'No autorizado'}, status=401)
 
-    lista_publicaciones = obtener_lista_publicaciones()  # Obtiene la lista enlazada (cargada de BD)
-    publicaciones_para_json = lista_publicaciones.to_list_for_json()  # Prepara los datos con sus pilas
+    lista_publicaciones = obtener_lista_publicaciones()
+    publicaciones_para_json = lista_publicaciones.to_list_for_json()
 
     for post in publicaciones_para_json:
         post['es_autor'] = post.get('autor_id') == request.user.id
@@ -92,18 +84,12 @@ def agregar_comentario(request, publicacion_id):
         # 1. Busca la publicación en la base de datos
         publicacion_db = PublicacionDB.objects.get(id=publicacion_id)
 
-        # 2. Guarda el comentario en la base de datos
         comentario_db_obj = ComentarioDB.objects.create(
             publicacion=publicacion_db,
             autor=request.user,
             contenido=contenido
         )
 
-        # 3. Actualiza la pila de comentarios en memoria de la publicación
-        # Nota: La lógica de la lista enlazada en memoria con pilas es una implementación
-        # específica que podría requerir recargar la publicación o la lista completa
-        # si la memoria no está sincronizada con la base de datos.
-        # Por ahora, se mantiene tu lógica original aquí.
         lista_publicaciones = obtener_lista_publicaciones()
         nodo_publicacion = None
         actual = lista_publicaciones.cabeza
@@ -155,37 +141,25 @@ def agregar_reaccion(request, publicacion_id):
         # 1. Busca la publicación en la base de datos
         publicacion_db = PublicacionDB.objects.get(id=publicacion_id)
 
-        # 2. Lógica para agregar/quitar/actualizar reacción en la base de datos
         reaccion, created = ReaccionDB.objects.get_or_create(
             publicacion=publicacion_db,
             autor=request.user,
-            defaults={'tipo': tipo_reaccion}  # Si se crea, usa este tipo
+            defaults={'tipo': tipo_reaccion}
         )
 
         mensaje = ""
         if not created:
-            # Si no se creó (ya existía una reacción de este autor a esta publicación)
             if reaccion.tipo == tipo_reaccion:
-                # Si el tipo de reacción es el mismo, el usuario está quitando la reacción
                 reaccion.delete()
                 mensaje = f'Reacción "{tipo_reaccion}" eliminada.'
             else:
-                # Si el tipo de reacción es diferente, el usuario está cambiando su reacción
                 reaccion.tipo = tipo_reaccion
                 reaccion.save()
                 mensaje = f'Reacción actualizada a "{tipo_reaccion}".'
         else:
             mensaje = f'Reacción "{tipo_reaccion}" agregada.'
-        # Recalcula el total de reacciones para la publicación después de la operación
         total_reacciones = ReaccionDB.objects.filter(publicacion=publicacion_db).count()
 
-        # 3. Lógica para actualizar la pila de reacciones en memoria (si es necesario)
-        # Nota: La actualización de estructuras de datos en memoria para reflejar la DB
-        # es compleja y puede llevar a inconsistencias si no se maneja cuidadosamente
-        # (ej. si la lista se carga una vez y la DB cambia por fuera).
-        # Para esta implementación, se asume que 'obtener_lista_publicaciones()' siempre
-        # reflejará el estado de la DB o que la consistencia se maneja en otro lugar.
-        # Por ahora, simplemente se mantiene tu estructura, sin cambios específicos aquí.
         lista_publicaciones = obtener_lista_publicaciones()
         nodo_publicacion = None
         actual = lista_publicaciones.cabeza
@@ -196,10 +170,6 @@ def agregar_reaccion(request, publicacion_id):
             actual = actual.siguiente
 
         if nodo_publicacion:
-            # Si la reacción fue agregada, la podrías añadir a la pila
-            # Si fue eliminada, la podrías quitar de la pila
-            # Si fue actualizada, buscarla y actualizarla
-            # Esto no se implementa aquí para evitar sobrecomplicar por ahora.
             pass
         else:
             print(f"Advertencia: Publicación {publicacion_id} no encontrada en la lista enlazada en memoria para añadir reacción.")
@@ -208,19 +178,17 @@ def agregar_reaccion(request, publicacion_id):
             "ok": True,
             "mensaje": mensaje,
             "reaccion": {
-                'id': reaccion.id if not created or (created and reaccion.id) else None, # ID solo si la reaccion existe/fue creada
+                'id': reaccion.id if not created or (created and reaccion.id) else None,
                 'autor': f"{request.user.nombres or ''} {request.user.apellidos or ''}".strip() or request.user.username,
-                'tipo': reaccion.tipo if not created or (created and reaccion.id) else None, # Tipo solo si la reaccion existe/fue creada
-                'fecha': humanize.naturaltime(reaccion.fecha_creacion) if not created or (created and reaccion.id) else None, # Fecha solo si la reaccion existe/fue creada
+                'tipo': reaccion.tipo if not created or (created and reaccion.id) else None,
+                'fecha': humanize.naturaltime(reaccion.fecha_creacion) if not created or (created and reaccion.id) else None,
             },
-            'total_reacciones': total_reacciones # Devuelve el total de reacciones actualizado
+            'total_reacciones': total_reacciones
         })
 
     except PublicacionDB.DoesNotExist:
         return JsonResponse({"ok": False, "error": "Publicación no encontrada."}, status=404)
     except IntegrityError as e:
-        # Esto atraparía errores de unique_together que get_or_create podría no manejar
-        # si la lógica de "defaults" no es suficiente o si hay una restricción más compleja.
         print(f"Error de integridad al agregar reacción: {e}")
         return JsonResponse({"ok": False, "error": f"Error de datos: {str(e)}"}, status=409)
     except Exception as e:
@@ -259,13 +227,12 @@ def listar_mis_publicaciones_ajax(request):
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'No autorizado'}, status=401)
 
-    mis_publicaciones_db = PublicacionDB.objects.filter(autor=request.user).order_by('-fecha_publicacion') # Ya corregimos '-fecha_creacion' a '-fecha_publicacion'
+    mis_publicaciones_db = PublicacionDB.objects.filter(autor=request.user).order_by('-fecha_publicacion')
 
     from django.template.loader import render_to_string
 
-    # === CAMBIO CRÍTICO AQUÍ: AJUSTAR LA RUTA DEL TEMPLATE ===
     html_publicaciones = render_to_string(
-        'mis_publicaciones_list.html', # <--- ¡CAMBIADO A ESTO!
+        'mis_publicaciones_list.html',
         {'publicaciones': mis_publicaciones_db, 'request': request}
     )
     return JsonResponse({'html': html_publicaciones})

@@ -1,6 +1,5 @@
 /* principal.css */
 
-/* RESET BÁSICO */
 * {
     margin: 0;
     padding: 0;
@@ -9,28 +8,20 @@
 
 html, body {
     height: 100%;
-    overflow: hidden; /* Importante para que el scroll lo controle mainContent */
+    overflow: hidden;
 }
-
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f5f5f5;
 }
 
-/* ------------------------------------ */
-/* CONTENEDOR PRINCIPAL DE LA APLICACIÓN */
-/* Envuelve el sidebar y el resto del contenido (main-content-wrapper) */
-/* ------------------------------------ */
 .app-wrapper {
     display: flex;
-    height: 100vh; /* Ocupa toda la altura del viewport */
+    height: 100vh;
     overflow: hidden;
     position: relative;
 }
 
-/* ------------------------------------ */
-/* HAMBURGER MENU BUTTON (Solo visible en móvil) */
-/* ------------------------------------ */
 .hamburger-menu {
     display: none;
     position: fixed;
@@ -64,7 +55,6 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Animación del hamburger cuando está activo */
 .hamburger-menu.active .hamburger-line:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -77,16 +67,13 @@ body {
     transform: rotate(-45deg) translate(7px, -6px);
 }
 
-/* ------------------------------------ */
-/* SIDEBAR */
-/* ------------------------------------ */
 .sidebar {
     width: 250px;
     background: white;
     border-right: 1px solid #e1e5e9;
     display: flex;
     flex-direction: column;
-    flex-shrink: 0; /* Asegura que el sidebar no se encoja */
+    flex-shrink: 0;
     transition: width 0.3s ease;
     z-index: 999;
     position: relative;
@@ -110,9 +97,9 @@ body {
 }
 
 .sidebar-nav {
-    flex: 1; /* Permite que el nav ocupe el espacio restante */
+    flex: 1;
     padding: 20px 0;
-    overflow-y: auto; /* Permite el scroll en el nav si hay muchos elementos */
+    overflow-y: auto;
 }
 
 .sidebar-nav ul {
@@ -175,9 +162,6 @@ body {
     height: 24px;
 }
 
-/* ------------------------------------ */
-/* ESTADO COLAPSADO DEL SIDEBAR (APLICADO AL .app-wrapper) */
-/* ------------------------------------ */
 .app-wrapper.sidebar-collapsed .sidebar {
     width: 70px;
 }
@@ -205,21 +189,14 @@ body {
     margin-right: 0;
 }
 
-/* ------------------------------------ */
-/* ÁREA DE CONTENIDO PRINCIPAL (HEADER + MAIN CONTENT) */
-/* Este contenedor ocupa el resto del ancho y gestiona el header y las vistas SPA */
-/* ------------------------------------ */
 .main-content-wrapper {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Ocupa el espacio restante horizontalmente */
-    height: 100vh; /* Asegura que ocupe todo el alto del viewport */
-    overflow: hidden; /* Controla el overflow de este contenedor */
+    flex-grow: 1;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* ------------------------------------ */
-/* HEADER */
-/* ------------------------------------ */
 header {
     height: 60px;
     background: white;
@@ -291,37 +268,28 @@ header {
     font-size: 14px;
 }
 
-/* ------------------------------------ */
-/* CONTENIDO PRINCIPAL (MAIN) - Área SPA */
-/* Este es el contenedor que contendrá todas las vistas SPA */
-/* ------------------------------------ */
 main#mainContent.spa-content-area {
-    flex-grow: 1; /* Ocupa todo el espacio vertical restante dentro de main-content-wrapper */
-    overflow-y: auto; /* Permite el scroll del contenido principal de la SPA */
-    /* *** CAMBIO CLAVE AQUÍ: Eliminar el padding global de mainContent *** */
-    padding: 0; /* Asegura que no haya padding global en mainContent */
-    position: relative; /* Necesario para que .view (con position: absolute) se posicione respecto a este */
-    background-color: #f5f5f5; /* Color de fondo general del área de contenido */
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0;
+    position: relative;
+    background-color: #f5f5f5;
 }
 
-/* ------------------------------------ */
-/* VISTAS SPA (SINGLE-PAGE APPLICATION) */
-/* ------------------------------------ */
 .view {
     position: absolute;
-    top: 0; /* Se posiciona en la parte superior de su padre posicionado (#mainContent) */
+    top: 0;
     left: 0;
     width: 100%;
-    height: 100%; /* Ocupa el 100% del alto de su padre (#mainContent) */
+    height: 100%;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    overflow-y: auto; /* ¡CRÍTICO! Cada vista puede tener su propio scroll si su contenido es largo */
-    /* *** CAMBIO CLAVE AQUÍ: Mover el padding a la vista individual *** */
-    padding: 20px; /* Esto creará un espacio de 20px alrededor del contenido de cada vista */
-    box-sizing: border-box; /* Crucial para que el padding no desborde el 100% de width/height */
-    background-color: transparent; /* Permite que el background de mainContent o el contenido de la vista se vea */
-    display: block; /* Asegura que se muestren como bloque */
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: transparent;
+    display: block;
 }
 
 .view.active {
@@ -329,27 +297,20 @@ main#mainContent.spa-content-area {
     visibility: visible;
 }
 
-/* ------------------------------------ */
-/* ESTILOS ESPECÍFICOS DE LAS VISTAS */
-/* ------------------------------------ */
-
-/* Vista de Home */
 #homeView {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    /* padding-bottom: 20px; <-- Esto ya lo maneja el padding de .view si lo deseas, puedes eliminarlo si es redundante. */
 }
 
-/* Stories Container */
 .stories-container {
     background: white;
     border-radius: 8px;
-    padding: 15px; /* Este padding es INTERNO al contenedor de historias */
+    padding: 15px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     flex-shrink: 0;
     position: relative;
-    top: auto; /* Sticky al top de su contenedor scrollable (que es la .view) */
+    top: auto;
     z-index: 10;
     box-sizing: border-box;
 }
@@ -359,12 +320,12 @@ main#mainContent.spa-content-area {
     gap: 15px;
     overflow-x: auto;
     padding: 5px 0;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
 .stories-scroll::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
 }
 
 .story-item {
@@ -441,7 +402,6 @@ main#mainContent.spa-content-area {
     white-space: nowrap;
 }
 
-/* Status Container (para crear una publicación) */
 .status-container {
     background: white;
     border-radius: 8px;
@@ -521,12 +481,15 @@ main#mainContent.spa-content-area {
     background: #0056b3;
 }
 
-/* Posts Feed */
 .posts-feed {
     display: flex;
     flex-direction: column;
     gap: 15px;
     flex-grow: 1;
+    max-width: 750px;
+    margin: 20px auto;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
 .post {
@@ -536,6 +499,7 @@ main#mainContent.spa-content-area {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     width: 100%;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .post-header {
@@ -580,6 +544,38 @@ main#mainContent.spa-content-area {
     margin-bottom: 15px;
     line-height: 1.5;
     word-wrap: break-word;
+    font-size: 16px;
+}
+
+.post-media {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.post-media video,
+.post-media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: none;
+    display: block;
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 15px 0;
 }
 
 .post-actions {
@@ -602,16 +598,13 @@ main#mainContent.spa-content-area {
     color: #007bff;
 }
 
-/* Vista de Perfil - Estilos generales de la vista #profileView */
-/* *** CAMBIO CLAVE AQUÍ: Asegurar que no hay padding-top extra para la vista de perfil *** */
 #profileView {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 0; /* Ya lo maneja el .view, se asegura que no haya extra aquí */
+    padding-top: 0;
 }
 
-/* Clases para ocultar/mostrar elementos */
 .stories-container.hidden,
 .status-container.hidden {
     transform: translateY(-100%);
@@ -620,19 +613,16 @@ main#mainContent.spa-content-area {
     transition: all 0.3s ease-out;
 }
 
-/* Ocultar el header para la vista de perfil */
 .app-wrapper.profile-active header {
     transform: translateY(-100%);
     opacity: 0;
     pointer-events: none;
 }
 
-/* Ajustar el main spa-content-area cuando el header está oculto */
 .app-wrapper.profile-active main#mainContent.spa-content-area {
-    padding-top: 0; /* Asegura que no haya padding superior cuando el header está oculto */
+    padding-top: 0;
 }
 
-/* Overlay para móvil cuando el sidebar está abierto */
 .overlay {
     position: fixed;
     top: 0;
@@ -651,11 +641,157 @@ main#mainContent.spa-content-area {
     visibility: visible;
 }
 
-/* ------------------------------------ */
-/* MEDIA QUERIES (RESPONSIVE) */
-/* ------------------------------------ */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+}
 
-/* Tablet - 992px y menores */
+.dropdown-options {
+    position: absolute;
+    right: 0;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    z-index: 100;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.close {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#storyModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+#storyModal .modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+#storyModal .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 26px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+}
+
+.story-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.viewer-content {
+    position: relative;
+    background: #000;
+    border-radius: 20px;
+    padding: 0;
+    max-width: 400px;
+    width: 90%;
+    height: 80vh;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.story-header {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.story-header .story-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff006e, #8338ec);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 12px;
+    color: white;
+    font-size: 16px;
+}
+
+.story-user-info h4 {
+    color: white;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.story-timestamp {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.story-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 10;
+}
+
+.story-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff006e, #8338ec);
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+#viewerBody {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 @media (max-width: 992px) {
     .search-container {
         max-width: 300px;
@@ -674,14 +810,11 @@ main#mainContent.spa-content-area {
     }
 }
 
-/* Móvil - 768px y menores */
 @media (max-width: 768px) {
-    /* Mostrar el botón hamburguesa */
     .hamburger-menu {
         display: flex;
     }
 
-    /* Sidebar en móvil - Convertir a overlay deslizable */
     .sidebar {
         position: fixed;
         top: 0;
@@ -698,7 +831,6 @@ main#mainContent.spa-content-area {
         transform: translateX(0);
     }
 
-    /* Resetear estados colapsados en móvil */
     .app-wrapper.sidebar-collapsed .sidebar {
         width: 280px;
         transform: translateX(-100%);
@@ -731,9 +863,8 @@ main#mainContent.spa-content-area {
         margin-right: 12px;
     }
 
-    /* Header ajustes para móvil */
     header {
-        padding: 0 60px 0 15px; /* Espacio para el hamburger */
+        padding: 0 60px 0 15px;
     }
 
     .search-container {
@@ -742,12 +873,10 @@ main#mainContent.spa-content-area {
         flex-grow: 1;
     }
 
-    /* Main content sin padding lateral extra en móvil */
     .view {
-        padding: 15px 10px; /* Menos padding lateral en móvil */
+        padding: 15px 10px;
     }
 
-    /* Ajustes para componentes específicos en móvil */
     .stories-container,
     .status-container,
     .post {
@@ -792,7 +921,6 @@ main#mainContent.spa-content-area {
         gap: 15px;
     }
 
-    /* Perfil en móvil */
     .app-wrapper.profile-active header {
         transform: translateY(-100%);
     }
@@ -802,7 +930,6 @@ main#mainContent.spa-content-area {
     }
 }
 
-/* Móvil pequeño - 480px y menores */
 @media (max-width: 480px) {
     .hamburger-menu {
         top: 10px;
@@ -894,159 +1021,53 @@ main#mainContent.spa-content-area {
         gap: 12px;
         font-size: 14px;
     }
-}}
-/* principal.css */
-
-/* ... (tu código existente arriba, no lo toques) ... */
-
-
-/* Posts Feed */
-.posts-feed {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    flex-grow: 1;
-    /* CLAVE PARA ESCRITORIO: Define un ancho máximo para el feed de posts.
-       Este valor asegura que el feed no se vea "chiquito" en laptops,
-       pero que tampoco se extienda demasiado en monitores muy anchos. */
-    max-width: 750px; /* Aumentado a 750px para dar más espacio al video en laptops */
-    margin: 20px auto; /* Centra el feed y le da un margen superior e inferior */
-    padding: 0 10px; /* Un poco de padding horizontal para que no se pegue a los bordes de la vista */
-    box-sizing: border-box; /* Incluye padding en el ancho total */
+}
 }
 
-.post {
-    background: white;
-    border-radius: 8px;
-    padding: 20px; /* Padding interno del post, para dar "aire" al contenido */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 100%; /* El post ocupa el 100% del .posts-feed */
-    box-sizing: border-box;
-    overflow: hidden; /* Muy importante para que el contenido multimedia no se desborde */
-}
-
-/* ... (tu código existente para .post-header, .post-avatar, etc. no lo toques) ... */
-
-.post-content {
-    margin-bottom: 15px;
-    line-height: 1.5;
-    word-wrap: break-word;
-    font-size: 16px; /* Asegura un tamaño de fuente legible para el texto del post */
-}
-
-
-/* Contenedor para el video/imagen para que sea responsive */
-/* ESTO ES LO CRÍTICO PARA EL VIDEO RESPONSIVE */
-.post-media {
-    position: relative; /* Necesario para posicionar el video absoluto dentro */
-    padding-bottom: 56.25%; /* Crea una relación de aspecto 16:9 (altura = 56.25% del ancho) */
-    height: 0; /* Reinicia la altura para que padding-bottom la defina */
-    overflow: hidden; /* Recorta cualquier parte del video que intente salirse */
-    max-width: 100%; /* Asegura que no sea más ancho que su padre (.post) */
-    background: #000; /* Fondo negro mientras carga o si el video tiene barras negras */
-    margin-top: 15px; /* Espacio superior para separar del texto del post */
-    margin-bottom: 15px; /* Espacio inferior para separar de las acciones del post */
-    border-radius: 4px; /* Bordes ligeramente redondeados para el contenedor del video */
-}
-
-/* El video o la imagen dentro del contenedor responsive */
-.post-media video,
-.post-media img {
-    position: absolute; /* Posicionamiento absoluto dentro de .post-media */
-    top: 0;
-    left: 0;
-    width: 100%; /* Ocupa el 100% del ancho del contenedor .post-media */
-    height: 100%; /* Ocupa el 100% de la altura del contenedor .post-media */
-    object-fit: contain; /* Ajusta el video dentro del contenedor, manteniendo su relación de aspecto.
-                            Puede dejar barras negras si la relación del video no es 16:9,
-                            pero asegura que el video completo es visible. Usa 'cover' si prefieres
-                            que el video llene el espacio, recortando los bordes. */
-    border: none;
-    display: block; /* Elimina espacio extra que algunos navegadores añaden a videos */
-}
-
-/* Si tu imagen NO está dentro de .post-media pero quieres que sea responsive */
-.post-content img {
-    max-width: 100%; /* Asegura que la imagen no desborde el contenido */
-    height: auto; /* Mantiene la proporción de la imagen */
-    display: block; /* Elimina espacio extra que algunos navegadores añaden a imágenes */
-    margin: 15px 0; /* Margen para separar de otros contenidos si no está dentro de post-media */
-}
-
-
-/* ... (tu código existente para .post-actions, .post-action, etc. no lo toques) ... */
-
-
-/* ------------------------------------ */
-/* MEDIA QUERIES (RESPONSIVE) */
-/* ------------------------------------ */
-
-/* Tablet y Laptops pequeñas - hasta 992px */
-@media (max-width: 992px) {
-    /* ... (tu código existente para .search-container, .profile-link, .sidebar, etc.) ... */
-
-    /* CLAVE PARA TABLET/LAPTOP PEQUEÑA: Ancho del feed de posts */
-    .posts-feed {
-        max-width: 650px; /* Un buen tamaño para tablets y laptops pequeñas.
-                             Asegura que no se vea "muy chiquito" pero tampoco ocupe todo el ancho. */
-        padding: 0 15px; /* Más padding lateral que en móvil, menos que en desktop */
-    }
-    .post {
-        padding: 18px; /* Un poco menos de padding interno en tablet */
-    }
-}
-
-/* Móvil - hasta 768px */
 @media (max-width: 768px) {
-    /* ... (tu código existente para hamburger, sidebar, header, etc.) ... */
 
-    /* Main content y ajustes para componentes específicos en móvil */
     .view {
-        padding: 15px 10px; /* Menos padding lateral en móvil para que ocupe más ancho */
+        padding: 15px 10px;
     }
 
     .stories-container,
     .status-container {
-        padding: 15px; /* Padding interno */
-        margin: 0 5px; /* Pequeño margen para separar de los bordes de la pantalla */
+        padding: 15px;
+        margin: 0 5px;
     }
 
-    /* CLAVE PARA MÓVIL: El feed de posts debe ocupar casi todo el ancho */
     .posts-feed {
-        max-width: 100%; /* En móvil, el feed debe ocupar todo el ancho disponible */
-        margin: 15px auto; /* Centra el feed y ajusta margen */
-        padding: 0 5px; /* Un pequeño padding lateral para que el contenido no se pegue a los bordes */
+        max-width: 100%;
+        margin: 15px auto;
+        padding: 0 5px;
     }
 
     .post {
-        padding: 10px; /* Reducido para más compactación en móvil */
-        margin-bottom: 15px; /* Espacio entre posts */
+        padding: 10px;
+        margin-bottom: 15px;
     }
 
     .post-media {
-        margin-top: 10px; /* Menos margen en móvil */
-        margin-bottom: 10px; /* Menos margen en móvil */
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
-    /* ... (resto de tu código existente para .story-avatar, .status-input, etc.) ... */
 }
 
 /* Móvil pequeño - 480px y menores */
 @media (max-width: 480px) {
-    /* ... (tu código existente para hamburger, header, search-bar, etc.) ... */
 
     .view {
-        padding: 10px 5px; /* Padding aún más reducido para pantallas muy pequeñas */
+        padding: 10px 5px;
     }
 
     .stories-container,
     .status-container,
     .post {
-        padding: 12px; /* Padding reducido para compactación */
-        margin: 0 2px; /* Margen aún más reducido */
+        padding: 12px;
+        margin: 0 2px;
     }
 
-    /* ... (resto de tu código existente para .story-avatar, .post-header, etc.) ... */
 }
 
 .dropdown-container {
@@ -1071,21 +1092,19 @@ main#mainContent.spa-content-area {
     font-weight: bold;
     cursor: pointer;
 }
-/* Fondo opaco para el modal */
 #storyModal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.85); /* Oscurece todo */
+    background-color: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 3000;
 }
 
-/* Contenido centrado */
 #storyModal .modal-content {
     background: white;
     border-radius: 12px;
@@ -1097,7 +1116,6 @@ main#mainContent.spa-content-area {
     position: relative;
 }
 
-/* Botón de cerrar */
 #storyModal .close {
     position: absolute;
     top: 10px;
@@ -1108,7 +1126,6 @@ main#mainContent.spa-content-area {
     color: #333;
 }
 
-/* Visor de historias profesional */
 .story-viewer {
     position: fixed;
     top: 0;
@@ -1140,7 +1157,6 @@ main#mainContent.spa-content-area {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Header con información del usuario */
 .story-header {
     display: flex;
     align-items: center;
@@ -1178,7 +1194,6 @@ main#mainContent.spa-content-area {
     margin-top: 2px;
 }
 
-/* Barra de progreso */
 .story-progress {
     position: absolute;
     top: 0;
@@ -1196,7 +1211,6 @@ main#mainContent.spa-content-area {
     transition: width 0.1s linear;
 }
 
-/* Contenido principal - AQUÍ ESTÁ LA CORRECCIÓN */
 #viewerBody {
     width: 100%;
     flex: 1;

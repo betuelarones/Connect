@@ -1,10 +1,6 @@
 let chatAbiertoId = null;
 
-/**
- * Inicializa la vista de mensajes: carga lista de amigos y prepara el panel.
- */
 function initMensajes() {
-  console.log("Inicializando vista de mensajes...");
 
   const lista = document.getElementById('msConvoList');
   if (!lista) return;
@@ -31,7 +27,6 @@ function initMensajes() {
         lista.appendChild(item);
       });
 
-      // ✅ Mostrar lista de conversaciones en móviles si no hay chat activo
       if (window.innerWidth <= 768 && !chatAbiertoId) {
         document.getElementById('msSidebar')?.classList.add('show');
         document.querySelector('.ms-container')?.classList.remove('show-chat');
@@ -39,9 +34,6 @@ function initMensajes() {
     });
 }
 
-/**
- * Abre un chat con un amigo, actualiza la UI y carga mensajes.
- */
 function abrirChat(userId, nombre, avatar) {
   if (chatAbiertoId === userId) return;
   chatAbiertoId = userId;
@@ -80,7 +72,7 @@ function abrirChat(userId, nombre, avatar) {
 
   if (window.innerWidth <= 768) {
     document.getElementById('msSidebar')?.classList.remove('show');
-    document.querySelector('.ms-container')?.classList.add('show-chat'); // <-- NUEVO
+    document.querySelector('.ms-container')?.classList.add('show-chat');
   }
 
   fetch(`/mensajes/obtener/${userId}/`)
@@ -113,9 +105,6 @@ function abrirChat(userId, nombre, avatar) {
     });
 }
 
-/**
- * Permite volver desde el chat al listado de conversaciones (mobile).
- */
 function volverALista() {
   const mainHeader = document.getElementById('msMainHeader');
   const chatHeader = document.getElementById('msChatHeader');
@@ -130,15 +119,12 @@ function volverALista() {
 
   if (window.innerWidth <= 768) {
     document.getElementById('msSidebar')?.classList.add('show');
-    document.querySelector('.ms-container')?.classList.remove('show-chat'); // <-- NUEVO
+    document.querySelector('.ms-container')?.classList.remove('show-chat');
   }
 
   chatAbiertoId = null;
 }
 
-/**
- * Obtiene el token CSRF de la cookie.
- */
 function getCSRFToken() {
   return document.cookie
     .split('; ')
@@ -146,9 +132,6 @@ function getCSRFToken() {
     ?.split('=')[1];
 }
 
-/**
- * Envía un nuevo mensaje al usuario indicado al backend de Django.
- */
 function enviarMensaje(userId) {
   const textarea = document.getElementById('msInput');
   const contenido = textarea.value.trim();
@@ -190,7 +173,5 @@ function enviarMensaje(userId) {
     });
 
 }
-// ... (todo tu código JavaScript actual) ...
 
-// Llama a la función de inicialización cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', initMensajes);

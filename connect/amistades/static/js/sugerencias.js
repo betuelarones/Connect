@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log("✅ sugerencias.js cargado");
     initSugerenciasButtons();
 });
 

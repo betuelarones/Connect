@@ -18,7 +18,6 @@ def ver_conversacion(request, usuario_id):
     usuario_actual = request.user
     otro_usuario = get_object_or_404(Usuario, id=usuario_id)
 
-    # Obtener todos los mensajes entre los dos usuarios
     mensajes_qs = Mensaje.objects.filter(
         Q(emisor=usuario_actual, receptor=otro_usuario) |
         Q(emisor=otro_usuario, receptor=usuario_actual)
@@ -29,7 +28,6 @@ def ver_conversacion(request, usuario_id):
     for mensaje in mensajes_qs:
         lista_mensajes.insertar_mensaje(mensaje)
 
-    # No se define un límite: se cargan todos
     todos_los_mensajes = []
     nodo = lista_mensajes.obtener_primero()
 

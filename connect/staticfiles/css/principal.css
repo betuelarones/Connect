@@ -894,10 +894,9 @@ main#mainContent.spa-content-area {
         gap: 12px;
         font-size: 14px;
     }
-}}
+}
 /* principal.css */
 
-/* ... (tu código existente arriba, no lo toques) ... */
 
 
 /* Posts Feed */
@@ -906,147 +905,114 @@ main#mainContent.spa-content-area {
     flex-direction: column;
     gap: 15px;
     flex-grow: 1;
-    /* CLAVE PARA ESCRITORIO: Define un ancho máximo para el feed de posts.
-       Este valor asegura que el feed no se vea "chiquito" en laptops,
-       pero que tampoco se extienda demasiado en monitores muy anchos. */
-    max-width: 750px; /* Aumentado a 750px para dar más espacio al video en laptops */
-    margin: 20px auto; /* Centra el feed y le da un margen superior e inferior */
-    padding: 0 10px; /* Un poco de padding horizontal para que no se pegue a los bordes de la vista */
-    box-sizing: border-box; /* Incluye padding en el ancho total */
+    max-width: 750px;
+    margin: 20px auto;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
 
 .post {
     background: white;
     border-radius: 8px;
-    padding: 20px; /* Padding interno del post, para dar "aire" al contenido */
+    padding: 20px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 100%; /* El post ocupa el 100% del .posts-feed */
+    width: 100%;
     box-sizing: border-box;
-    overflow: hidden; /* Muy importante para que el contenido multimedia no se desborde */
+    overflow: hidden;
 }
-
-/* ... (tu código existente para .post-header, .post-avatar, etc. no lo toques) ... */
 
 .post-content {
     margin-bottom: 15px;
     line-height: 1.5;
     word-wrap: break-word;
-    font-size: 16px; /* Asegura un tamaño de fuente legible para el texto del post */
+    font-size: 16px;
 }
 
-
-/* Contenedor para el video/imagen para que sea responsive */
-/* ESTO ES LO CRÍTICO PARA EL VIDEO RESPONSIVE */
 .post-media {
-    position: relative; /* Necesario para posicionar el video absoluto dentro */
-    padding-bottom: 56.25%; /* Crea una relación de aspecto 16:9 (altura = 56.25% del ancho) */
-    height: 0; /* Reinicia la altura para que padding-bottom la defina */
-    overflow: hidden; /* Recorta cualquier parte del video que intente salirse */
-    max-width: 100%; /* Asegura que no sea más ancho que su padre (.post) */
-    background: #000; /* Fondo negro mientras carga o si el video tiene barras negras */
-    margin-top: 15px; /* Espacio superior para separar del texto del post */
-    margin-bottom: 15px; /* Espacio inferior para separar de las acciones del post */
-    border-radius: 4px; /* Bordes ligeramente redondeados para el contenedor del video */
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
 }
 
-/* El video o la imagen dentro del contenedor responsive */
 .post-media video,
 .post-media img {
-    position: absolute; /* Posicionamiento absoluto dentro de .post-media */
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%; /* Ocupa el 100% del ancho del contenedor .post-media */
-    height: 100%; /* Ocupa el 100% de la altura del contenedor .post-media */
-    object-fit: contain; /* Ajusta el video dentro del contenedor, manteniendo su relación de aspecto.
-                            Puede dejar barras negras si la relación del video no es 16:9,
-                            pero asegura que el video completo es visible. Usa 'cover' si prefieres
-                            que el video llene el espacio, recortando los bordes. */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     border: none;
-    display: block; /* Elimina espacio extra que algunos navegadores añaden a videos */
+    display: block;
 }
 
-/* Si tu imagen NO está dentro de .post-media pero quieres que sea responsive */
 .post-content img {
-    max-width: 100%; /* Asegura que la imagen no desborde el contenido */
-    height: auto; /* Mantiene la proporción de la imagen */
-    display: block; /* Elimina espacio extra que algunos navegadores añaden a imágenes */
-    margin: 15px 0; /* Margen para separar de otros contenidos si no está dentro de post-media */
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 15px 0;
 }
 
-
-/* ... (tu código existente para .post-actions, .post-action, etc. no lo toques) ... */
-
-
-/* ------------------------------------ */
-/* MEDIA QUERIES (RESPONSIVE) */
-/* ------------------------------------ */
-
-/* Tablet y Laptops pequeñas - hasta 992px */
 @media (max-width: 992px) {
-    /* ... (tu código existente para .search-container, .profile-link, .sidebar, etc.) ... */
-
-    /* CLAVE PARA TABLET/LAPTOP PEQUEÑA: Ancho del feed de posts */
     .posts-feed {
-        max-width: 650px; /* Un buen tamaño para tablets y laptops pequeñas.
-                             Asegura que no se vea "muy chiquito" pero tampoco ocupe todo el ancho. */
-        padding: 0 15px; /* Más padding lateral que en móvil, menos que en desktop */
+        max-width: 650px;
+        padding: 0 15px;
     }
     .post {
-        padding: 18px; /* Un poco menos de padding interno en tablet */
+        padding: 18px;
     }
 }
 
-/* Móvil - hasta 768px */
 @media (max-width: 768px) {
-    /* ... (tu código existente para hamburger, sidebar, header, etc.) ... */
 
-    /* Main content y ajustes para componentes específicos en móvil */
     .view {
-        padding: 15px 10px; /* Menos padding lateral en móvil para que ocupe más ancho */
+        padding: 15px 10px;
     }
 
     .stories-container,
     .status-container {
-        padding: 15px; /* Padding interno */
-        margin: 0 5px; /* Pequeño margen para separar de los bordes de la pantalla */
+        padding: 15px;
+        margin: 0 5px;
     }
 
-    /* CLAVE PARA MÓVIL: El feed de posts debe ocupar casi todo el ancho */
     .posts-feed {
-        max-width: 100%; /* En móvil, el feed debe ocupar todo el ancho disponible */
-        margin: 15px auto; /* Centra el feed y ajusta margen */
-        padding: 0 5px; /* Un pequeño padding lateral para que el contenido no se pegue a los bordes */
+        max-width: 100%;
+        margin: 15px auto;
+        padding: 0 5px;
     }
 
     .post {
-        padding: 10px; /* Reducido para más compactación en móvil */
-        margin-bottom: 15px; /* Espacio entre posts */
+        padding: 10px;
+        margin-bottom: 15px;
     }
 
     .post-media {
-        margin-top: 10px; /* Menos margen en móvil */
-        margin-bottom: 10px; /* Menos margen en móvil */
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
 
-    /* ... (resto de tu código existente para .story-avatar, .status-input, etc.) ... */
 }
 
 /* Móvil pequeño - 480px y menores */
 @media (max-width: 480px) {
-    /* ... (tu código existente para hamburger, header, search-bar, etc.) ... */
 
     .view {
-        padding: 10px 5px; /* Padding aún más reducido para pantallas muy pequeñas */
+        padding: 10px 5px;
     }
 
     .stories-container,
     .status-container,
     .post {
-        padding: 12px; /* Padding reducido para compactación */
-        margin: 0 2px; /* Margen aún más reducido */
+        padding: 12px;
+        margin: 0 2px;
     }
 
-    /* ... (resto de tu código existente para .story-avatar, .post-header, etc.) ... */
 }
 
 .dropdown-container {
@@ -1071,21 +1037,19 @@ main#mainContent.spa-content-area {
     font-weight: bold;
     cursor: pointer;
 }
-/* Fondo opaco para el modal */
 #storyModal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.85); /* Oscurece todo */
+    background-color: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 3000;
 }
 
-/* Contenido centrado */
 #storyModal .modal-content {
     background: white;
     border-radius: 12px;
@@ -1097,7 +1061,6 @@ main#mainContent.spa-content-area {
     position: relative;
 }
 
-/* Botón de cerrar */
 #storyModal .close {
     position: absolute;
     top: 10px;
@@ -1108,7 +1071,6 @@ main#mainContent.spa-content-area {
     color: #333;
 }
 
-/* Visor de historias profesional */
 .story-viewer {
     position: fixed;
     top: 0;
@@ -1140,7 +1102,6 @@ main#mainContent.spa-content-area {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Header con información del usuario */
 .story-header {
     display: flex;
     align-items: center;
@@ -1178,7 +1139,6 @@ main#mainContent.spa-content-area {
     margin-top: 2px;
 }
 
-/* Barra de progreso */
 .story-progress {
     position: absolute;
     top: 0;
@@ -1240,7 +1200,7 @@ main#mainContent.spa-content-area {
     border-radius: 15px;
     backdrop-filter: blur(10px);
     z-index: 5;
-    text-align: center; /* AÑADIDO: Centra el texto en el overlay */
+    text-align: center;
 }
 
 .story-text-overlay p {
@@ -1249,10 +1209,9 @@ main#mainContent.spa-content-area {
     line-height: 1.4;
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     color: white;
-    text-align: center; /* AÑADIDO: Centra específicamente el párrafo */
+    text-align: center;
 }
 
-/* AÑADIDO: Estilo específico para texto sin imagen de fondo */
 #viewerBody > p,
 #viewerBody > div > p {
     margin: 0;
@@ -1265,7 +1224,6 @@ main#mainContent.spa-content-area {
     word-wrap: break-word;
 }
 
-/* Botón de cerrar mejorado */
 .close-viewer {
     position: absolute;
     top: 15px;
@@ -1290,7 +1248,6 @@ main#mainContent.spa-content-area {
     transform: scale(1.1);
 }
 
-/* Botones de navegación */
 .story-nav-buttons {
     position: absolute;
     top: 50%;
@@ -1334,7 +1291,6 @@ main#mainContent.spa-content-area {
     background: rgba(0, 0, 0, 0.5);
 }
 
-/* Indicadores de historia */
 .story-indicators {
     position: absolute;
     top: 8px;
@@ -1361,7 +1317,6 @@ main#mainContent.spa-content-area {
     background: white;
 }
 
-/* Zonas de clic para navegación */
 .story-click-area {
     position: absolute;
     top: 0;
@@ -1379,7 +1334,6 @@ main#mainContent.spa-content-area {
     right: 0;
 }
 
-/* Responsive */
 @media (max-width: 480px) {
     .viewer-content {
         width: 100%;
@@ -1402,7 +1356,6 @@ main#mainContent.spa-content-area {
         padding: 10px 15px;
     }
 
-    /* AÑADIDO: Ajustes de texto para móvil */
     #viewerBody > p,
     #viewerBody > div > p {
         font-size: 16px;

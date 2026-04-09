@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log("✅ solicitudes.js cargado");
     initSolicitudesHandlers();
 });
 

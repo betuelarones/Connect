@@ -1,6 +1,4 @@
-/* CSS específico para sugerencias - Solo clases sug- */
 
-/* Contenedor responsive para las cards - Estilo Facebook */
 .sugerencias-container {
     display: flex;
     flex-direction: row;
@@ -224,7 +222,6 @@
     font-weight: bold;
 }
 
-/* Modal para ver perfil */
 .sug-modal-perfil {
     display: none;
     position: fixed;
@@ -362,7 +359,6 @@
     color: #1c1e21;
 }
 
-/* Animaciones adicionales */
 .sug-card-sugerencia {
     animation: sug-cardAppear 0.5s ease forwards;
     opacity: 0;
@@ -376,7 +372,6 @@
     }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .sugerencias-container {
         gap: 16px;

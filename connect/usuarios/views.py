@@ -35,12 +35,7 @@ def lista_amigos(request):
 
 @login_required
 def get_amigos_count_ajax(request):
-    """
-    Vista AJAX para obtener el número de amigos del usuario logueado.
-    Reutiliza la lógica de conteo de amigos de `lista_amigos`.
-    """
     user = request.user
-    # Reutiliza exactamente la misma lógica de `lista_amigos` para obtener los amigos únicos
     amistades = Amistad.objects.filter(
         aceptada=True
     ).filter(
@@ -57,7 +52,7 @@ def get_amigos_count_ajax(request):
             amigos_unicos.append(amigo)
             vistos.add(amigo.id)
 
-    amigos_count = len(amigos_unicos) # Obtenemos el total de amigos únicos
+    amigos_count = len(amigos_unicos)
 
     return JsonResponse({'amigos_count': amigos_count})
 
@@ -66,46 +61,40 @@ def get_amigos_count_ajax(request):
 
 @login_required
 def editar_perfil(request):
-    user = request.user # Obtiene la instancia del usuario logueado
+    user = request.user
 
     if request.method == 'POST':
-        # Instanciar el formulario con los datos recibidos y la instancia del usuario
         form = EditarPerfilForm(request.POST, instance=user)
         if form.is_valid():
-            form.save() # Guarda los cambios en la instancia del usuario
-            # Construye la respuesta JSON para el frontend si la actualización fue exitosa
+            form.save()
             return JsonResponse({
                 'success': True,
                 'message': 'Perfil actualizado correctamente.',
                 'user_data': {
-                    'nombres': user.nombres, # Vuelve a cargar los datos del usuario DESPUÉS de guardar
+                    'nombres': user.nombres,
                     'apellidos': user.apellidos,
                     'carrera': user.carrera,
                     'sede': user.sede,
                     'ciclo': user.ciclo,
-                    'cumpleaños': user.cumpleaños.strftime('%Y-%m-%d') if user.cumpleaños else None, # Formatear la fecha
+                    'cumpleaños': user.cumpleaños.strftime('%Y-%m-%d') if user.cumpleaños else None,
                     'descripcion': user.descripcion,
                 }
             })
         else:
-            # Si el formulario no es válido, devuelve los errores y el formulario HTML con errores
             return JsonResponse({
                 'success': False,
-                'errors': form.errors, # Los errores de validación del formulario
+                'errors': form.errors,
                 'message': 'Hay errores en el formulario.',
-                # Vuelve a renderizar el formulario con los errores para que el JS lo reemplace
                 'html_form': render(request, 'form_editar_perfil.html', {'form_editar': form}).content.decode('utf-8')
-            }, status=400) # Importante: devolver un status 400 para que el frontend maneje el error
+            }, status=400)
 
-    else: # GET request (para cargar el formulario la primera vez en el modal)
-        form = EditarPerfilForm(instance=user) # Pre-rellena el formulario con los datos del usuario
+    else:
+        form = EditarPerfilForm(instance=user)
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            # Si es una petición AJAX, devuelve solo el HTML del formulario en un JSON
             return JsonResponse({
                 'html_form': render(request, 'form_editar_perfil.html', {'form_editar': form}).content.decode('utf-8')
             })
         else:
-            # Si no es AJAX (acceso directo a la URL de edición), renderiza la página completa
             return render(request, 'usuarios/perfil.html', {'form_editar': form, 'usuario': user})
 
 

@@ -139,7 +139,6 @@ def sugerencias_amigos_en_comun(request):
         else:
             amigos.add(amistad.solicitante.id)
 
-    # Solicitudes enviadas por el usuario actual
     solicitudes_enviadas_qs = Amistad.objects.filter(
         solicitante=request.user,
         aceptada=False
@@ -154,13 +153,11 @@ def sugerencias_amigos_en_comun(request):
             usuario_obj = amigo_de_amigo.usuario
             usuario_id = usuario_obj.id
 
-            # Verifica si ya está en la lista de sugerencias
             existente = next((s for s in sugerencias if s['usuario'].id == usuario_id), None)
             if existente:
                 existente['en_comun'] += 1
                 continue
 
-            # Determinar el estado
             if usuario_id in amigos:
                 estado = 'amigos'
             elif usuario_id in solicitudes_enviadas:
@@ -168,7 +165,6 @@ def sugerencias_amigos_en_comun(request):
             else:
                 estado = 'agregar'
 
-            # Agregar a la lista
             sugerencias.append({
                 'usuario': usuario_obj,
                 'en_comun': 1,

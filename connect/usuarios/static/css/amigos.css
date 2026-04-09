@@ -1,8 +1,6 @@
 /* ================================= */
-/* VISTA DE AMIGOS - CSS ÚNICO */
 /* ================================= */
 
-/* Contenedor principal de amigos */
 .friends-container {
     display: flex;
     flex-direction: column;
@@ -14,7 +12,6 @@
     box-sizing: border-box;
 }
 
-/* Header de la vista de amigos */
 .friends-container .header {
     display: flex;
     justify-content: space-between;
@@ -28,7 +25,6 @@
     padding: 20px 25px;
 }
 
-/* Contenedor de búsqueda específico para amigos */
 .friends-container .search-container {
     display: flex;
     align-items: center;
@@ -41,7 +37,6 @@
     max-width: 400px;
 }
 
-/* Barra de búsqueda específica para amigos */
 .friends-container .search-bar {
     flex-grow: 1;
     border: none;
@@ -58,14 +53,12 @@
     color: #888;
 }
 
-/* Acciones del header */
 .friends-container .header-actions {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-/* Botones del header */
 .friends-container .btn {
     padding: 8px 16px;
     border-radius: 6px;

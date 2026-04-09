@@ -1,14 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOMContentLoaded cargado. Script principal.js iniciado.");
 
-    // 1. Verificación de djangoUrls al inicio para evitar errores si no se carga
     if (typeof djangoUrls === 'undefined') {
-        console.error("Error: 'djangoUrls' no está definido. Asegúrate de definirlo en tu plantilla HTML antes de cargar main.js.");
-        // Opcional: podrías detener la ejecución aquí si las URLs son críticas.
-        // return;
     }
 
-    // Función para obtener el token CSRF desde las cookies
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -110,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(html => {
                         document.getElementById("solicitudesView").innerHTML = html;
                         if (typeof initSolicitudesHandlers === 'function') {
-                            initSolicitudesHandlers();  // <--- Esto enlaza los botones de nuevo
+                            initSolicitudesHandlers();
                         } else {
                             console.warn("initSolicitudesHandlers() no está definida. Asegúrate de cargar solicitudes.js.");
                         }
@@ -127,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         document.getElementById("messagesView").innerHTML = html;
                         if (typeof initMensajes === 'function') {
                             initMensajes();
-                            console.log("initMensajes() llamado después de cargar la vista de mensajes.");
                         } else {
                             console.error("Error: initMensajes() no está definido. Asegúrate de que mensajes.js se carga correctamente.");
                         }
@@ -290,12 +283,9 @@ document.addEventListener('DOMContentLoaded', () => {
         obtenerPublicaciones(); // Carga las publicaciones cuando la página se inicializa
     }
 
-    // === INICIO DE LAS FUNCIONES QUE NECESITAN SER GLOBALES ===
 
-    // Función para (re)inicializar los event listeners de los botones de reacción y comentario
     function initPostActionListeners() {
         document.querySelectorAll('.react-btn').forEach(button => {
-            // Importante: Remover listener para evitar duplicados si se llama varias veces
             button.removeEventListener('click', handleReaccion);
             button.addEventListener('click', handleReaccion);
         });
@@ -339,9 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (reactionCountSpan) {
                     reactionCountSpan.textContent = data.total_reacciones;
                 }
-                // Si la acción fue exitosa, y esto se llamó desde el feed principal
-                // no es necesario un reload completo de la página, solo actualizar el contador.
-                // Si se llama desde el perfil, es porque ya se recargó via initPostActionListeners.
             } else {
                 alert(data.error || "Error al reaccionar.");
             }
@@ -405,8 +392,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         commentCountSpan.textContent = parseInt(commentCountSpan.textContent) + 1;
                     }
                 }
-                // Si la acción fue exitosa, no es necesario un reload completo de la página,
-                // solo se añade el comentario y se actualiza el contador.
             } else {
                 alert(data.error || "Error al comentar.");
             }
@@ -419,9 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.handleComentario = handleComentario; // Hacer global
 
 
-    // === FIN DE LAS FUNCIONES QUE NECESITAN SER GLOBALES ===
 
-    // Hamburguesa móvil (TU CÓDIGO ORIGINAL)
     const hamburger = document.createElement('div');
     hamburger.className = 'hamburger-menu';
     hamburger.innerHTML = `
@@ -503,8 +486,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     postDiv.style.opacity = '0';
                     setTimeout(() => postDiv.remove(), 300);
                 }
-                // Si la publicación se elimina desde el perfil, es buena idea recargar las publicaciones del perfil
-                // para que el contador y la lista se actualicen.
                 if (typeof window.renderPublicationsSection === 'function') {
                     window.renderPublicationsSection();
                 } else {
@@ -526,9 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const dropdown = button.nextElementSibling;
         if (dropdown && dropdown.classList.contains('dropdown-options')) {
             const visible = dropdown.style.display === 'block';
-            // Ocultar todos los dropdowns primero
             document.querySelectorAll('.dropdown-options').forEach(el => el.style.display = 'none');
-            // Mostrar solo este si estaba oculto
             dropdown.style.display = visible ? 'none' : 'block';
         }
     };
